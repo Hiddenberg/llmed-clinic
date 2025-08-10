@@ -1,0 +1,15 @@
+services:
+  # virtualis-congress-v2-app:
+  #   build: ./application
+  #   volumes:
+  #     - ./application/:/app/
+  #   command: npm run dev
+  #   ports:
+  #     - 3000:3000
+
+  llmed-clinic-db:
+    build: ./database
+    ports:
+      - 8080:8080
+    volumes:
+      - ./database/:/db/
