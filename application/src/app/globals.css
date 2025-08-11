@@ -4,7 +4,9 @@
    scroll-behavior: smooth
 }
 
-@import "tailwindcss";
+button {
+   cursor: pointer;
+}
 
 @theme {
    /* Brand */

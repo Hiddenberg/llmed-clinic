@@ -105,7 +105,7 @@ function Header () {
                <div className="relative bg-gradient-to-r from-brand-50 via-white to-blue-50 p-5 border border-brand-100/50 rounded-xl">
                   <p className="text-gray-700 leading-relaxed">
                      Bienvenido al <span className="bg-clip-text bg-gradient-to-r from-brand-600 to-blue-600 font-semibold text-transparent">sistema de gestión integral</span> de LLMed Clinic.
-                     Supervisa todas las actividades y gestiona los recursos de la clínica de hemodiálisis con tecnología avanzada.
+                     Supervisa todas las actividades y gestiona los recursos de la clínica de hemodiálisis.
                   </p>
                </div>
             </div>
