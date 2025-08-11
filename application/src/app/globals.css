@@ -3,3 +3,71 @@
 :root {
    scroll-behavior: smooth
 }
+
+@import "tailwindcss";
+
+@theme {
+   /* Brand */
+   --color-brand-50:   #f0f6ff;
+   --color-brand-100:  #e0efff;
+   --color-brand-200:  #c7e0ff;
+   --color-brand-300:  #9fc8ff;
+   --color-brand-400:  #6ea9ff;
+   --color-brand-500:  #3a86ff; /* primary */
+   --color-brand-600:  #2562cc;
+   --color-brand-700:  #1c4aa0;
+   --color-brand-800:  #163b7e;
+   --color-brand-900:  #122f63;
+
+   /* Neutrals */
+   --color-gray-50:    #f8fafc;
+   --color-gray-100:   #f1f5f9;
+   --color-gray-200:   #e2e8f0;
+   --color-gray-300:   #cbd5e1;
+   --color-gray-400:   #94a3b8;
+   --color-gray-500:   #64748b;
+   --color-gray-600:   #475569;
+   --color-gray-700:   #334155;
+   --color-gray-800:   #1f2937;
+   --color-gray-900:   #0f172a;
+
+   /* Feedback */
+   --color-success-500: #22c55e;
+   --color-warning-500: #f59e0b;
+   --color-danger-500:  #ef4444;
+   --color-info-500:    #3b82f6;
+
+   /* Semantic surfaces */
+   --color-bg:        #ffffff;
+   --color-surface:   #ffffff;
+   --color-muted:     var(--color-gray-50);
+   --color-overlay:   rgba(15, 23, 42, 0.6);
+
+   /* Text */
+   --color-text:         #0f172a; /* default */
+   --color-text-muted:   #475569;
+   --color-text-inverse: #ffffff;
+
+   /* Borders & radii */
+   --color-border:    var(--color-gray-200);
+   --radius-sm: 6px;
+   --radius-md: 10px;
+   --radius-lg: 14px;
+
+   /* Shadows */
+   --shadow-elevation-1: 0 1px 2px rgba(2, 6, 23, 0.06);
+   --shadow-elevation-2: 0 2px 6px rgba(2, 6, 23, 0.08);
+   --shadow-elevation-3: 0 8px 24px rgba(2, 6, 23, 0.10);
+
+   /* Motion */
+   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+   --ease-in:  cubic-bezier(0.32, 0, 0.67, 0);
+   --dur-1:    120ms;
+   --dur-2:    180ms;
+   --dur-3:    260ms;
+
+   /* Futuristic — subtle */
+   --gradient-brand: linear-gradient(135deg, var(--color-brand-500) 0%, var(--color-brand-400) 100%);
+   --shadow-glow-brand: 0 0 0 3px oklch(70% 0.10 250 / 0.22), 0 0 24px oklch(65% 0.12 250 / 0.30);
+   --color-surface-veil: oklch(98% 0 250 / 0.82);
+}

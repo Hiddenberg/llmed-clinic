@@ -1,0 +1,325 @@
+---
+description: Platform styles guide
+globs:
+alwaysApply: false
+---
+
+## LLMed Clinic — UI Style Guide
+
+### Brand principles
+- **Clarity first**: clinical, calm, minimal, with generous white space.
+- **Trust and care**: whites and medical blues as the primary palette; sparing accents.
+- **Consistency**: shared tokens and components across Admin, Doctor, and Patient spaces.
+- **Accessibility**: minimum 4.5:1 body text contrast, visible focus
+
+### Design tokens
+Use Tailwind v4 `@theme` tokens as the single source of truth. Reference tokens via utilities like `bg-bg`, `text-brand-600`, `border-border`, and `shadow-elevation-1`. 
+
+```css
+/* Added to application/src/app/globals.css */
+@import "tailwindcss";
+
+@theme {
+   /* Brand */
+   --color-brand-50:   #f0f6ff;
+   --color-brand-100:  #e0efff;
+   --color-brand-200:  #c7e0ff;
+   --color-brand-300:  #9fc8ff;
+   --color-brand-400:  #6ea9ff;
+   --color-brand-500:  #3a86ff; /* primary */
+   --color-brand-600:  #2562cc;
+   --color-brand-700:  #1c4aa0;
+   --color-brand-800:  #163b7e;
+   --color-brand-900:  #122f63;
+
+   /* Neutrals */
+   --color-gray-50:    #f8fafc;
+   --color-gray-100:   #f1f5f9;
+   --color-gray-200:   #e2e8f0;
+   --color-gray-300:   #cbd5e1;
+   --color-gray-400:   #94a3b8;
+   --color-gray-500:   #64748b;
+   --color-gray-600:   #475569;
+   --color-gray-700:   #334155;
+   --color-gray-800:   #1f2937;
+   --color-gray-900:   #0f172a;
+
+   /* Feedback */
+   --color-success-500: #22c55e;
+   --color-warning-500: #f59e0b;
+   --color-danger-500:  #ef4444;
+   --color-info-500:    #3b82f6;
+
+   /* Semantic surfaces */
+   --color-bg:        #ffffff;
+   --color-surface:   #ffffff;
+   --color-muted:     var(--color-gray-50);
+   --color-overlay:   rgba(15, 23, 42, 0.6);
+
+   /* Text */
+   --color-text:         #0f172a; /* default */
+   --color-text-muted:   #475569;
+   --color-text-inverse: #ffffff;
+
+   /* Borders & radii */
+   --color-border:    var(--color-gray-200);
+   --radius-sm: 6px;
+   --radius-md: 10px;
+   --radius-lg: 14px;
+
+   /* Shadows */
+   --shadow-elevation-1: 0 1px 2px rgba(2, 6, 23, 0.06);
+   --shadow-elevation-2: 0 2px 6px rgba(2, 6, 23, 0.08);
+   --shadow-elevation-3: 0 8px 24px rgba(2, 6, 23, 0.10);
+
+   /* Motion */
+   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+   --ease-in:  cubic-bezier(0.32, 0, 0.67, 0);
+   --dur-1:    120ms;
+   --dur-2:    180ms;
+   --dur-3:    260ms;
+
+   /* Futuristic — subtle */
+   --gradient-brand: linear-gradient(135deg, var(--color-brand-500) 0%, var(--color-brand-400) 100%);
+   --shadow-glow-brand: 0 0 0 3px oklch(70% 0.10 250 / 0.22), 0 0 24px oklch(65% 0.12 250 / 0.30);
+   --color-surface-veil: oklch(98% 0 250 / 0.82);
+}
+```
+
+- **Usage examples**
+  - Background: `class="bg-bg"`
+  - Card: `class="bg-surface border border-border rounded-md shadow-elevation-1"`
+  - Brand text: `class="text-brand-600"`
+
+### Color system
+- **Primary**: `brand-500` for CTAs, `brand-600` for hover, `brand-700` for active.
+- **Neutrals**: backgrounds and structure with `bg`, `surface`, `muted`.
+- **Feedback**: `success`, `warning`, `danger`, `info` reserved for status and alerts only.
+- **Role accents** (subtle, never dominant):
+  - Admin: `brand-700` accents
+  - Doctor: `brand-600` accents
+  - Patient: `brand-500` accents
+
+Ensure button text on brand backgrounds uses `text-inverse` and meets WCAG AA.
+
+### Typography
+- **Font**: Inter or system fallback for clean medical UI.
+- **Scale** (unitless Tailwind classes in parentheses):
+  - Display: 30px/36px (`text-3xl md:text-4xl`) 700
+  - H1: 24px/32px (`text-2xl md:text-3xl`) 700
+  - H2: 20px/28px (`text-xl md:text-2xl`) 600
+  - H3: 18px/26px (`text-lg`) 600
+  - Body: 16px/24px (`text-base`) 400/500
+  - Small: 14px/20px (`text-sm`) 400/500
+  - Caption: 12px/16px (`text-xs`) 400
+
+Apply `tracking-tight` for headings, normal tracking for body text.
+
+### Spacing and layout
+- **Spacing scale**: 4-based steps. Use Tailwind spacing `1, 1.5, 2, 3, 4, 6, 8, 10, 12` (4px, 6px, 8px, 12px, 16px, 24px, 32px, 40px, 48px).
+- **Radii**: `--radius-sm` (inputs), `--radius-md` (cards, buttons), `--radius-lg` (modals).
+- **Containers**: max-width `7xl` for data screens; `prose` widths for content.
+- **Grid**: favor 12-column at `lg+`, 2–4 columns for cards; single column on mobile.
+
+### Elevation and motion
+- Use `shadow-elevation-1` for cards, `shadow-elevation-2` for sticky bars, `shadow-elevation-3` for modals/popovers.
+- Motion is functional only: `transition-[colors,opacity,transform] duration-2 ease-out`.
+
+### Iconography
+- **Library**: lucide-react only.
+- **Size**: 16px in dense UI, 20px default, 24px for page headers.
+- **Stroke**: 1.75 by default. Color inherits currentColor.
+
+```tsx
+import { Calendar, Stethoscope } from "lucide-react";
+
+export function ExampleIcons () {
+   return (
+      <div className="flex items-center gap-2 text-brand-600">
+         <Calendar size={20} strokeWidth={1.75} />
+         <Stethoscope size={20} strokeWidth={1.75} />
+      </div>
+   );
+}
+```
+
+### Components
+Below are baseline Tailwind recipes. Extract each into small, reusable components.
+
+- **Button**
+```tsx
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+   variant?: "primary" | "primaryGradient" | "secondary" | "ghost" | "danger";
+   size?: "sm" | "md" | "lg";
+}
+
+export function Button ({
+   variant = "primary",
+   size = "md",
+   className,
+   ...props
+}: ButtonProps) {
+   const base = "inline-flex items-center justify-center font-medium transition-[colors,opacity,transform] duration-[--dur-2] ease-[--ease-out] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:opacity-60 disabled:cursor-not-allowed";
+   const sizes = {
+      sm: "h-8 px-3 text-sm gap-1.5",
+      md: "h-10 px-4 text-sm gap-2",
+      lg: "h-12 px-5 text-base gap-2.5",
+   } as const;
+   const variants = {
+      primary:          "bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-text-inverse shadow-elevation-1",
+      primaryGradient:  "bg-[--gradient-brand] text-text-inverse shadow-elevation-1 hover:shadow-[--shadow-glow-brand]",
+      secondary:        "bg-surface text-text border border-border hover:bg-muted",
+      ghost:            "bg-transparent text-text hover:bg-muted",
+      danger:           "bg-danger-500 text-text-inverse hover:brightness-95",
+   } as const;
+   return (
+      <button className={[base, sizes[size], variants[variant], className].filter(Boolean).join(" ")} {...props} />
+   );
+}
+```
+
+- **Input**
+```tsx
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+export function Input (props: InputProps) {
+   return (
+      <input
+         className="w-full h-10 px-3 rounded-sm bg-surface text-text placeholder:text-text-muted border border-border focus:ring-4 focus:ring-[color:oklch(70%_0.1_250_/0.25)] focus:border-brand-500 outline-none transition-[colors,box-shadow,border-color] duration-[--dur-2] ease-[--ease-out]"
+         {...props}
+      />
+   );
+}
+```
+
+- **Card**
+```tsx
+export function Card ({ children }: { children: React.ReactNode }) {
+   return (
+      <section className="bg-surface border border-border rounded-md shadow-elevation-1">
+         {children}
+      </section>
+   );
+}
+
+export function CardGlass ({ children }: { children: React.ReactNode }) {
+   return (
+      <section className="bg-[--color-surface-veil] backdrop-blur-md border border-border rounded-md shadow-elevation-1">
+         {children}
+      </section>
+   );
+}
+
+export function CardHeader ({ title, subtitle, actions }: { title: string; subtitle?: string; actions?: React.ReactNode }) {
+   return (
+      <header className="px-5 py-4 border-b border-border flex items-center justify-between gap-3">
+         <div>
+            <h3 className="text-lg font-semibold tracking-tight text-text">{title}</h3>
+            {subtitle ? <p className="text-sm text-text-muted mt-0.5">{subtitle}</p> : null}
+         </div>
+         {actions}
+      </header>
+   );
+}
+
+export function CardBody ({ children }: { children: React.ReactNode }) {
+   return <div className="px-5 py-4">{children}</div>;
+}
+```
+
+- **Table pattern**
+```tsx
+export function TableShell ({ children }: { children: React.ReactNode }) {
+   return (
+      <div className="overflow-hidden rounded-md border border-border bg-surface">
+         <div className="overflow-x-auto">
+            <table className="min-w-full text-sm text-text">
+               {children}
+            </table>
+         </div>
+      </div>
+   );
+}
+```
+
+- **Page header**
+```tsx
+import { Calendar } from "lucide-react";
+
+export function PageHeader ({ title, subtitle, actions }: { title: string; subtitle?: string; actions?: React.ReactNode }) {
+   return (
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
+         <div>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-text">{title}</h1>
+            {subtitle ? <p className="text-text-muted mt-1">{subtitle}</p> : null}
+         </div>
+         {actions}
+      </div>
+   );
+}
+```
+
+### Futuristic, minimal tweaks
+- **CTAs**: Use `variant="primaryGradient"` for hero/landing CTAs only. Keep `primary` (solid) elsewhere.
+- **Glass surfaces**: Use `CardGlass` for toolbars/overlays where context visibility helps. Avoid for dense forms.
+- **Soft glow**: On hover/focus for key actions, add `hover:shadow-[--shadow-glow-brand]`.
+- **Ambient grid (optional)**: add a non-interactive overlay layer on landing sections using a CSS `background-image` grid with very low opacity.
+
+Example ambient grid layer:
+```tsx
+export function AmbientGrid () {
+   return (
+      <div aria-hidden className="pointer-events-none absolute inset-0 [background-image:radial-gradient(1px_1px_at_50%_50%,oklch(80%_0_250_/_0.25)_0,transparent_40%)] [background-size:24px_24px] opacity-5" />
+   );
+}
+```
+
+### Patterns and behaviors
+- **Forms**: top-aligned labels, single-column on mobile, 2 columns on `lg+`. Use inline validation below fields in `text-danger-500`.
+- **Empty states**: friendly icon, concise copy, and a primary CTA. Avoid dense tables with zero rows.
+- **Loading**: skeletons for content blocks; spinners only for very short operations (<600ms).
+- **Errors**: inline where possible; use toasts for transient server errors. Modal only when destructive.
+- **Search & filters**: show active filter chips; provide “Clear all”. Persist query in URL when applicable.
+
+### Navigation
+- **Global layout**: top bar for brand + user; left sidebar for primary nav on `lg+`, collapsible on mobile.
+- **Breadcrumbs**: show on data-heavy screens beyond depth 2.
+- **Tabs**: underline style, `text-text-muted` for inactive, brand for active underline.
+
+### Page templates
+- **Admin**: data first; default to table/card lists with clear primary actions. Use role accent `--brand-700` sparingly.
+- **Doctor**: schedule and patient context are primary. Keep critical actions (reschedule, add note) at top right.
+- **Patient**: guidance and reassurance; larger touch targets, fewer choices per screen.
+
+### Accessibility
+- Color contrast AA minimum for body and icons; AAA for small text when feasible.
+- Always provide focus-visible outlines (`focus-visible:outline-brand-500`).
+- All interactive elements must be reachable by keyboard and have discernible names.
+- Announce async updates via ARIA live regions in toasts and inline messages.
+
+### Content style
+- Tone: calm, direct, supportive. Avoid jargon; prefer patient-friendly language.
+- Sentence case for labels and buttons; Title Case for page titles only.
+
+### Data visualization (if needed)
+- Use brand blues for primary series and muted grays for context. Avoid red unless signaling danger.
+- Gridlines light (`gray-200`), axis labels `text-muted`.
+
+### Do & Don’t
+- Do: prioritize whitespace, keep actions obvious, use consistent tokens.
+- Don’t: introduce new colors, overuse shadows, or mix icon sets.
+
+### Quick checklist
+- Uses `brand-*`, `bg`, `surface`, `border`, `text` tokens
+- Buttons with visible focus and proper contrast
+- Forms single column on mobile, readable labels
+- Icons from lucide-react only
+- Skeletons for loading, clear empty states
+
+This guide ensures a cohesive, accessible, and calm clinical experience across Admin, Doctor, and Patient areas while remaining easy to extend with Tailwind v4 and React 19 in Next.js 15.
+
+- Forms single column on mobile, readable labels
+- Icons from lucide-react only
+- Skeletons for loading, clear empty states
+
+This guide ensures a cohesive, accessible, and calm clinical experience across Admin, Doctor, and Patient areas while remaining easy to extend with Tailwind v4 and React 19 in Next.js 15.

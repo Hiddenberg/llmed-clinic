@@ -1,0 +1,29 @@
+---
+alwaysApply: true
+---
+
+## Project context:
+We are creating a demo for this platform called LLMed Clinic.
+
+The goal of platform will be to digitalize and automate the management for an hemodialysis clinic, the platform will help doctors and clinic managers to facilitate most of their current processes like schedule and manage appointments, audit the patients progress and history, etc.
+
+## Platform interface:
+The platform should have a clean, minimalistic and easy to understand interface, it should mainly use clear white and blue colors always taking extreme care of the UX
+
+All the texts should be in spanish
+
+## Platform data:
+This is just a demo to show the platform concept to potential investors so most of the data can just be mocked unless indicated otherwise
+
+## Platform structure:
+This project is devided on 3 main blocks
+- Admin: The administrator of this platform who has access to all the information in the platform
+- Doctor: The doctors who work at the clinic and take care of the patients, they will have access to specific tools to schedule appointments and review the information about their patients
+- Patient: They will have their own section where each patient can review its own information and schedule appointments
+
+## LLMed Clinic — UI Style Guide
+
+### Brand principles
+- **Clarity first**: clinical, calm, minimal, with generous white space.
+- **Trust and care**: whites and medical blues as the primary palette; sparing accents.
+- **Consistency**: shared tokens and components across Admin, Doctor, and Patient spaces.
