@@ -193,7 +193,7 @@ export const getPatientStats = () => {
    const scheduled = mockPatients.filter(p => p.status === 'scheduled').length;
    const emergency = mockPatients.filter(p => p.status === 'emergency').length;
    const completed = mockPatients.filter(p => p.status === 'completed').length;
-   
+
    return {
       total,
       active,
