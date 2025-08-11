@@ -7,6 +7,29 @@ We are creating a demo for this platform called LLMed Clinic.
 
 The goal of platform will be to digitalize and automate the management for an hemodialysis clinic, the platform will help doctors and clinic managers to facilitate most of their current processes like schedule and manage appointments, audit the patients progress and history, etc.
 
+## platform folder structure:
+This project is being created with nextjs 15, react 19 and tailwind 4
+
+The folders and files under the "app" folder are strictly for routing, so there should only be folders and files that correspond to pages or routes of the platform
+
+The "page.tsx" files should contain as little code as possible, since they are only used to represent the structure of the page. The code or files for the components corresponding to that page should be created in their respective folder within "src/components/pages/".
+
+The project uses a feature-first approach which means that every feature should have its own sub-folders and folders for components, services, contexts, etc. under the main "features" folder
+
+Example:
+```
+application/src/features/emails
+├── constants
+│   └── emailConstants.ts
+├── services
+│   ├── emailSendingServices.ts
+│   └── emailTemplateServices.ts
+└── templates
+    ├── AccountCreatedTemplate.tsx
+    ├── OTPCodeTemplate.tsx
+    └── PaymentConfirmationTemplate.tsx
+```
+
 ## Platform interface:
 The platform should have a clean, minimalistic and easy to understand interface, it should mainly use clear white and blue colors always taking extreme care of the UX
 
@@ -14,6 +37,8 @@ All the texts should be in spanish
 
 ## Platform data:
 This is just a demo to show the platform concept to potential investors so most of the data can just be mocked unless indicated otherwise
+
+The mock data will be created on separated .ts files under the folder src/data/mockData to make it easily accessible in case the same data needs to be used in multiple sections (for example patient/doctor sections)
 
 ## Platform structure:
 This project is devided on 3 main blocks
