@@ -1,7 +1,5 @@
+import PatientHomePage from '@/components/pages/patient/home/PatientHomePage';
+
 export default function PatientPage () {
-   return (
-      <div>
-         <h1>Patient Page</h1>
-      </div>
-   );
+   return <PatientHomePage />;
 }

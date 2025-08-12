@@ -107,14 +107,16 @@ function Header () {
 }
 
 // Section separator component for visual hierarchy
-function SectionSeparator({ title, subtitle }: { title?: string; subtitle?: string }) {
+function SectionSeparator ({
+   title, subtitle
+}: { title?: string; subtitle?: string }) {
    return (
       <div className="relative py-6">
          {/* Gradient line */}
          <div className="absolute inset-0 flex items-center">
-            <div className="bg-gradient-to-r from-transparent via-gray-300/50 to-transparent w-full h-px"></div>
+            <div className="bg-gradient-to-r from-transparent via-gray-300/50 to-transparent w-full h-px" />
          </div>
-         
+
          {title && (
             <div className="relative flex justify-center">
                <div className="bg-gray-50 px-6 py-2 border border-gray-200/50 rounded-full">
@@ -144,9 +146,9 @@ export default function AdminHomePage () {
             <section className="mb-12">
                <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
                   <div className="flex items-center gap-3 mb-4">
-                     <div className="bg-gradient-to-b from-brand-500 to-blue-500 rounded-full w-1 h-6"></div>
+                     <div className="bg-gradient-to-b from-brand-500 to-blue-500 rounded-full w-1 h-6" />
                      <h2 className="font-semibold text-gray-800 text-lg">Resumen General</h2>
-                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
                   </div>
                   <TrackingBar />
                </div>
@@ -155,25 +157,23 @@ export default function AdminHomePage () {
             {/* Main Content Sections */}
             <div className="space-y-8">
                {/* Activity Feed Section */}
-               <section>
-                  <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
-                     <div className="flex items-center gap-3 mb-6">
-                        <div className="bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full w-1 h-6"></div>
-                        <h2 className="font-semibold text-gray-800 text-lg">Actividad Reciente</h2>
-                        <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
-                     </div>
-                     <ActivityFeed />
+               <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                  <div className="flex items-center gap-3 mb-6">
+                     <div className="bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full w-1 h-6" />
+                     <h2 className="font-semibold text-gray-800 text-lg">Actividad Reciente</h2>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
                   </div>
-               </section>
+                  <ActivityFeed />
+               </div>
 
                {/* Staff and Alerts Section */}
                <section>
                   <div className="flex items-center gap-3 mb-6">
-                     <div className="bg-gradient-to-b from-green-500 to-orange-500 rounded-full w-1 h-6"></div>
+                     <div className="bg-gradient-to-b from-green-500 to-orange-500 rounded-full w-1 h-6" />
                      <h2 className="font-semibold text-gray-800 text-lg">Personal y Alertas</h2>
-                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
                   </div>
-                  
+
                   <div className="gap-6 grid grid-cols-1 xl:grid-cols-2">
                      <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
                         <StaffPanel />
@@ -188,9 +188,9 @@ export default function AdminHomePage () {
                <section>
                   <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
                      <div className="flex items-center gap-3 mb-6">
-                        <div className="bg-gradient-to-b from-purple-500 to-pink-500 rounded-full w-1 h-6"></div>
+                        <div className="bg-gradient-to-b from-purple-500 to-pink-500 rounded-full w-1 h-6" />
                         <h2 className="font-semibold text-gray-800 text-lg">Accesos Rápidos</h2>
-                        <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                        <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
                      </div>
                      <NavigationCards />
                   </div>
