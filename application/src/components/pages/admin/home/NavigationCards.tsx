@@ -68,7 +68,7 @@ function NavigationCard ({
             animationDelay: `${index * 150}ms`
          }}
       >
-         <div className="relative bg-white/90 border border-gray-200/50 rounded-2xl p-6 h-full transition-all duration-300 hover:scale-[1.02] hover:shadow-lg overflow-hidden">
+         <div className="relative bg-white/90 hover:shadow-lg p-6 border border-gray-200/50 rounded-2xl h-full overflow-hidden hover:scale-[1.02] transition-all duration-300">
             {/* Simplified background gradient overlay */}
             <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} rounded-2xl opacity-40 group-hover:opacity-60 transition-all duration-300`} />
 
@@ -109,14 +109,14 @@ export default function NavigationCards () {
    return (
       <div className="space-y-6">
          {/* Simplified header */}
-         <div className="relative bg-white/90 border border-gray-200/50 rounded-xl p-6">
+         <div className="relative bg-white/90 p-6 border border-gray-200/50 rounded-xl">
             <div className="flex items-center gap-3">
                <div className="bg-gradient-to-r from-brand-500 to-blue-500 shadow-lg p-2 rounded-lg">
                   <Settings size={20} className="drop-shadow-sm text-white" />
                </div>
                <div>
                   <h2 className="bg-clip-text bg-gradient-to-r from-gray-800 to-gray-600 font-bold text-transparent text-2xl">
-                     Panel de Administración
+                     Accesos Rápidos
                   </h2>
                   <p className="text-gray-600 text-sm">Accede a las diferentes secciones de gestión</p>
                </div>

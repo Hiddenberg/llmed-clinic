@@ -28,6 +28,28 @@ export interface AdminNavCard {
    color: 'brand' | 'success' | 'warning' | 'info';
 }
 
+export interface StaffMember {
+   id: string;
+   name: string;
+   role: 'doctor' | 'nurse' | 'technician';
+   status: 'on-duty' | 'off-duty' | 'break' | 'emergency';
+   shift: 'morning' | 'afternoon' | 'night';
+   patients: number;
+   nextBreak?: string;
+   specialization?: string;
+}
+
+export interface PriorityAlert {
+   id: string;
+   type: 'critical' | 'warning' | 'info';
+   category: 'patient' | 'equipment' | 'staff' | 'supply';
+   title: string;
+   description: string;
+   timestamp: string;
+   location?: string;
+   actionRequired: boolean;
+}
+
 export const mockPatients: Patient[] = [
    {
       id: '1',
@@ -78,6 +100,116 @@ export const mockPatients: Patient[] = [
       lastSession: '2024-01-14T08:00:00',
       doctor: 'Dr. Ana López',
       progress: 95
+   }
+];
+
+export const mockStaff: StaffMember[] = [
+   {
+      id: '1',
+      name: 'Dr. Carlos Ruiz',
+      role: 'doctor',
+      status: 'on-duty',
+      shift: 'morning',
+      patients: 8,
+      nextBreak: '2024-01-15T12:00:00',
+      specialization: 'Nefrología'
+   },
+   {
+      id: '2',
+      name: 'Dr. Ana López',
+      role: 'doctor',
+      status: 'on-duty',
+      shift: 'morning',
+      patients: 6,
+      nextBreak: '2024-01-15T11:30:00',
+      specialization: 'Medicina Interna'
+   },
+   {
+      id: '3',
+      name: 'Enfermera María Torres',
+      role: 'nurse',
+      status: 'on-duty',
+      shift: 'morning',
+      patients: 12,
+      nextBreak: '2024-01-15T10:30:00'
+   },
+   {
+      id: '4',
+      name: 'Enfermero Luis García',
+      role: 'nurse',
+      status: 'break',
+      shift: 'morning',
+      patients: 10,
+      nextBreak: '2024-01-15T14:00:00'
+   },
+   {
+      id: '5',
+      name: 'Téc. Pedro Morales',
+      role: 'technician',
+      status: 'on-duty',
+      shift: 'morning',
+      patients: 0
+   },
+   {
+      id: '6',
+      name: 'Dr. Miguel Fernández',
+      role: 'doctor',
+      status: 'off-duty',
+      shift: 'afternoon',
+      patients: 0,
+      specialization: 'Cardiología'
+   }
+];
+
+export const mockPriorityAlerts: PriorityAlert[] = [
+   {
+      id: '1',
+      type: 'critical',
+      category: 'patient',
+      title: 'Presión arterial crítica',
+      description: 'Antonio Silva presenta presión arterial de 180/110 mmHg',
+      timestamp: '2024-01-15T09:45:00',
+      location: 'Sala 2 - Silla 8',
+      actionRequired: true
+   },
+   {
+      id: '2',
+      type: 'warning',
+      category: 'equipment',
+      title: 'Máquina HD-03 requiere mantenimiento',
+      description: 'Alerta de calibración vencida detectada',
+      timestamp: '2024-01-15T09:30:00',
+      location: 'Sala 1',
+      actionRequired: true
+   },
+   {
+      id: '3',
+      type: 'critical',
+      category: 'staff',
+      title: 'Enfermera de turno ausente',
+      description: 'Enfermera del turno tarde no se ha presentado',
+      timestamp: '2024-01-15T09:15:00',
+      actionRequired: true
+   },
+   {
+      id: '4',
+      type: 'warning',
+      category: 'supply',
+      title: 'Stock bajo de dializadores',
+      description: 'Quedan solo 15 unidades de dializadores F8',
+      timestamp: '2024-01-15T08:30:00',
+      location: 'Almacén',
+      actionRequired: false
+   },
+   {
+      id: '5',
+      type: 'info',
+      category: 'patient',
+      title: 'Paciente llegó temprano',
+      description: 'Carmen Rodríguez llegó 30 minutos antes de su cita',
+      timestamp: '2024-01-15T08:00:00',
+      location: 'Recepción',
+      actionRequired: false
    }
 ];
 
@@ -193,12 +325,42 @@ export const getPatientStats = () => {
    const scheduled = mockPatients.filter(p => p.status === 'scheduled').length;
    const emergency = mockPatients.filter(p => p.status === 'emergency').length;
    const completed = mockPatients.filter(p => p.status === 'completed').length;
-
+   
    return {
       total,
       active,
       scheduled,
       emergency,
       completed
+   };
+};
+
+export const getStaffStats = () => {
+   const total = mockStaff.length;
+   const onDuty = mockStaff.filter(s => s.status === 'on-duty').length;
+   const onBreak = mockStaff.filter(s => s.status === 'break').length;
+   const doctors = mockStaff.filter(s => s.role === 'doctor' && s.status === 'on-duty').length;
+   const nurses = mockStaff.filter(s => s.role === 'nurse' && s.status === 'on-duty').length;
+   
+   return {
+      total,
+      onDuty,
+      onBreak,
+      doctors,
+      nurses
+   };
+};
+
+export const getAlertStats = () => {
+   const total = mockPriorityAlerts.length;
+   const critical = mockPriorityAlerts.filter(a => a.type === 'critical').length;
+   const warnings = mockPriorityAlerts.filter(a => a.type === 'warning').length;
+   const actionRequired = mockPriorityAlerts.filter(a => a.actionRequired).length;
+   
+   return {
+      total,
+      critical,
+      warnings,
+      actionRequired
    };
 };

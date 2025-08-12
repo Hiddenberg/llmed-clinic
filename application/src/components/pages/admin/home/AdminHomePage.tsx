@@ -4,6 +4,8 @@ import {
 import TrackingBar from './TrackingBar';
 import ActivityFeed from './ActivityFeed';
 import NavigationCards from './NavigationCards';
+import StaffPanel from './StaffPanel';
+import PriorityAlerts from './PriorityAlerts';
 
 // Floating geometric shapes for background decoration
 function FloatingGeometry () {
@@ -54,7 +56,7 @@ function Header () {
       .getHours();
    const getGreeting = () => {
       if (currentHour < 12) return 'Buenos días';
-      if (currentHour < 18) return 'Buenas tardes';
+      if (currentHour <= 19) return 'Buenas tardes';
       return 'Buenas noches';
    };
 
@@ -63,8 +65,8 @@ function Header () {
          <FloatingGeometry />
 
          {/* Simplified header */}
-         <div className="relative bg-white/95 shadow-lg p-6 border border-gray-200/50 rounded-2xl">
-            <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-4 mb-6">
+         <div className="relative bg-white/95 shadow-lg p-6 py-4 border border-gray-200/50 rounded-2xl">
+            <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-4">
                <div className="flex items-center gap-4">
                   {/* Simplified logo */}
                   <div className="relative">
@@ -95,20 +97,20 @@ function Header () {
                <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-full text-green-700 text-sm">
                      <TrendingUp size={14} />
-                     <span className="font-medium">Sistema Operativo</span>
+                     <span className="font-medium">Sistema Operando Correctamente</span>
                   </div>
                </div>
             </div>
 
             {/* Simplified welcome message */}
-            <div className="relative">
+            {/* <div className="relative">
                <div className="relative bg-gradient-to-r from-brand-50 via-white to-blue-50 p-5 border border-brand-100/50 rounded-xl">
                   <p className="text-gray-700 leading-relaxed">
                      Bienvenido al <span className="bg-clip-text bg-gradient-to-r from-brand-600 to-blue-600 font-semibold text-transparent">sistema de gestión integral</span> de LLMed Clinic.
-                     Supervisa todas las actividades y gestiona los recursos de la clínica de hemodiálisis.
+                     Supervisa todas las actividades y gestiona los recursos de la clínica de hemodiálisis con tecnología avanzada.
                   </p>
                </div>
-            </div>
+            </div> */}
          </div>
       </div>
    );
@@ -126,21 +128,32 @@ export default function AdminHomePage () {
          <div className="relative mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
             <Header />
 
-            {/* Enhanced Tracking Bar */}
+            {/* Compact Tracking Bar */}
             <div className="mb-8">
                <TrackingBar />
             </div>
 
-            {/* Main Content Grid with better spacing */}
-            <div className="gap-8 grid grid-cols-1 xl:grid-cols-3">
-               {/* Navigation Cards */}
-               <div className="order-1 xl:col-span-2">
-                  <NavigationCards />
+            {/* Main Content Grid - Enhanced Layout */}
+            <div className="gap-8 grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-6">
+               {/* Activity Feed - Full width on mobile, spans across on larger screens */}
+               <div className="lg:col-span-4 xl:col-span-6">
+                  <ActivityFeed />
                </div>
 
-               {/* Activity Feed */}
-               <div className="order-2 xl:col-span-1">
-                  <ActivityFeed />
+
+               {/* Staff Panel - Compact sidebar */}
+               <div className="lg:col-span-1 xl:col-span-3">
+                  <StaffPanel />
+               </div>
+
+               {/* Priority Alerts - Important sidebar */}
+               <div className="lg:col-span-1 xl:col-span-3">
+                  <PriorityAlerts />
+               </div>
+
+               {/* Navigation Cards - Takes more space */}
+               <div className="lg:col-span-2 xl:col-span-6">
+                  <NavigationCards />
                </div>
             </div>
 
