@@ -2,7 +2,7 @@ import {
    Heart, Calendar, Activity, Phone, FileText, Plus,
    LucideIcon
 } from 'lucide-react';
-import { mockPatient } from '@/data/mockData/patientData';
+// import { mockPatient } from '@/data/mockData/patientData';
 
 import PatientWelcomeHeader from './PatientWelcomeHeader';
 import UpcomingAppointments from './UpcomingAppointments';
@@ -78,7 +78,7 @@ export default function PatientHomePage () {
             <div className="bottom-0 left-0 absolute bg-gradient-to-tr from-green-50/20 to-transparent w-1/2 h-1/2" />
          </div>
 
-         <div className="relative mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-4xl">
+         <div className="relative mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 max-w-4xl">
             {/* Welcome Header */}
             <PatientWelcomeHeader />
 

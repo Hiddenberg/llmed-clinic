@@ -1,13 +1,14 @@
 "use client";
 
 import {
-   CalendarIcon, PhoneIcon, FileTextIcon, ActivityIcon
-} from "lucide-react";
+   Calendar, Phone, Activity, FileText
+} from 'lucide-react';
 
+// Quick action buttons for mobile-first experience
 export default function QuickActions () {
    const actions = [
       {
-         icon: CalendarIcon,
+         icon: Calendar,
          label: 'Agendar Cita',
          color: 'from-brand-500 to-blue-500',
          action: () => {
@@ -19,7 +20,7 @@ export default function QuickActions () {
          }
       },
       {
-         icon: PhoneIcon,
+         icon: Phone,
          label: 'Llamar Doctor',
          color: 'from-green-500 to-emerald-500',
          action: () => {
@@ -30,7 +31,7 @@ export default function QuickActions () {
          }
       },
       {
-         icon: ActivityIcon,
+         icon: Activity,
          label: 'Ver Signos',
          color: 'from-purple-500 to-pink-500',
          action: () => {
@@ -41,7 +42,7 @@ export default function QuickActions () {
          }
       },
       {
-         icon: FileTextIcon,
+         icon: FileText,
          label: 'Notas Médicas',
          color: 'from-orange-500 to-amber-500',
          action: () => {
