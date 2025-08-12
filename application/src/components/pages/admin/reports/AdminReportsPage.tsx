@@ -1,8 +1,7 @@
 "use client"
 
 import {
-   BarChart3, Users, Calendar, TrendingUp, Heart, Shield, Activity,
-   DollarSign, Clock, AlertTriangle, CheckCircle, Settings,
+   BarChart3, Users, Calendar, TrendingUp, Heart, Shield, Activity, Settings,
    LucideIcon
 } from 'lucide-react';
 import { useState } from 'react';
