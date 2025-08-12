@@ -1,7 +1,5 @@
+import DoctorHomePage from "@/components/pages/doctor/home/DoctorHomePage";
+
 export default function DoctorPage () {
-   return (
-      <div>
-         <h1>Doctor Page</h1>
-      </div>
-   );
+   return <DoctorHomePage />;
 }
