@@ -5,8 +5,7 @@ import {
 // import { mockPatient } from '@/data/mockData/patientData';
 
 import PatientWelcomeHeader from './PatientWelcomeHeader';
-import UpcomingAppointments from './UpcomingAppointments';
-import ScheduleAppointment from './ScheduleAppointment';
+import AppointmentSchedulingSection from './AppointmentSchedulingSection';
 import VitalSignsOverview from './VitalSignsOverview';
 import DoctorCallSection from './DoctorCallSection';
 import DoctorNotesSection from './DoctorNotesSection';
@@ -87,25 +86,15 @@ export default function PatientHomePage () {
 
             {/* Main Content Sections */}
             <div className="space-y-6">
-               {/* Upcoming Appointments Section */}
-               <section className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
-                  <SectionHeader
-                     icon={Calendar}
-                     title="Próximas Citas"
-                     gradient="from-brand-500 to-blue-500"
-                  />
-                  <UpcomingAppointments />
-               </section>
-
-               {/* Schedule New Appointment Section */}
+               {/* Appointment Scheduling Section */}
                <section id="schedule-section" className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
                   <SectionHeader
                      icon={Plus}
-                     title="Agendar Nueva Cita"
+                     title="Mis Citas Médicas"
                      gradient="from-green-500 to-emerald-500"
                      id="schedule-section"
                   />
-                  <ScheduleAppointment />
+                  <AppointmentSchedulingSection />
                </section>
 
                {/* Vital Signs Overview */}
