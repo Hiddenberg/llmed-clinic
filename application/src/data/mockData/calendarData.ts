@@ -727,20 +727,28 @@ export const mockCalendarEvents: CalendarEvent[] = [
    }
 ];
 
+// Date utility function for consistent formatting
+const formatDateString = (date: Date): string => {
+   const year = date.getFullYear();
+   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+   const day = date.getDate().toString().padStart(2, '0');
+   return `${year}-${month}-${day}`;
+};
+
 // Utility functions
 export const getEventsForDate = (date: Date, events: CalendarEvent[] = mockCalendarEvents): CalendarEvent[] => {
-   const targetDate = new Date(date);
-   targetDate.setHours(0, 0, 0, 0);
+   const targetDateStr = formatDateString(date);
 
    return events.filter(event => {
       const eventDate = new Date(event.startTime);
-      eventDate.setHours(0, 0, 0, 0);
-      return eventDate.getTime() === targetDate.getTime();
+      const eventDateStr = formatDateString(eventDate);
+      return eventDateStr === targetDateStr;
    });
 };
 
 export const getEventsForWeek = (startDate: Date, events: CalendarEvent[] = mockCalendarEvents): CalendarEvent[] => {
    const weekStart = new Date(startDate);
+   weekStart.setHours(0, 0, 0, 0);
    const weekEnd = new Date(startDate);
    weekEnd.setDate(weekStart.getDate() + 6);
    weekEnd.setHours(23, 59, 59, 999);

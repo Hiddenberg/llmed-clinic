@@ -310,6 +310,13 @@ export default function PatientSchedulePage () {
                                     onClick={() => {
                                        setShowSearch(true);
                                        setCurrentStep('search');
+                                       // Ensure slots are loaded for search
+                                       if (availableSlots.length === 0) {
+                                          loadAvailableSlots({
+                                             doctorId: appointmentData.doctorId,
+                                             type: appointmentData.type
+                                          });
+                                       }
                                     }}
                                     className="font-medium text-green-600 hover:text-green-700 text-sm hover:underline"
                                  >
@@ -339,6 +346,7 @@ export default function PatientSchedulePage () {
                                  setShowSearch(false);
                                  setCurrentStep('datetime');
                               }}
+                              isLoading={isLoading}
                            />
                         )}
 

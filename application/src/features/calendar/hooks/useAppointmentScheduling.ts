@@ -8,6 +8,50 @@ import {
    addEventToStorage
 } from '@/data/mockData/calendarData';
 
+// Date utility functions to prevent timezone issues
+const createLocalDate = (dateString: string, timeString: string): Date => {
+   const [year, month, day] = dateString.split('-')
+      .map(Number);
+   const [hours, minutes] = timeString.split(':')
+      .map(Number);
+
+   // Create date in local timezone to avoid UTC conversion issues
+   return new Date(year, month - 1, day, hours, minutes, 0, 0);
+};
+
+const formatDateForSlot = (date: Date): string => {
+   const year = date.getFullYear();
+   const month = (date.getMonth() + 1).toString()
+      .padStart(2, '0');
+   const day = date.getDate()
+      .toString()
+      .padStart(2, '0');
+   return `${year}-${month}-${day}`;
+};
+
+const formatTimeForSlot = (hours: number, minutes: number): string => {
+   return `${hours.toString()
+      .padStart(2, '0')}:${minutes.toString()
+      .padStart(2, '0')}`;
+};
+
+// Debug utility to log date information (development only)
+const logDateDebug = (label: string, date: Date, dateStr?: string, timeStr?: string) => {
+   if (process.env.NODE_ENV === 'development') {
+      console.log(`[DATE DEBUG] ${label}:`, {
+         date: date.toISOString(),
+         localString: date.toString(),
+         dateStr,
+         timeStr,
+         day: date.getDate(),
+         month: date.getMonth() + 1,
+         year: date.getFullYear(),
+         hours: date.getHours(),
+         minutes: date.getMinutes()
+      });
+   }
+};
+
 export interface AvailableSlot {
    date: string; // YYYY-MM-DD
    time: string; // HH:MM
@@ -88,15 +132,51 @@ export function useAppointmentScheduling () {
    const generateAvailableSlots = (startDate: Date = new Date(), days: number = 30) => {
       const slots: AvailableSlot[] = [];
       const existingEvents = loadEventsFromStorage();
-      
+
       // Add some mock "busy" slots to simulate real-world availability
       const mockBusySlots = [
-         { doctorId: '1', date: new Date(Date.now() + 86400000).toISOString().split('T')[0], time: '09:00' },
-         { doctorId: '1', date: new Date(Date.now() + 86400000).toISOString().split('T')[0], time: '10:30' },
-         { doctorId: '2', date: new Date(Date.now() + 172800000).toISOString().split('T')[0], time: '11:00' },
-         { doctorId: '1', date: new Date(Date.now() + 259200000).toISOString().split('T')[0], time: '14:00' },
-         { doctorId: '3', date: new Date(Date.now() + 345600000).toISOString().split('T')[0], time: '15:30' },
-         { doctorId: '2', date: new Date(Date.now() + 432000000).toISOString().split('T')[0], time: '08:30' },
+         {
+            doctorId: '1',
+            date: new Date(Date.now() + 86400000)
+               .toISOString()
+               .split('T')[0],
+            time: '09:00'
+         },
+         {
+            doctorId: '1',
+            date: new Date(Date.now() + 86400000)
+               .toISOString()
+               .split('T')[0],
+            time: '10:30'
+         },
+         {
+            doctorId: '2',
+            date: new Date(Date.now() + 172800000)
+               .toISOString()
+               .split('T')[0],
+            time: '11:00'
+         },
+         {
+            doctorId: '1',
+            date: new Date(Date.now() + 259200000)
+               .toISOString()
+               .split('T')[0],
+            time: '14:00'
+         },
+         {
+            doctorId: '3',
+            date: new Date(Date.now() + 345600000)
+               .toISOString()
+               .split('T')[0],
+            time: '15:30'
+         },
+         {
+            doctorId: '2',
+            date: new Date(Date.now() + 432000000)
+               .toISOString()
+               .split('T')[0],
+            time: '08:30'
+         },
       ];
 
       for (let dayOffset = 1; dayOffset <= days; dayOffset++) {
@@ -106,15 +186,13 @@ export function useAppointmentScheduling () {
          // Skip weekends for this demo
          if (date.getDay() === 0 || date.getDay() === 6) continue;
 
-         const dateStr = date.toISOString()
-            .split('T')[0];
+         const dateStr = formatDateForSlot(date);
 
          // Get existing events for this date
          const dayEvents = existingEvents.filter(event => {
-            const eventDate = new Date(event.startTime)
-               .toISOString()
-               .split('T')[0];
-            return eventDate === dateStr;
+            const eventDate = new Date(event.startTime);
+            const eventDateStr = formatDateForSlot(eventDate);
+            return eventDateStr === dateStr;
          });
 
          // Generate slots for each doctor
@@ -127,9 +205,7 @@ export function useAppointmentScheduling () {
 
                // Generate 30-minute slots
                for (let minute = 0; minute < 60; minute += 30) {
-                  const timeStr = `${hour.toString()
-                     .padStart(2, '0')}:${minute.toString()
-                     .padStart(2, '0')}`;
+                  const timeStr = formatTimeForSlot(hour, minute);
                   const slotStart = new Date(date);
                   slotStart.setHours(hour, minute, 0, 0);
 
@@ -142,11 +218,11 @@ export function useAppointmentScheduling () {
 
                      return slotStart >= eventStart && slotStart < eventEnd;
                   });
-                  
+
                   // Check if this slot is in mock busy slots
-                  const isBusy = mockBusySlots.some(busySlot => 
-                     busySlot.doctorId === doctor.id && 
-                     busySlot.date === dateStr && 
+                  const isBusy = mockBusySlots.some(busySlot =>
+                     busySlot.doctorId === doctor.id &&
+                     busySlot.date === dateStr &&
                      busySlot.time === timeStr
                   );
 
@@ -233,12 +309,14 @@ export function useAppointmentScheduling () {
          await new Promise(resolve => setTimeout(resolve, 1000));
 
          const appointmentsToCreate: CalendarEvent[] = [];
-         
+
          if (request.isRecurring && request.recurringPattern) {
             // Create recurring appointments
-            const { frequency, duration } = request.recurringPattern;
-            let currentDate = new Date(`${request.date}T${request.time}:00`);
-            
+            const {
+               frequency, duration
+            } = request.recurringPattern;
+            const currentDate = createLocalDate(request.date, request.time);
+
             for (let i = 0; i < duration; i++) {
                const appointmentId = `apt-${Date.now()}-${i}-${Math.random()
                   .toString(36)
@@ -246,7 +324,10 @@ export function useAppointmentScheduling () {
                const startDateTime = new Date(currentDate);
                const endDateTime = new Date(startDateTime);
                endDateTime.setMinutes(startDateTime.getMinutes() + APPOINTMENT_TYPES[request.type].duration);
-               
+
+               // Debug logging for recurring appointments
+               logDateDebug(`Recurring Appointment ${i + 1}`, startDateTime);
+
                const newEvent: CalendarEvent = {
                   id: appointmentId,
                   title: `${APPOINTMENT_TYPES[request.type].label} - ${request.patientName}${i > 0 ? ` (${i + 1}/${duration})` : ''}`,
@@ -270,9 +351,9 @@ export function useAppointmentScheduling () {
                   color: eventTypeConfig[request.type].color,
                   textColor: eventTypeConfig[request.type].textColor
                };
-               
+
                appointmentsToCreate.push(newEvent);
-               
+
                // Calculate next appointment date
                switch (frequency) {
                   case 'weekly':
@@ -291,9 +372,12 @@ export function useAppointmentScheduling () {
             const appointmentId = `apt-${Date.now()}-${Math.random()
                .toString(36)
                .substr(2, 9)}`;
-            const startDateTime = new Date(`${request.date}T${request.time}:00`);
+            const startDateTime = createLocalDate(request.date, request.time);
             const endDateTime = new Date(startDateTime);
             endDateTime.setMinutes(startDateTime.getMinutes() + APPOINTMENT_TYPES[request.type].duration);
+
+            // Debug logging
+            logDateDebug('Single Appointment Creation', startDateTime, request.date, request.time);
 
             const newEvent: CalendarEvent = {
                id: appointmentId,
@@ -335,17 +419,12 @@ export function useAppointmentScheduling () {
                        slot.doctorId === request.doctorId &&
                        slot.type === request.type);
             }
-            
+
             // For recurring appointments, remove all matching slots
             return !appointmentsToCreate.some(apt => {
-               const aptDate = new Date(apt.startTime)
-                  .toISOString()
-                  .split('T')[0];
-               const aptTime = new Date(apt.startTime)
-                  .toLocaleTimeString('es-ES', { 
-                     hour: '2-digit', 
-                     minute: '2-digit' 
-                  });
+               const aptDateTime = new Date(apt.startTime);
+               const aptDate = formatDateForSlot(aptDateTime);
+               const aptTime = formatTimeForSlot(aptDateTime.getHours(), aptDateTime.getMinutes());
                return slot.date === aptDate &&
                       slot.time === aptTime &&
                       slot.doctorId === request.doctorId &&
@@ -396,36 +475,45 @@ export function useAppointmentScheduling () {
       appointmentType?: string;
       dateRange?: { start: Date; end: Date };
    }) => {
-      const { searchType, value, doctorId, appointmentType, dateRange } = criteria;
-      
+      const {
+         searchType, value, doctorId, appointmentType, dateRange
+      } = criteria;
+
+      // If no slots are available, try to load them first
+      if (availableSlots.length === 0) {
+         console.warn('No available slots found. Make sure slots are loaded before searching.');
+         return [];
+      }
+
       let filteredSlots = availableSlots.filter(slot => {
          // Filter by doctor if specified
          if (doctorId && slot.doctorId !== doctorId) return false;
-         
+
          // Filter by appointment type if specified
          if (appointmentType && slot.type !== appointmentType) return false;
-         
+
          // Filter by date range if specified
          if (dateRange) {
             const slotDate = new Date(slot.date);
             if (slotDate < dateRange.start || slotDate > dateRange.end) return false;
          }
-         
+
          return true;
       });
-      
+
       if (searchType === 'day') {
          // Filter by day of week (0 = Sunday, 1 = Monday, etc.)
          const targetDay = parseInt(value);
          filteredSlots = filteredSlots.filter(slot => {
-            const slotDay = new Date(slot.date).getDay();
+            const slotDay = new Date(slot.date)
+               .getDay();
             return slotDay === targetDay;
          });
       } else if (searchType === 'time') {
          // Filter by specific time
          filteredSlots = filteredSlots.filter(slot => slot.time === value);
       }
-      
+
       // Sort by date and time
       return filteredSlots.sort((a, b) => {
          const dateA = new Date(`${a.date}T${a.time}`);
@@ -444,22 +532,22 @@ export function useAppointmentScheduling () {
       loadAvailableSlots();
    }, []);
 
-      return {
+   return {
       // State
       availableSlots,
       isLoading,
       bookingStatus,
-      
+
       // Actions
       loadAvailableSlots,
       bookAppointment,
       resetBookingStatus,
-      
+
       // Helpers
       getSlotsByDateAndDoctor,
       getNextAvailableSlot,
       searchAvailableSlots,
-      
+
       // Constants
       doctors: DOCTORS,
       appointmentTypes: APPOINTMENT_TYPES

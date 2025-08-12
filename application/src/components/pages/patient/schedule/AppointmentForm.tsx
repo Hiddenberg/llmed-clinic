@@ -1,8 +1,11 @@
+'use client';
+
 import { useState } from 'react';
 import {
    ArrowLeft, FileText, MessageCircle
 } from 'lucide-react';
 import { AppointmentRequest, AvailableSlot } from '@/features/calendar/hooks/useAppointmentScheduling';
+import { format } from '@formkit/tempo';
 
 interface AppointmentFormProps {
    appointmentData: Partial<AppointmentRequest>;
@@ -111,13 +114,7 @@ export default function AppointmentForm ({
                   <div>
                      <span className="font-medium text-green-800">Fecha:</span>
                      <span className="ml-2 text-green-700">
-                        {new Date(selectedSlot.date)
-                           .toLocaleDateString('es-ES', {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                           })}
+                        {format(selectedSlot.date, 'dddd, DD MMMM YYYY')}
                      </span>
                   </div>
                   <div>

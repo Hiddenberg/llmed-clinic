@@ -1,7 +1,9 @@
+'use client';
 import {
    ArrowLeft, CheckCircle, Calendar, Clock, User, FileText, AlertCircle, RefreshCw
 } from 'lucide-react';
 import { AppointmentRequest, AvailableSlot } from '@/features/calendar/hooks/useAppointmentScheduling';
+import { format } from '@formkit/tempo';
 
 interface BookingConfirmationProps {
    appointmentData: Partial<AppointmentRequest>;
@@ -72,7 +74,7 @@ export default function BookingConfirmation ({
                         <div>
                            <span className="font-medium text-green-800">Fecha:</span>
                            <span className="ml-2 text-green-700">
-                              {new Date(selectedSlot.date)
+                              {new Date(selectedSlot.date + 'T12:00:00')
                                  .toLocaleDateString('es-ES', {
                                     weekday: 'long',
                                     year: 'numeric',
@@ -232,13 +234,7 @@ export default function BookingConfirmation ({
                         <div>
                            <p className="font-medium text-gray-700 text-sm">Fecha</p>
                            <p className="text-gray-900">
-                              {new Date(selectedSlot.date)
-                                 .toLocaleDateString('es-ES', {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                 })}
+                              {format(selectedSlot.date, 'dddd, DD MMMM YYYY')}
                            </p>
                         </div>
                      </div>

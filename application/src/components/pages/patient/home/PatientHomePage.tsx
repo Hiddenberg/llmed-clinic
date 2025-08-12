@@ -1,5 +1,5 @@
 import {
-   Heart, Calendar, Activity, Phone, FileText, Plus,
+   Heart, Activity, Phone, FileText, Plus,
    LucideIcon
 } from 'lucide-react';
 // import { mockPatient } from '@/data/mockData/patientData';

@@ -51,24 +51,30 @@ export default function AppointmentSchedulingSection() {
          );
 
          // Transform events to appointment format
-         const patientAppointments: PatientAppointment[] = patientEvents.map((event: CalendarEvent) => ({
-            id: event.id,
-            type: event.type,
-            title: appointmentTypeLabels[event.type as keyof typeof appointmentTypeLabels] || event.title,
-            doctorName: event.doctorName || 'Doctor asignado',
-            date: new Date(event.startTime).toISOString().split('T')[0],
-            time: new Date(event.startTime).toLocaleTimeString('es-ES', { 
-               hour: '2-digit', 
-               minute: '2-digit' 
-            }),
-            status: event.status,
-            room: event.room
-         }));
+         const patientAppointments: PatientAppointment[] = patientEvents.map((event: CalendarEvent) => {
+            const eventDate = new Date(event.startTime);
+            return {
+               id: event.id,
+               type: event.type,
+               title: appointmentTypeLabels[event.type as keyof typeof appointmentTypeLabels] || event.title,
+               doctorName: event.doctorName || 'Doctor asignado',
+               date: `${eventDate.getFullYear()}-${(eventDate.getMonth() + 1).toString().padStart(2, '0')}-${eventDate.getDate().toString().padStart(2, '0')}`,
+               time: `${eventDate.getHours().toString().padStart(2, '0')}:${eventDate.getMinutes().toString().padStart(2, '0')}`,
+               status: event.status,
+               room: event.room
+            };
+         });
 
          // Sort by date (upcoming first)
          patientAppointments.sort((a, b) => {
-            const dateA = new Date(`${a.date}T${a.time}`);
-            const dateB = new Date(`${b.date}T${b.time}`);
+            const [yearA, monthA, dayA] = a.date.split('-').map(Number);
+            const [hoursA, minutesA] = a.time.split(':').map(Number);
+            const dateA = new Date(yearA, monthA - 1, dayA, hoursA, minutesA);
+            
+            const [yearB, monthB, dayB] = b.date.split('-').map(Number);
+            const [hoursB, minutesB] = b.time.split(':').map(Number);
+            const dateB = new Date(yearB, monthB - 1, dayB, hoursB, minutesB);
+            
             return dateA.getTime() - dateB.getTime();
          });
 
@@ -175,7 +181,7 @@ export default function AppointmentSchedulingSection() {
                                        <div className="flex items-center gap-2">
                                           <Calendar className="w-4 h-4" />
                                           <span>
-                                             {new Date(appointment.date).toLocaleDateString('es-ES', {
+                                             {new Date(appointment.date + 'T12:00:00').toLocaleDateString('es-ES', {
                                                 weekday: 'long',
                                                 year: 'numeric',
                                                 month: 'long',
