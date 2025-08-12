@@ -1,5 +1,5 @@
 import {
-   Clock, User, MapPin, Calendar, CheckCircle, Play, X, AlertTriangle
+   Clock, MapPin, Calendar, CheckCircle, Play, X
 } from 'lucide-react';
 import { mockTodayAppointments, type DoctorAppointment } from '@/data/mockData/doctorData';
 
@@ -116,7 +116,7 @@ function AppointmentItem ({
             {appointment.status === 'upcoming' && (
                <div className="flex gap-2 mt-3">
                   <button className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
-                     Iniciar Sesión
+                     Iniciar Consulta
                   </button>
                   <button className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200">
                      Reagendar
