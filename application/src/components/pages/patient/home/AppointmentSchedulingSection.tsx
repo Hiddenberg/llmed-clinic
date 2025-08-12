@@ -181,7 +181,7 @@ export default function AppointmentSchedulingSection() {
                                        <div className="flex items-center gap-2">
                                           <Calendar className="w-4 h-4" />
                                           <span>
-                                             {new Date(appointment.date + 'T12:00:00').toLocaleDateString('es-ES', {
+                                             {new Date(appointment.date + 'T12:00:00').toLocaleDateString('es-MX', {
                                                 weekday: 'long',
                                                 year: 'numeric',
                                                 month: 'long',

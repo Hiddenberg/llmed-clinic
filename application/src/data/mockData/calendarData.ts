@@ -801,7 +801,7 @@ export const formatEventTime = (startTime: string, endTime: string): string => {
    const end = new Date(endTime);
 
    const formatTime = (date: Date) => {
-      return date.toLocaleTimeString('es-ES', {
+      return date.toLocaleTimeString('es-MX', {
          hour: '2-digit',
          minute: '2-digit',
          hour12: false

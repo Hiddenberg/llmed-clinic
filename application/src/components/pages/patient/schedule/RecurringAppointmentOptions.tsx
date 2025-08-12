@@ -80,7 +80,7 @@ export default function RecurringAppointmentOptions({
             break;
       }
       
-      return endDate.toLocaleDateString('es-ES', {
+      return endDate.toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
          month: 'long',

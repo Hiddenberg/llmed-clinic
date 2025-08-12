@@ -2,45 +2,9 @@ import { Stethoscope } from 'lucide-react';
 import Calendar from '@/features/calendar/components/Calendar';
 import { mockDoctor } from '@/data/mockData/doctorData';
 
-// Floating geometric shapes for background decoration
-function FloatingGeometry () {
-   return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-         {/* Simplified gradient orbs with reduced blur */}
-         <div className="-top-24 -right-24 absolute bg-gradient-to-br from-brand-600/8 to-green-500/4 rounded-full w-96 h-96 animate-pulse"
-            style={{
-               animationDuration: '4s'
-            }}
-         />
-         <div className="top-1/2 -left-32 absolute bg-gradient-to-br from-green-400/6 to-brand-400/4 rounded-full w-64 h-64 animate-float"
-            style={{
-               animationDuration: '8s'
-            }}
-         />
-
-         {/* Geometric lines */}
-         <div className="top-20 left-1/4 absolute bg-gradient-to-b from-brand-600/25 to-transparent w-px h-32" />
-         <div className="top-32 right-1/3 absolute bg-gradient-to-r from-green-300/25 to-transparent w-24 h-px" />
-
-         {/* Small floating dots */}
-         <div className="top-16 left-1/3 absolute bg-brand-600 rounded-full w-2 h-2 animate-pulse" />
-         <div className="right-1/4 bottom-20 absolute bg-green-400 rounded-full w-1.5 h-1.5 animate-pulse"
-            style={{
-               animationDelay: '1s'
-            }}
-         />
-         <div className="top-1/2 right-1/6 absolute bg-brand-400 rounded-full w-1 h-1 animate-pulse"
-            style={{
-               animationDelay: '2s'
-            }}
-         />
-      </div>
-   );
-}
-
 function Header () {
    const currentTime = new Date()
-      .toLocaleDateString('es-ES', {
+      .toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
          month: 'long',
@@ -82,8 +46,6 @@ export default function DoctorCalendarPage () {
 
    return (
       <div className="relative bg-gradient-to-br from-gray-50 via-white to-green-50/30 min-h-screen">
-         <FloatingGeometry />
-
          <div className="z-10 relative">
             <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
                <Header />

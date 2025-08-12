@@ -46,7 +46,7 @@ function formatAppointmentDate (date: string) {
    } else if (appointmentDate.toDateString() === tomorrow.toDateString()) {
       return 'Mañana';
    } else {
-      return appointmentDate.toLocaleDateString('es-ES', {
+      return appointmentDate.toLocaleDateString('es-MX', {
          weekday: 'short',
          day: 'numeric',
          month: 'short'

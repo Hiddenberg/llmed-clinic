@@ -75,7 +75,7 @@ export default function BookingConfirmation ({
                            <span className="font-medium text-green-800">Fecha:</span>
                            <span className="ml-2 text-green-700">
                               {new Date(selectedSlot.date + 'T12:00:00')
-                                 .toLocaleDateString('es-ES', {
+                                 .toLocaleDateString('es-MX', {
                                     weekday: 'long',
                                     year: 'numeric',
                                     month: 'long',

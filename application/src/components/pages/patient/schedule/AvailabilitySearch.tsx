@@ -361,7 +361,7 @@ export default function AvailabilitySearch ({
                         <div className="flex justify-between items-center mb-2">
                            <div className="font-medium text-gray-900">
                               {new Date(slot.date)
-                                 .toLocaleDateString('es-ES', {
+                                 .toLocaleDateString('es-MX', {
                                     weekday: 'short',
                                     month: 'short',
                                     day: 'numeric'

@@ -32,7 +32,7 @@ function getTrendLabel (trend: PatientEvolution['trend']) {
 
 function formatDate (dateString: string): string {
    const date = new Date(dateString);
-   return date.toLocaleDateString('es-ES', {
+   return date.toLocaleDateString('es-MX', {
       day: 'numeric',
       month: 'short'
    });

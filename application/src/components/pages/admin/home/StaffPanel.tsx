@@ -8,7 +8,7 @@ import {
 function formatNextBreak (timestamp?: string): string {
    if (!timestamp) return '';
    const date = new Date(timestamp);
-   return date.toLocaleTimeString('es-ES', {
+   return date.toLocaleTimeString('es-MX', {
       hour: '2-digit',
       minute: '2-digit'
    });

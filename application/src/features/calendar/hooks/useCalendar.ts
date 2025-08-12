@@ -198,7 +198,7 @@ export function useCalendar ({
 
       switch (view) {
          case 'day':
-            return currentDate.toLocaleDateString('es-ES', {
+            return currentDate.toLocaleDateString('es-MX', {
                weekday: 'long',
                year: 'numeric',
                month: 'long',
@@ -210,16 +210,16 @@ export function useCalendar ({
             const weekEnd = new Date(weekStart);
             weekEnd.setDate(weekStart.getDate() + 6);
 
-            return `${weekStart.toLocaleDateString('es-ES', {
+            return `${weekStart.toLocaleDateString('es-MX', {
                day: 'numeric',
                month: 'short'
-            })} - ${weekEnd.toLocaleDateString('es-ES', {
+            })} - ${weekEnd.toLocaleDateString('es-MX', {
                day: 'numeric',
                month: 'short',
                year: 'numeric'
             })}`;
          case 'month':
-            return currentDate.toLocaleDateString('es-ES', {
+            return currentDate.toLocaleDateString('es-MX', {
                year: 'numeric',
                month: 'long'
             });

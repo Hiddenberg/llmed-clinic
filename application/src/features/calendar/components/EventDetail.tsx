@@ -157,7 +157,7 @@ export default function EventDetail ({
                         <div className="flex items-center gap-3">
                            <Calendar className="w-5 h-5 text-gray-500" />
                            <span className="text-gray-900">
-                              {eventDate.toLocaleDateString('es-ES', {
+                              {eventDate.toLocaleDateString('es-MX', {
                                  weekday: 'long',
                                  year: 'numeric',
                                  month: 'long',
@@ -301,14 +301,14 @@ export default function EventDetail ({
                            <span className="text-gray-500">Fecha de creación:</span>
                            <span className="text-gray-900">
                               {new Date(event.createdAt)
-                                 .toLocaleDateString('es-ES')}
+                                 .toLocaleDateString('es-MX')}
                            </span>
                         </div>
                         <div className="flex justify-between">
                            <span className="text-gray-500">Última actualización:</span>
                            <span className="text-gray-900">
                               {new Date(event.updatedAt)
-                                 .toLocaleDateString('es-ES')}
+                                 .toLocaleDateString('es-MX')}
                            </span>
                         </div>
                      </div>

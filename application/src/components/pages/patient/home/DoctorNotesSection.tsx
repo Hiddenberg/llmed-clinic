@@ -85,7 +85,7 @@ function formatNoteDate (date: string) {
    } else if (noteDate.toDateString() === yesterday.toDateString()) {
       return 'Ayer';
    } else {
-      return noteDate.toLocaleDateString('es-ES', {
+      return noteDate.toLocaleDateString('es-MX', {
          day: 'numeric',
          month: 'short',
          year: 'numeric'
@@ -193,7 +193,7 @@ export default function DoctorNotesSection () {
                                     <span>•</span>
                                     <Clock size={12} />
                                     <span>{new Date(note.date)
-                                       .toLocaleTimeString('es-ES', {
+                                       .toLocaleTimeString('es-MX', {
                                           hour: '2-digit',
                                           minute: '2-digit'
                                        })}</span>

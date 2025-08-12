@@ -114,7 +114,7 @@ export default function DateTimeSelector ({
             </button>
 
             <h3 className="font-semibold text-gray-900 text-lg">
-               {weekStart.toLocaleDateString('es-ES', {
+               {weekStart.toLocaleDateString('es-MX', {
                   month: 'long',
                   year: 'numeric'
                })}

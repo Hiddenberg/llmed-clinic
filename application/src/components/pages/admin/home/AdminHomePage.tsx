@@ -45,7 +45,7 @@ function FloatingGeometry () {
 
 function Header () {
    const currentTime = new Date()
-      .toLocaleDateString('es-ES', {
+      .toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
          month: 'long',

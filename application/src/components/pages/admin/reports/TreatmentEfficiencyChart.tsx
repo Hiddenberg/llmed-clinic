@@ -10,7 +10,7 @@ export default function TreatmentEfficiencyChart ({ selectedPeriod }: { selected
    const chartData = getFilteredTreatmentEfficiency(selectedPeriod)
       .map(day => ({
          date: new Date(day.date)
-            .toLocaleDateString('es-ES', {
+            .toLocaleDateString('es-MX', {
                weekday: 'short',
                day: 'numeric'
             }),

@@ -130,7 +130,7 @@ export default function VitalSignsOverview () {
                <h3 className="font-medium text-gray-800">Última medición</h3>
                <span className="text-gray-500 text-xs">
                   {new Date(latestVitals.date)
-                     .toLocaleDateString('es-ES', {
+                     .toLocaleDateString('es-MX', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric'
@@ -183,7 +183,7 @@ export default function VitalSignsOverview () {
                   <h3 className="font-medium text-gray-800">Última sesión de tratamiento</h3>
                   <span className="text-gray-500 text-xs">
                      {new Date(latestTreatment.date)
-                        .toLocaleDateString('es-ES', {
+                        .toLocaleDateString('es-MX', {
                            day: 'numeric',
                            month: 'short'
                         })}

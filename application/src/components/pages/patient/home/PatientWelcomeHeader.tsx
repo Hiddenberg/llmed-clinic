@@ -5,7 +5,7 @@ import { mockPatient } from '@/data/mockData/patientData';
 
 export default function PatientWelcomeHeader () {
    const currentTime = new Date()
-      .toLocaleDateString('es-ES', {
+      .toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
          month: 'long',

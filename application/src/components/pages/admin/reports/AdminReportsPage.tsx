@@ -53,7 +53,7 @@ function ReportsHeader ({
    setSelectedPeriod: (period: TimePeriod) => void;
 }) {
    const currentDate = new Date()
-      .toLocaleDateString('es-ES', {
+      .toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
          month: 'long',

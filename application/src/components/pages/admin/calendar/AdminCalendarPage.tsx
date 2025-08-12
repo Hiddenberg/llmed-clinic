@@ -39,7 +39,7 @@ import Calendar from '@/features/calendar/components/Calendar';
 
 function Header () {
    const currentTime = new Date()
-      .toLocaleDateString('es-ES', {
+      .toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
          month: 'long',

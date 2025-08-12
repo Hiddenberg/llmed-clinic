@@ -40,7 +40,7 @@ function KPICard ({
 
          <div>
             <p className="font-bold text-gray-800 text-2xl">
-               {typeof value === 'number' ? value.toLocaleString('es-ES') : value}
+               {typeof value === 'number' ? value.toLocaleString('es-MX') : value}
                {unit && <span className="ml-1 font-normal text-gray-500 text-lg">{unit}</span>}
             </p>
             <p className="mt-1 text-gray-600 text-sm">{title}</p>

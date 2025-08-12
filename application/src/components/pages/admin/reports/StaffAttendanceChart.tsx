@@ -10,7 +10,7 @@ export default function StaffAttendanceChart ({ selectedPeriod }: { selectedPeri
    const chartData = getFilteredStaffAttendance(selectedPeriod)
       .map(day => ({
          date: new Date(day.date)
-            .toLocaleDateString('es-ES', {
+            .toLocaleDateString('es-MX', {
                weekday: 'short',
                day: 'numeric'
             }),
