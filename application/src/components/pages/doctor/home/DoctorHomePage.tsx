@@ -56,7 +56,7 @@ function Header () {
       .getHours();
    const getGreeting = () => {
       if (currentHour < 12) return 'Buenos días';
-      if (currentHour < 18) return 'Buenas tardes';
+      if (currentHour <= 19) return 'Buenas tardes';
       return 'Buenas noches';
    };
 
@@ -101,9 +101,6 @@ function Header () {
                      <User size={14} />
                      <span className="font-medium">Disponible</span>
                   </div>
-                  {/* <div className="flex items-center gap-2 bg-brand-50 px-3 py-1.5 rounded-full text-brand-700 text-sm">
-                     <span className="font-medium">{mockDoctor.yearsExperience} años exp.</span>
-                  </div> */}
                </div>
             </div>
 
@@ -131,25 +128,59 @@ export default function DoctorHomePage () {
          </div>
 
          <div className="relative mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+            {/* Header Section */}
             <Header />
 
-            {/* Doctor Stats Bar */}
-            <div className="mb-8">
-               <DoctorStatsBar />
-            </div>
-
-            <div className="gap-8 grid grid-cols-1 xl:grid-cols-6">
-               {/* Doctor Activity Feed */}
-               <div className="xl:col-span-4">
-                  <DoctorActivityFeed />
+            {/* Doctor Stats Overview Section */}
+            <section className="mb-12">
+               <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                  <div className="flex items-center gap-3 mb-4">
+                     <div className="bg-gradient-to-b from-brand-600 to-green-500 rounded-full w-1 h-6" />
+                     <h2 className="font-semibold text-gray-800 text-lg">Resumen de Actividad</h2>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
+                  </div>
+                  <DoctorStatsBar />
                </div>
-               {/* Today's Appointments */}
-               <div className="xl:col-span-2">
-                  <TodayAppointments />
-               </div>
-            </div>
+            </section>
 
-            <PatientEvolutionPanel />
+            {/* Main Content Sections */}
+            <div className="space-y-8">
+               {/* Activity and Appointments Section */}
+               <section>
+                  <div className="flex items-center gap-3 mb-6">
+                     <div className="bg-gradient-to-b from-blue-600 to-cyan-500 rounded-full w-1 h-6" />
+                     <h2 className="font-semibold text-gray-800 text-lg">Actividad y Citas de Hoy</h2>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
+                  </div>
+
+                  <div className="gap-8 grid grid-cols-1 xl:grid-cols-3">
+                     {/* Doctor Activity Feed */}
+                     <div className="xl:col-span-2">
+                        <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                           <DoctorActivityFeed />
+                        </div>
+                     </div>
+                     {/* Today's Appointments */}
+                     <div className="xl:col-span-1">
+                        <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                           <TodayAppointments />
+                        </div>
+                     </div>
+                  </div>
+               </section>
+
+               {/* Patient Evolution Section */}
+               <section>
+                  <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                     <div className="flex items-center gap-3 mb-6">
+                        <div className="bg-gradient-to-b from-green-600 to-emerald-500 rounded-full w-1 h-6" />
+                        <h2 className="font-semibold text-gray-800 text-lg">Evolución de Pacientes</h2>
+                        <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
+                     </div>
+                     <PatientEvolutionPanel />
+                  </div>
+               </section>
+            </div>
 
             {/* Enhanced Footer */}
             <div className="from-transparent via-brand-200/20 to-transparent mt-16 pt-8 border-gradient-to-r border-t text-center">
