@@ -101,17 +101,28 @@ function Header () {
                   </div>
                </div>
             </div>
-
-            {/* Simplified welcome message */}
-            {/* <div className="relative">
-               <div className="relative bg-gradient-to-r from-brand-50 via-white to-blue-50 p-5 border border-brand-100/50 rounded-xl">
-                  <p className="text-gray-700 leading-relaxed">
-                     Bienvenido al <span className="bg-clip-text bg-gradient-to-r from-brand-600 to-blue-600 font-semibold text-transparent">sistema de gestión integral</span> de LLMed Clinic.
-                     Supervisa todas las actividades y gestiona los recursos de la clínica de hemodiálisis con tecnología avanzada.
-                  </p>
-               </div>
-            </div> */}
          </div>
+      </div>
+   );
+}
+
+// Section separator component for visual hierarchy
+function SectionSeparator({ title, subtitle }: { title?: string; subtitle?: string }) {
+   return (
+      <div className="relative py-6">
+         {/* Gradient line */}
+         <div className="absolute inset-0 flex items-center">
+            <div className="bg-gradient-to-r from-transparent via-gray-300/50 to-transparent w-full h-px"></div>
+         </div>
+         
+         {title && (
+            <div className="relative flex justify-center">
+               <div className="bg-gray-50 px-6 py-2 border border-gray-200/50 rounded-full">
+                  <h3 className="font-medium text-gray-600 text-sm">{title}</h3>
+                  {subtitle && <p className="mt-0.5 text-gray-500 text-xs">{subtitle}</p>}
+               </div>
+            </div>
+         )}
       </div>
    );
 }
@@ -126,35 +137,64 @@ export default function AdminHomePage () {
          </div>
 
          <div className="relative mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+            {/* Header Section */}
             <Header />
 
-            {/* Compact Tracking Bar */}
-            <div className="mb-8">
-               <TrackingBar />
-            </div>
-
-            {/* Main Content Grid - Enhanced Layout */}
-            <div className="gap-8 grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-6">
-               {/* Activity Feed - Full width on mobile, spans across on larger screens */}
-               <div className="lg:col-span-4 xl:col-span-6">
-                  <ActivityFeed />
+            {/* Patient Overview Section */}
+            <section className="mb-12">
+               <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                  <div className="flex items-center gap-3 mb-4">
+                     <div className="bg-gradient-to-b from-brand-500 to-blue-500 rounded-full w-1 h-6"></div>
+                     <h2 className="font-semibold text-gray-800 text-lg">Resumen General</h2>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                  </div>
+                  <TrackingBar />
                </div>
+            </section>
 
+            {/* Main Content Sections */}
+            <div className="space-y-8">
+               {/* Activity Feed Section */}
+               <section>
+                  <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                     <div className="flex items-center gap-3 mb-6">
+                        <div className="bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full w-1 h-6"></div>
+                        <h2 className="font-semibold text-gray-800 text-lg">Actividad Reciente</h2>
+                        <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                     </div>
+                     <ActivityFeed />
+                  </div>
+               </section>
 
-               {/* Staff Panel - Compact sidebar */}
-               <div className="lg:col-span-1 xl:col-span-3">
-                  <StaffPanel />
-               </div>
+               {/* Staff and Alerts Section */}
+               <section>
+                  <div className="flex items-center gap-3 mb-6">
+                     <div className="bg-gradient-to-b from-green-500 to-orange-500 rounded-full w-1 h-6"></div>
+                     <h2 className="font-semibold text-gray-800 text-lg">Personal y Alertas</h2>
+                     <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                  </div>
+                  
+                  <div className="gap-6 grid grid-cols-1 xl:grid-cols-2">
+                     <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                        <StaffPanel />
+                     </div>
+                     <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                        <PriorityAlerts />
+                     </div>
+                  </div>
+               </section>
 
-               {/* Priority Alerts - Important sidebar */}
-               <div className="lg:col-span-1 xl:col-span-3">
-                  <PriorityAlerts />
-               </div>
-
-               {/* Navigation Cards - Takes more space */}
-               <div className="lg:col-span-2 xl:col-span-6">
-                  <NavigationCards />
-               </div>
+               {/* Navigation Section */}
+               <section>
+                  <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
+                     <div className="flex items-center gap-3 mb-6">
+                        <div className="bg-gradient-to-b from-purple-500 to-pink-500 rounded-full w-1 h-6"></div>
+                        <h2 className="font-semibold text-gray-800 text-lg">Accesos Rápidos</h2>
+                        <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px"></div>
+                     </div>
+                     <NavigationCards />
+                  </div>
+               </section>
             </div>
 
             {/* Enhanced Footer */}
