@@ -10,8 +10,10 @@ import DoctorSelector from './DoctorSelector';
 import DateTimeSelector from './DateTimeSelector';
 import AppointmentForm from './AppointmentForm';
 import BookingConfirmation from './BookingConfirmation';
+import RecurringAppointmentOptions from './RecurringAppointmentOptions';
+import AvailabilitySearch from './AvailabilitySearch';
 
-type BookingStep = 'type' | 'doctor' | 'datetime' | 'details' | 'confirmation';
+type BookingStep = 'type' | 'doctor' | 'datetime' | 'search' | 'details' | 'confirmation';
 
 // Floating geometric shapes for background decoration
 function FloatingGeometry () {
@@ -88,6 +90,7 @@ function ProgressIndicator ({
       type: 'Tipo de Cita',
       doctor: 'Seleccionar Doctor',
       datetime: 'Fecha y Hora',
+      search: 'Buscar Disponibilidad',
       details: 'Detalles',
       confirmation: 'Confirmación'
    };
@@ -138,9 +141,15 @@ export default function PatientSchedulePage () {
    const [currentStep, setCurrentStep] = useState<BookingStep>('type');
    const [appointmentData, setAppointmentData] = useState<Partial<AppointmentRequest>>({
       patientId: 'patient-001', // In real app, this would come from auth
-      patientName: 'Juan Pérez' // In real app, this would come from auth
+      patientName: 'Juan Pérez', // In real app, this would come from auth
+      isRecurring: false,
+      recurringPattern: {
+         frequency: 'weekly' as const,
+         duration: 4
+      }
    });
    const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null);
+   const [showSearch, setShowSearch] = useState(false);
 
    const {
       availableSlots,
@@ -149,11 +158,14 @@ export default function PatientSchedulePage () {
       loadAvailableSlots,
       bookAppointment,
       resetBookingStatus,
+      searchAvailableSlots,
       doctors,
       appointmentTypes
    } = useAppointmentScheduling();
 
-   const steps: BookingStep[] = ['type', 'doctor', 'datetime', 'details', 'confirmation'];
+   const steps: BookingStep[] = showSearch
+      ? ['type', 'doctor', 'search', 'details', 'confirmation']
+      : ['type', 'doctor', 'datetime', 'details', 'confirmation'];
 
    const handleNext = () => {
       const currentIndex = steps.indexOf(currentStep);
@@ -196,6 +208,29 @@ export default function PatientSchedulePage () {
          ...prev,
          date: slot.date,
          time: slot.time
+      }));
+      handleNext();
+   };
+
+   const handleRecurringChange = (isRecurring: boolean, pattern?: {
+      frequency: 'weekly' | 'biweekly' | 'monthly';
+      duration: number;
+      endDate?: string;
+   }) => {
+      setAppointmentData(prev => ({
+         ...prev,
+         isRecurring,
+         recurringPattern: pattern
+      }));
+   };
+
+   const handleSearchSlotSelect = (slot: AvailableSlot) => {
+      setSelectedSlot(slot);
+      setAppointmentData(prev => ({
+         ...prev,
+         date: slot.date,
+         time: slot.time,
+         doctorId: slot.doctorId
       }));
       handleNext();
    };
@@ -268,24 +303,64 @@ export default function PatientSchedulePage () {
                         )}
 
                         {currentStep === 'datetime' && (
-                           <DateTimeSelector
-                              availableSlots={availableSlots}
-                              selectedSlot={selectedSlot}
-                              isLoading={isLoading}
-                              doctorId={appointmentData.doctorId}
-                              appointmentType={appointmentData.type}
-                              onSlotSelect={handleSlotSelect}
-                              onBack={handleBack}
+                           <div className="space-y-6">
+                              {/* Option to switch to search */}
+                              <div className="text-center">
+                                 <button
+                                    onClick={() => {
+                                       setShowSearch(true);
+                                       setCurrentStep('search');
+                                    }}
+                                    className="font-medium text-green-600 hover:text-green-700 text-sm hover:underline"
+                                 >
+                                    ¿Prefieres buscar por día o horario específico? →
+                                 </button>
+                              </div>
+
+                              <DateTimeSelector
+                                 availableSlots={availableSlots}
+                                 selectedSlot={selectedSlot}
+                                 isLoading={isLoading}
+                                 doctorId={appointmentData.doctorId}
+                                 appointmentType={appointmentData.type}
+                                 onSlotSelect={handleSlotSelect}
+                                 onBack={handleBack}
+                              />
+                           </div>
+                        )}
+
+                        {currentStep === 'search' && (
+                           <AvailabilitySearch
+                              onSearch={searchAvailableSlots}
+                              doctors={doctors}
+                              appointmentTypes={appointmentTypes}
+                              onSlotSelect={handleSearchSlotSelect}
+                              onBack={() => {
+                                 setShowSearch(false);
+                                 setCurrentStep('datetime');
+                              }}
                            />
                         )}
 
                         {currentStep === 'details' && (
-                           <AppointmentForm
-                              appointmentData={appointmentData}
-                              selectedSlot={selectedSlot}
-                              onSubmit={handleFormSubmit}
-                              onBack={handleBack}
-                           />
+                           <div className="space-y-6">
+                              <RecurringAppointmentOptions
+                                 isRecurring={appointmentData.isRecurring || false}
+                                 recurringPattern={appointmentData.recurringPattern || {
+                                    frequency: 'weekly',
+                                    duration: 4
+                                 }}
+                                 onRecurringChange={handleRecurringChange}
+                                 appointmentType={appointmentData.type}
+                              />
+
+                              <AppointmentForm
+                                 appointmentData={appointmentData}
+                                 selectedSlot={selectedSlot}
+                                 onSubmit={handleFormSubmit}
+                                 onBack={handleBack}
+                              />
+                           </div>
                         )}
 
                         {currentStep === 'confirmation' && (

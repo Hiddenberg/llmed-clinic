@@ -26,6 +26,12 @@ export interface AppointmentRequest {
    type: 'consultation' | 'hemodialysis' | 'follow-up';
    reason?: string;
    notes?: string;
+   isRecurring?: boolean;
+   recurringPattern?: {
+      frequency: 'weekly' | 'biweekly' | 'monthly';
+      duration: number; // number of occurrences
+      endDate?: string;
+   };
 }
 
 const DOCTORS = [
@@ -82,6 +88,16 @@ export function useAppointmentScheduling () {
    const generateAvailableSlots = (startDate: Date = new Date(), days: number = 30) => {
       const slots: AvailableSlot[] = [];
       const existingEvents = loadEventsFromStorage();
+      
+      // Add some mock "busy" slots to simulate real-world availability
+      const mockBusySlots = [
+         { doctorId: '1', date: new Date(Date.now() + 86400000).toISOString().split('T')[0], time: '09:00' },
+         { doctorId: '1', date: new Date(Date.now() + 86400000).toISOString().split('T')[0], time: '10:30' },
+         { doctorId: '2', date: new Date(Date.now() + 172800000).toISOString().split('T')[0], time: '11:00' },
+         { doctorId: '1', date: new Date(Date.now() + 259200000).toISOString().split('T')[0], time: '14:00' },
+         { doctorId: '3', date: new Date(Date.now() + 345600000).toISOString().split('T')[0], time: '15:30' },
+         { doctorId: '2', date: new Date(Date.now() + 432000000).toISOString().split('T')[0], time: '08:30' },
+      ];
 
       for (let dayOffset = 1; dayOffset <= days; dayOffset++) {
          const date = new Date(startDate);
@@ -126,8 +142,15 @@ export function useAppointmentScheduling () {
 
                      return slotStart >= eventStart && slotStart < eventEnd;
                   });
+                  
+                  // Check if this slot is in mock busy slots
+                  const isBusy = mockBusySlots.some(busySlot => 
+                     busySlot.doctorId === doctor.id && 
+                     busySlot.date === dateStr && 
+                     busySlot.time === timeStr
+                  );
 
-                  if (!hasConflict) {
+                  if (!hasConflict && !isBusy) {
                      // Add consultation slots
                      slots.push({
                         date: dateStr,
@@ -201,7 +224,7 @@ export function useAppointmentScheduling () {
       }
    };
 
-   // Book an appointment
+   // Book an appointment (single or recurring)
    const bookAppointment = async (request: AppointmentRequest): Promise<boolean> => {
       setBookingStatus('booking');
 
@@ -209,48 +232,126 @@ export function useAppointmentScheduling () {
          // Simulate API delay
          await new Promise(resolve => setTimeout(resolve, 1000));
 
-         // Create the appointment event
-         const appointmentId = `apt-${Date.now()}-${Math.random()
-            .toString(36)
-            .substr(2, 9)}`;
-         const startDateTime = new Date(`${request.date}T${request.time}:00`);
-         const endDateTime = new Date(startDateTime);
-         endDateTime.setMinutes(startDateTime.getMinutes() + APPOINTMENT_TYPES[request.type].duration);
+         const appointmentsToCreate: CalendarEvent[] = [];
+         
+         if (request.isRecurring && request.recurringPattern) {
+            // Create recurring appointments
+            const { frequency, duration } = request.recurringPattern;
+            let currentDate = new Date(`${request.date}T${request.time}:00`);
+            
+            for (let i = 0; i < duration; i++) {
+               const appointmentId = `apt-${Date.now()}-${i}-${Math.random()
+                  .toString(36)
+                  .substr(2, 9)}`;
+               const startDateTime = new Date(currentDate);
+               const endDateTime = new Date(startDateTime);
+               endDateTime.setMinutes(startDateTime.getMinutes() + APPOINTMENT_TYPES[request.type].duration);
+               
+               const newEvent: CalendarEvent = {
+                  id: appointmentId,
+                  title: `${APPOINTMENT_TYPES[request.type].label} - ${request.patientName}${i > 0 ? ` (${i + 1}/${duration})` : ''}`,
+                  description: `${request.reason || APPOINTMENT_TYPES[request.type].description}${i > 0 ? ` - Sesión ${i + 1} de ${duration}` : ''}`,
+                  startTime: startDateTime.toISOString(),
+                  endTime: endDateTime.toISOString(),
+                  type: request.type,
+                  status: 'scheduled',
+                  priority: request.type === 'hemodialysis' ? 'high' : 'medium',
+                  patientId: request.patientId,
+                  patientName: request.patientName,
+                  doctorId: request.doctorId,
+                  doctorName: DOCTORS.find(d => d.id === request.doctorId)?.name || '',
+                  room: request.type === 'hemodialysis' ? 'Sala A-4' : 'Consultorio 4',
+                  notes: request.notes,
+                  createdBy: 'patient',
+                  createdAt: new Date()
+                     .toISOString(),
+                  updatedAt: new Date()
+                     .toISOString(),
+                  color: eventTypeConfig[request.type].color,
+                  textColor: eventTypeConfig[request.type].textColor
+               };
+               
+               appointmentsToCreate.push(newEvent);
+               
+               // Calculate next appointment date
+               switch (frequency) {
+                  case 'weekly':
+                     currentDate.setDate(currentDate.getDate() + 7);
+                     break;
+                  case 'biweekly':
+                     currentDate.setDate(currentDate.getDate() + 14);
+                     break;
+                  case 'monthly':
+                     currentDate.setMonth(currentDate.getMonth() + 1);
+                     break;
+               }
+            }
+         } else {
+            // Create single appointment
+            const appointmentId = `apt-${Date.now()}-${Math.random()
+               .toString(36)
+               .substr(2, 9)}`;
+            const startDateTime = new Date(`${request.date}T${request.time}:00`);
+            const endDateTime = new Date(startDateTime);
+            endDateTime.setMinutes(startDateTime.getMinutes() + APPOINTMENT_TYPES[request.type].duration);
 
-         const newEvent: CalendarEvent = {
-            id: appointmentId,
-            title: `${APPOINTMENT_TYPES[request.type].label} - ${request.patientName}`,
-            description: request.reason || APPOINTMENT_TYPES[request.type].description,
-            startTime: startDateTime.toISOString(),
-            endTime: endDateTime.toISOString(),
-            type: request.type,
-            status: 'scheduled',
-            priority: request.type === 'hemodialysis' ? 'high' : 'medium',
-            patientId: request.patientId,
-            patientName: request.patientName,
-            doctorId: request.doctorId,
-            doctorName: DOCTORS.find(d => d.id === request.doctorId)?.name || '',
-            room: request.type === 'hemodialysis' ? 'Sala A-4' : 'Consultorio 4',
-            notes: request.notes,
-            createdBy: 'patient',
-            createdAt: new Date()
-               .toISOString(),
-            updatedAt: new Date()
-               .toISOString(),
-            color: eventTypeConfig[request.type].color,
-            textColor: eventTypeConfig[request.type].textColor
-         };
+            const newEvent: CalendarEvent = {
+               id: appointmentId,
+               title: `${APPOINTMENT_TYPES[request.type].label} - ${request.patientName}`,
+               description: request.reason || APPOINTMENT_TYPES[request.type].description,
+               startTime: startDateTime.toISOString(),
+               endTime: endDateTime.toISOString(),
+               type: request.type,
+               status: 'scheduled',
+               priority: request.type === 'hemodialysis' ? 'high' : 'medium',
+               patientId: request.patientId,
+               patientName: request.patientName,
+               doctorId: request.doctorId,
+               doctorName: DOCTORS.find(d => d.id === request.doctorId)?.name || '',
+               room: request.type === 'hemodialysis' ? 'Sala A-4' : 'Consultorio 4',
+               notes: request.notes,
+               createdBy: 'patient',
+               createdAt: new Date()
+                  .toISOString(),
+               updatedAt: new Date()
+                  .toISOString(),
+               color: eventTypeConfig[request.type].color,
+               textColor: eventTypeConfig[request.type].textColor
+            };
 
-         // Add to storage
-         addEventToStorage(newEvent);
+            appointmentsToCreate.push(newEvent);
+         }
 
-         // Remove the booked slot from available slots
-         setAvailableSlots(prev => prev.filter(slot =>
-            !(slot.date === request.date &&
-              slot.time === request.time &&
-              slot.doctorId === request.doctorId &&
-              slot.type === request.type)
-         ));
+         // Add all appointments to storage
+         appointmentsToCreate.forEach(event => {
+            addEventToStorage(event);
+         });
+
+         // Remove the booked slots from available slots
+         setAvailableSlots(prev => prev.filter(slot => {
+            if (!request.isRecurring) {
+               return !(slot.date === request.date &&
+                       slot.time === request.time &&
+                       slot.doctorId === request.doctorId &&
+                       slot.type === request.type);
+            }
+            
+            // For recurring appointments, remove all matching slots
+            return !appointmentsToCreate.some(apt => {
+               const aptDate = new Date(apt.startTime)
+                  .toISOString()
+                  .split('T')[0];
+               const aptTime = new Date(apt.startTime)
+                  .toLocaleTimeString('es-ES', { 
+                     hour: '2-digit', 
+                     minute: '2-digit' 
+                  });
+               return slot.date === aptDate &&
+                      slot.time === aptTime &&
+                      slot.doctorId === request.doctorId &&
+                      slot.type === request.type;
+            });
+         }));
 
          setBookingStatus('success');
          return true;
@@ -287,6 +388,52 @@ export function useAppointmentScheduling () {
       })[0];
    };
 
+   // Search available slots by criteria
+   const searchAvailableSlots = (criteria: {
+      searchType: 'day' | 'time';
+      value: string; // day of week (0-6) or time (HH:MM)
+      doctorId?: string;
+      appointmentType?: string;
+      dateRange?: { start: Date; end: Date };
+   }) => {
+      const { searchType, value, doctorId, appointmentType, dateRange } = criteria;
+      
+      let filteredSlots = availableSlots.filter(slot => {
+         // Filter by doctor if specified
+         if (doctorId && slot.doctorId !== doctorId) return false;
+         
+         // Filter by appointment type if specified
+         if (appointmentType && slot.type !== appointmentType) return false;
+         
+         // Filter by date range if specified
+         if (dateRange) {
+            const slotDate = new Date(slot.date);
+            if (slotDate < dateRange.start || slotDate > dateRange.end) return false;
+         }
+         
+         return true;
+      });
+      
+      if (searchType === 'day') {
+         // Filter by day of week (0 = Sunday, 1 = Monday, etc.)
+         const targetDay = parseInt(value);
+         filteredSlots = filteredSlots.filter(slot => {
+            const slotDay = new Date(slot.date).getDay();
+            return slotDay === targetDay;
+         });
+      } else if (searchType === 'time') {
+         // Filter by specific time
+         filteredSlots = filteredSlots.filter(slot => slot.time === value);
+      }
+      
+      // Sort by date and time
+      return filteredSlots.sort((a, b) => {
+         const dateA = new Date(`${a.date}T${a.time}`);
+         const dateB = new Date(`${b.date}T${b.time}`);
+         return dateA.getTime() - dateB.getTime();
+      });
+   };
+
    // Reset booking status
    const resetBookingStatus = () => {
       setBookingStatus('idle');
@@ -297,21 +444,22 @@ export function useAppointmentScheduling () {
       loadAvailableSlots();
    }, []);
 
-   return {
+      return {
       // State
       availableSlots,
       isLoading,
       bookingStatus,
-
+      
       // Actions
       loadAvailableSlots,
       bookAppointment,
       resetBookingStatus,
-
+      
       // Helpers
       getSlotsByDateAndDoctor,
       getNextAvailableSlot,
-
+      searchAvailableSlots,
+      
       // Constants
       doctors: DOCTORS,
       appointmentTypes: APPOINTMENT_TYPES
