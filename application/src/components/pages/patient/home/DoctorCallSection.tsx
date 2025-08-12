@@ -1,7 +1,7 @@
 "use client"
 
 import {
-   Phone, Video, MessageSquare, Clock, CheckCircle, AlertCircle, User
+   Phone, Video, MessageSquare, CheckCircle, AlertCircle, User
 } from 'lucide-react';
 import { mockPatient } from '@/data/mockData/patientData';
 import { useState } from 'react';
@@ -56,10 +56,26 @@ export default function DoctorCallSection () {
    ];
 
    const priorityLevels = [
-      { value: 'low', label: 'Consulta General', color: 'text-green-600' },
-      { value: 'medium', label: 'Importante', color: 'text-orange-600' },
-      { value: 'high', label: 'Urgente', color: 'text-red-600' }
-   ];
+      {
+         value: 'low',
+         label: 'Consulta General',
+         color: 'text-green-600'
+      },
+      {
+         value: 'medium',
+         label: 'Importante',
+         color: 'text-orange-600'
+      },
+      {
+         value: 'high',
+         label: 'Urgente',
+         color: 'text-red-600'
+      }
+   ] as const satisfies ReadonlyArray<{
+      value: CallRequest['priority'];
+      label: string;
+      color: string;
+   }>;
 
    const handleCallRequest = async () => {
       setIsRequesting(true);
@@ -108,7 +124,7 @@ export default function DoctorCallSection () {
                         <div className="top-0 right-0 absolute bg-green-400 border-2 border-white rounded-full w-4 h-4" />
                      )}
                   </div>
-                  
+
                   <div>
                      <h3 className="font-semibold text-brand-800">{doctor.name}</h3>
                      <p className="text-brand-600 text-sm">{doctor.specialty}</p>
@@ -136,7 +152,10 @@ export default function DoctorCallSection () {
                   <button
                      key={type.type}
                      type="button"
-                     onClick={() => setCallRequest(prev => ({ ...prev, type: type.type }))}
+                     onClick={() => setCallRequest(prev => ({
+                        ...prev,
+                        type: type.type
+                     }))}
                      className={`flex flex-col items-center gap-3 p-4 border rounded-xl transition-all duration-200 ${
                         callRequest.type === type.type
                            ? 'border-brand-300 bg-brand-50 text-brand-700'
@@ -165,7 +184,10 @@ export default function DoctorCallSection () {
                   <button
                      key={priority.value}
                      type="button"
-                     onClick={() => setCallRequest(prev => ({ ...prev, priority: priority.value as any }))}
+                     onClick={() => setCallRequest(prev => ({
+                        ...prev,
+                        priority: priority.value
+                     }))}
                      className={`flex items-center justify-center gap-2 p-3 border rounded-lg text-sm transition-all duration-200 ${
                         callRequest.priority === priority.value
                            ? 'border-brand-300 bg-brand-50 text-brand-700'
@@ -174,8 +196,9 @@ export default function DoctorCallSection () {
                   >
                      <div className={`w-2 h-2 rounded-full ${
                         priority.value === 'low' ? 'bg-green-400' :
-                        priority.value === 'medium' ? 'bg-orange-400' : 'bg-red-400'
-                     }`} />
+                           priority.value === 'medium' ? 'bg-orange-400' : 'bg-red-400'
+                     }`}
+                     />
                      <span className="font-medium">{priority.label}</span>
                   </button>
                ))}
@@ -189,7 +212,10 @@ export default function DoctorCallSection () {
             </label>
             <textarea
                value={callRequest.reason}
-               onChange={(e) => setCallRequest(prev => ({ ...prev, reason: e.target.value }))}
+               onChange={(e) => setCallRequest(prev => ({
+                  ...prev,
+                  reason: e.target.value
+               }))}
                placeholder="Describa brevemente el motivo de su consulta..."
                rows={3}
                className="px-4 py-3 border border-gray-200 focus:border-brand-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-100 w-full text-sm transition-all resize-none"
@@ -202,7 +228,11 @@ export default function DoctorCallSection () {
             {/* Emergency Button */}
             <button
                onClick={() => {
-                  setCallRequest({ type: 'voice', priority: 'high', reason: 'Emergencia médica' });
+                  setCallRequest({
+                     type: 'voice',
+                     priority: 'high',
+                     reason: 'Emergencia médica'
+                  });
                   handleCallRequest();
                }}
                className="flex justify-center items-center gap-2 bg-gradient-to-r from-red-500 hover:from-red-600 to-red-600 hover:to-red-700 hover:shadow-md px-6 py-3 rounded-lg font-medium text-white text-sm transition-all duration-200"

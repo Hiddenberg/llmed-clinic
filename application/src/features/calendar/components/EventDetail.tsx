@@ -1,13 +1,13 @@
 'use client';
 
-import { 
-   Droplets, 
-   Stethoscope, 
-   FileText, 
-   AlertTriangle, 
-   Wrench, 
-   Users, 
-   ClipboardCheck, 
+import {
+   Droplets,
+   Stethoscope,
+   FileText,
+   AlertTriangle,
+   Wrench,
+   Users,
+   ClipboardCheck,
    GraduationCap,
    Clock,
    MapPin,
@@ -19,11 +19,11 @@ import {
    XCircle,
    RotateCcw
 } from 'lucide-react';
-import { 
-   CalendarEvent, 
-   eventTypeConfig, 
-   statusConfig, 
-   priorityConfig, 
+import {
+   CalendarEvent,
+   eventTypeConfig,
+   statusConfig,
+   priorityConfig,
    formatEventTime,
    getEventDuration
 } from '@/data/mockData/calendarData';
@@ -47,21 +47,22 @@ const iconMap = {
    GraduationCap
 };
 
-export default function EventDetail({ 
-   event, 
-   userRole = 'admin', 
-   onEdit, 
-   onDelete, 
-   onStatusChange 
+export default function EventDetail ({
+   event,
+   userRole = 'admin',
+   onEdit,
+   onDelete,
+   onStatusChange
 }: EventDetailProps) {
    const typeConfig = eventTypeConfig[event.type];
    const statusConf = statusConfig[event.status];
    const priorityConf = priorityConfig[event.priority];
    const IconComponent = iconMap[typeConfig.icon as keyof typeof iconMap];
-   
+
    const duration = getEventDuration(event.startTime, event.endTime);
    const eventDate = new Date(event.startTime);
-   const isToday = eventDate.toDateString() === new Date().toDateString();
+   const isToday = eventDate.toDateString() === new Date()
+      .toDateString();
    const isPast = eventDate < new Date();
 
    const handleStatusChange = (newStatus: CalendarEvent['status']) => {
@@ -73,16 +74,22 @@ export default function EventDetail({
    return (
       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
          {/* Header */}
-         <div className="p-6 border-gray-200 border-b" style={{ backgroundColor: `${event.color}10` }}>
+         <div className="p-6 border-gray-200 border-b"
+            style={{
+               backgroundColor: `${event.color}10`
+            }}
+         >
             <div className="flex justify-between items-start gap-4">
                <div className="flex items-start gap-4">
-                  <div 
+                  <div
                      className="flex flex-shrink-0 justify-center items-center rounded-full w-16 h-16"
-                     style={{ backgroundColor: event.color }}
+                     style={{
+                        backgroundColor: event.color
+                     }}
                   >
                      <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  
+
                   <div className="flex-1 min-w-0">
                      <h1 className="mb-2 font-bold text-gray-900 text-2xl">
                         {event.title}
@@ -293,13 +300,15 @@ export default function EventDetail({
                         <div className="flex justify-between">
                            <span className="text-gray-500">Fecha de creación:</span>
                            <span className="text-gray-900">
-                              {new Date(event.createdAt).toLocaleDateString('es-ES')}
+                              {new Date(event.createdAt)
+                                 .toLocaleDateString('es-ES')}
                            </span>
                         </div>
                         <div className="flex justify-between">
                            <span className="text-gray-500">Última actualización:</span>
                            <span className="text-gray-900">
-                              {new Date(event.updatedAt).toLocaleDateString('es-ES')}
+                              {new Date(event.updatedAt)
+                                 .toLocaleDateString('es-ES')}
                            </span>
                         </div>
                      </div>

@@ -13,7 +13,31 @@ const eslintConfig = [
    ...compat.extends("next/core-web-vitals", "next/typescript"),
    {
       "rules": {
-         "indent": ["error", 3],
+         "indent": [
+            "error",
+            3,
+            {
+               "SwitchCase": 1,
+               "ignoredNodes": [
+                  "JSXElement",
+                  "JSXElement > *",
+                  "JSXAttribute",
+                  "JSXIdentifier",
+                  "JSXNamespacedName",
+                  "JSXMemberExpression",
+                  "JSXSpreadAttribute",
+                  "JSXExpressionContainer",
+                  "JSXOpeningElement",
+                  "JSXClosingElement",
+                  "JSXFragment",
+                  "JSXOpeningFragment",
+                  "JSXClosingFragment",
+                  "JSXText",
+                  "JSXEmptyExpression",
+                  "JSXSpreadChild"
+               ]
+            }
+         ],
          "space-before-blocks": ["error", "always"],
          "space-before-function-paren": ["error", "always"],
          "no-trailing-spaces": ["error", {

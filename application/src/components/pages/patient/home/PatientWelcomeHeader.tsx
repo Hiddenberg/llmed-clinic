@@ -45,7 +45,7 @@ export default function PatientWelcomeHeader () {
                            <Clock size={14} className="text-green-500 animate-pulse" />
                         </div>
                      </div>
-                     
+
                      <div className="space-y-2 text-gray-600 text-sm">
                         <div className="flex sm:flex-row flex-col sm:items-center gap-1 sm:gap-4">
                            <span className="font-medium">{mockPatient.age} años</span>
@@ -68,7 +68,7 @@ export default function PatientWelcomeHeader () {
                      <CheckCircle size={14} />
                      <span className="font-medium">Tratamiento Activo</span>
                   </div>
-                  
+
                   <div className="flex items-center gap-2 bg-blue-50 px-3 py-1.5 rounded-full text-blue-700 text-sm">
                      <Heart size={14} />
                      <span className="font-medium">Estado Estable</span>
@@ -88,7 +88,7 @@ export default function PatientWelcomeHeader () {
                         <p className="text-brand-600 text-xs">Mañana, 15 de Enero - 08:00 AM</p>
                      </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-2 bg-brand-100 px-3 py-1.5 rounded-full">
                      <div className="bg-brand-500 rounded-full w-2 h-2 animate-pulse" />
                      <span className="font-medium text-brand-700 text-xs">Hemodiálisis - Sala A-1</span>

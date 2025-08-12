@@ -1,19 +1,21 @@
 'use client';
 
-import { 
-   Droplets, 
-   Stethoscope, 
-   FileText, 
-   AlertTriangle, 
-   Wrench, 
-   Users, 
-   ClipboardCheck, 
+import {
+   Droplets,
+   Stethoscope,
+   FileText,
+   AlertTriangle,
+   Wrench,
+   Users,
+   ClipboardCheck,
    GraduationCap,
    Clock,
    MapPin,
    User
 } from 'lucide-react';
-import { CalendarEvent, eventTypeConfig, statusConfig, formatEventTime } from '@/data/mockData/calendarData';
+import {
+   CalendarEvent, eventTypeConfig, statusConfig, formatEventTime
+} from '@/data/mockData/calendarData';
 
 interface CalendarEventCardProps {
    event: CalendarEvent;
@@ -32,7 +34,9 @@ const iconMap = {
    GraduationCap
 };
 
-export default function CalendarEventCard({ event, isCompact = false, onClick }: CalendarEventCardProps) {
+export default function CalendarEventCard ({
+   event, isCompact = false, onClick
+}: CalendarEventCardProps) {
    const typeConfig = eventTypeConfig[event.type];
    const statusConf = statusConfig[event.status];
    const IconComponent = iconMap[typeConfig.icon as keyof typeof iconMap];
@@ -48,12 +52,17 @@ export default function CalendarEventCard({ event, isCompact = false, onClick }:
          <button
             onClick={handleClick}
             className="w-full p-2 text-left rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group"
-            style={{ borderLeftColor: event.color, borderLeftWidth: '4px' }}
+            style={{
+               borderLeftColor: event.color,
+               borderLeftWidth: '4px'
+            }}
          >
             <div className="flex items-center gap-2 min-w-0">
-               <div 
+               <div
                   className="flex items-center justify-center rounded-full w-6 h-6 flex-shrink-0"
-                  style={{ backgroundColor: event.color }}
+                  style={{
+                     backgroundColor: event.color
+                  }}
                >
                   <IconComponent className="w-3 h-3 text-white" />
                </div>
@@ -78,9 +87,11 @@ export default function CalendarEventCard({ event, isCompact = false, onClick }:
          {/* Header */}
          <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex items-center gap-3 min-w-0 flex-1">
-               <div 
+               <div
                   className="flex items-center justify-center rounded-full w-10 h-10 flex-shrink-0"
-                  style={{ backgroundColor: event.color }}
+                  style={{
+                     backgroundColor: event.color
+                  }}
                >
                   <IconComponent className="w-5 h-5 text-white" />
                </div>
@@ -120,10 +131,9 @@ export default function CalendarEventCard({ event, isCompact = false, onClick }:
                <div className="flex items-center gap-2 text-sm text-gray-600">
                   <User className="w-4 h-4" />
                   <span>
-                     {event.patientName && event.doctorName 
+                     {event.patientName && event.doctorName
                         ? `${event.patientName} - ${event.doctorName}`
-                        : event.patientName || event.doctorName
-                     }
+                        : event.patientName || event.doctorName}
                   </span>
                </div>
             )}
@@ -140,7 +150,8 @@ export default function CalendarEventCard({ event, isCompact = false, onClick }:
                <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full ${
                      event.priority === 'critical' ? 'bg-red-500' : 'bg-orange-500'
-                  }`} />
+                  }`}
+                  />
                   <span className="text-xs font-medium text-gray-600">
                      Prioridad {event.priority === 'critical' ? 'crítica' : 'alta'}
                   </span>

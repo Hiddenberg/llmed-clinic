@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { 
-   CalendarEvent, 
-   CalendarFilter, 
-   loadEventsFromStorage, 
+import {
+   useState, useEffect, useMemo
+} from 'react';
+import {
+   CalendarEvent,
+   CalendarFilter,
+   loadEventsFromStorage,
    saveEventsToStorage,
    getEventsForDate,
    getEventsForWeek,
@@ -21,7 +23,10 @@ interface UseCalendarProps {
    doctorId?: string;
 }
 
-export function useCalendar({ initialView = 'month', doctorId }: UseCalendarProps = {}) {
+export function useCalendar ({
+   initialView = 'month', doctorId
+}: UseCalendarProps = {
+}) {
    const [currentDate, setCurrentDate] = useState(new Date());
    const [view, setView] = useState<CalendarView>(initialView);
    const [events, setEvents] = useState<CalendarEvent[]>([]);
@@ -45,12 +50,12 @@ export function useCalendar({ initialView = 'month', doctorId }: UseCalendarProp
    // Get filtered events based on doctor and filters
    const filteredEvents = useMemo(() => {
       let eventList = events;
-      
+
       // Filter by doctor if specified
       if (doctorId) {
          eventList = getDoctorEvents(doctorId, eventList);
       }
-      
+
       // Apply additional filters
       return filterEvents(eventList, filters);
    }, [events, doctorId, filters]);
@@ -120,9 +125,14 @@ export function useCalendar({ initialView = 'month', doctorId }: UseCalendarProp
    };
 
    const updateEvent = (eventId: string, updatedEvent: Partial<CalendarEvent>) => {
-      const updatedEvents = events.map(event => 
-         event.id === eventId 
-            ? { ...event, ...updatedEvent, updatedAt: new Date().toISOString() }
+      const updatedEvents = events.map(event =>
+         event.id === eventId
+            ? {
+               ...event,
+               ...updatedEvent,
+               updatedAt: new Date()
+                  .toISOString()
+            }
             : event
       );
       setEvents(updatedEvents);
@@ -137,7 +147,10 @@ export function useCalendar({ initialView = 'month', doctorId }: UseCalendarProp
 
    // Filter management
    const updateFilters = (newFilters: Partial<CalendarFilter>) => {
-      setFilters(prev => ({ ...prev, ...newFilters }));
+      setFilters(prev => ({
+         ...prev,
+         ...newFilters
+      }));
    };
 
    const clearFilters = () => {
@@ -164,16 +177,25 @@ export function useCalendar({ initialView = 'month', doctorId }: UseCalendarProp
       const types = [...new Set(events.map(e => e.type))];
       const statuses = [...new Set(events.map(e => e.status))];
       const priorities = [...new Set(events.map(e => e.priority))];
-      const doctors = [...new Set(events.map(e => e.doctorId).filter(Boolean))] as string[];
-      const rooms = [...new Set(events.map(e => e.room).filter(Boolean))] as string[];
+      const doctors = [...new Set(events.map(e => e.doctorId)
+         .filter(Boolean))] as string[];
+      const rooms = [...new Set(events.map(e => e.room)
+         .filter(Boolean))] as string[];
 
-      return { types, statuses, priorities, doctors, rooms };
+      return {
+         types,
+         statuses,
+         priorities,
+         doctors,
+         rooms
+      };
    };
 
    // Get current view title
    const getViewTitle = () => {
-      const options: Intl.DateTimeFormatOptions = {};
-      
+      // const options: Intl.DateTimeFormatOptions = {
+      // };
+
       switch (view) {
          case 'day':
             return currentDate.toLocaleDateString('es-ES', {
@@ -187,12 +209,12 @@ export function useCalendar({ initialView = 'month', doctorId }: UseCalendarProp
             weekStart.setDate(currentDate.getDate() - currentDate.getDay());
             const weekEnd = new Date(weekStart);
             weekEnd.setDate(weekStart.getDate() + 6);
-            
-            return `${weekStart.toLocaleDateString('es-ES', { 
-               day: 'numeric', 
-               month: 'short' 
-            })} - ${weekEnd.toLocaleDateString('es-ES', { 
-               day: 'numeric', 
+
+            return `${weekStart.toLocaleDateString('es-ES', {
+               day: 'numeric',
+               month: 'short'
+            })} - ${weekEnd.toLocaleDateString('es-ES', {
+               day: 'numeric',
                month: 'short',
                year: 'numeric'
             })}`;

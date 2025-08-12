@@ -7,32 +7,41 @@ import { getFilteredStaffAttendance } from '@/data/mockData/reportsData';
 
 export default function StaffAttendanceChart ({ selectedPeriod }: { selectedPeriod: 'week' | 'month' | 'quarter' | 'year' }) {
    // Format data for the chart
-   const chartData = getFilteredStaffAttendance(selectedPeriod).map(day => ({
-   date: new Date(day.date).toLocaleDateString('es-ES', { 
-      weekday: 'short', 
-      day: 'numeric' 
-   }),
-   'Doctores': day.doctors,
-   'Enfermeras': day.nurses,
-   'Técnicos': day.technicians,
-   'Total': day.totalStaff
-   }));
+   const chartData = getFilteredStaffAttendance(selectedPeriod)
+      .map(day => ({
+         date: new Date(day.date)
+            .toLocaleDateString('es-ES', {
+               weekday: 'short',
+               day: 'numeric'
+            }),
+         'Doctores': day.doctors,
+         'Enfermeras': day.nurses,
+         'Técnicos': day.technicians,
+         'Total': day.totalStaff
+      }));
 
    // Custom tooltip
-   function CustomTooltip ({ active, payload, label }: any) {
-   if (active && payload && payload.length) {
-      return (
-         <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
-            <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
-            {payload.map((entry: any, index: number) => (
-               <p key={index} className="text-sm" style={{ color: entry.color }}>
-                  {`${entry.dataKey}: ${entry.value} personas`}
-               </p>
-            ))}
-         </div>
-      );
-   }
-   return null;
+   function CustomTooltip ({
+      active, payload, label
+   }: any) {
+      if (active && payload && payload.length) {
+         return (
+            <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
+               <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
+               {payload.map((entry: any, index: number) => (
+                  <p key={index}
+                     className="text-sm"
+                     style={{
+                        color: entry.color
+                     }}
+                  >
+                     {`${entry.dataKey}: ${entry.value} personas`}
+                  </p>
+               ))}
+            </div>
+         );
+      }
+      return null;
    }
 
    const averageStaff = Math.round(
@@ -64,42 +73,75 @@ export default function StaffAttendanceChart ({ selectedPeriod }: { selectedPeri
                   }}
                >
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                     dataKey="date" 
+                  <XAxis
+                     dataKey="date"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
-                  <YAxis 
+                  <YAxis
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: '12px' }} />
-                  <Line 
-                     type="monotone" 
-                     dataKey="Doctores" 
-                     stroke="#3B82F6" 
-                     strokeWidth={3}
-                     dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
-                     activeDot={{ r: 6, stroke: '#3B82F6', strokeWidth: 2 }}
+                  <Legend wrapperStyle={{
+                     fontSize: '12px'
+                  }}
                   />
-                  <Line 
-                     type="monotone" 
-                     dataKey="Enfermeras" 
-                     stroke="#10B981" 
+                  <Line
+                     type="monotone"
+                     dataKey="Doctores"
+                     stroke="#3B82F6"
                      strokeWidth={3}
-                     dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
-                     activeDot={{ r: 6, stroke: '#10B981', strokeWidth: 2 }}
+                     dot={{
+                        fill: '#3B82F6',
+                        strokeWidth: 2,
+                        r: 4
+                     }}
+                     activeDot={{
+                        r: 6,
+                        stroke: '#3B82F6',
+                        strokeWidth: 2
+                     }}
                   />
-                  <Line 
-                     type="monotone" 
-                     dataKey="Técnicos" 
-                     stroke="#F59E0B" 
+                  <Line
+                     type="monotone"
+                     dataKey="Enfermeras"
+                     stroke="#10B981"
                      strokeWidth={3}
-                     dot={{ fill: '#F59E0B', strokeWidth: 2, r: 4 }}
-                     activeDot={{ r: 6, stroke: '#F59E0B', strokeWidth: 2 }}
+                     dot={{
+                        fill: '#10B981',
+                        strokeWidth: 2,
+                        r: 4
+                     }}
+                     activeDot={{
+                        r: 6,
+                        stroke: '#10B981',
+                        strokeWidth: 2
+                     }}
+                  />
+                  <Line
+                     type="monotone"
+                     dataKey="Técnicos"
+                     stroke="#F59E0B"
+                     strokeWidth={3}
+                     dot={{
+                        fill: '#F59E0B',
+                        strokeWidth: 2,
+                        r: 4
+                     }}
+                     activeDot={{
+                        r: 6,
+                        stroke: '#F59E0B',
+                        strokeWidth: 2
+                     }}
                   />
                </LineChart>
             </ResponsiveContainer>

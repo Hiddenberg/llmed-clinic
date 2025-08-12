@@ -1,6 +1,8 @@
 'use client';
 
-import { ChevronLeft, ChevronRight, Calendar, Filter } from 'lucide-react';
+import {
+   ChevronLeft, ChevronRight, Calendar, Filter
+} from 'lucide-react';
 import { CalendarView } from '../hooks/useCalendar';
 
 interface CalendarHeaderProps {
@@ -14,7 +16,7 @@ interface CalendarHeaderProps {
    hasActiveFilters: boolean;
 }
 
-export default function CalendarHeader({
+export default function CalendarHeader ({
    title,
    view,
    onViewChange,
@@ -25,9 +27,18 @@ export default function CalendarHeader({
    hasActiveFilters
 }: CalendarHeaderProps) {
    const viewButtons: { value: CalendarView; label: string }[] = [
-      { value: 'month', label: 'Mes' },
-      { value: 'week', label: 'Semana' },
-      { value: 'day', label: 'Día' }
+      {
+         value: 'month',
+         label: 'Mes'
+      },
+      {
+         value: 'week',
+         label: 'Semana'
+      },
+      {
+         value: 'day',
+         label: 'Día'
+      }
    ];
 
    return (
@@ -42,7 +53,7 @@ export default function CalendarHeader({
                >
                   <ChevronLeft className="w-5 h-5 text-gray-600" />
                </button>
-               
+
                <button
                   onClick={onNext}
                   className="flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-colors w-10 h-10"

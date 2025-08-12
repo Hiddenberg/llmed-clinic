@@ -1,8 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Check, RotateCcw } from 'lucide-react';
-import { CalendarFilter, eventTypeConfig, statusConfig, priorityConfig } from '@/data/mockData/calendarData';
+import {
+   X, Check, RotateCcw
+} from 'lucide-react';
+import {
+   CalendarFilter, eventTypeConfig, statusConfig, priorityConfig
+} from '@/data/mockData/calendarData';
 
 interface CalendarFiltersProps {
    filters: Partial<CalendarFilter>;
@@ -18,7 +22,7 @@ interface CalendarFiltersProps {
    };
 }
 
-export default function CalendarFilters({
+export default function CalendarFilters ({
    filters,
    onFiltersChange,
    onClearFilters,
@@ -32,12 +36,12 @@ export default function CalendarFilters({
       const newValues = currentValues.includes(value)
          ? currentValues.filter(v => v !== value)
          : [...currentValues, value];
-      
+
       const updatedFilters = {
          ...localFilters,
          [category]: newValues
       };
-      
+
       setLocalFilters(updatedFilters);
       onFiltersChange(updatedFilters);
    };
@@ -57,7 +61,8 @@ export default function CalendarFilters({
       return (localFilters[category] || []).includes(value);
    };
 
-   const hasActiveFilters = Object.values(localFilters).some(arr => arr && arr.length > 0);
+   const hasActiveFilters = Object.values(localFilters)
+      .some(arr => arr && arr.length > 0);
 
    return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
@@ -93,7 +98,7 @@ export default function CalendarFilters({
                      {filterOptions.types.map((type) => {
                         const config = eventTypeConfig[type as keyof typeof eventTypeConfig];
                         const isActive = isFilterActive('types', type);
-                        
+
                         return (
                            <button
                               key={type}
@@ -104,9 +109,11 @@ export default function CalendarFilters({
                                     : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                               }`}
                            >
-                              <div 
+                              <div
                                  className="w-3 h-3 rounded-full flex-shrink-0"
-                                 style={{ backgroundColor: config?.color || '#6b7280' }}
+                                 style={{
+                                    backgroundColor: config?.color || '#6b7280'
+                                 }}
                               />
                               <span className="text-sm font-medium truncate">
                                  {config?.label || type}
@@ -125,7 +132,7 @@ export default function CalendarFilters({
                      {filterOptions.statuses.map((status) => {
                         const config = statusConfig[status as keyof typeof statusConfig];
                         const isActive = isFilterActive('statuses', status);
-                        
+
                         return (
                            <button
                               key={status}
@@ -153,7 +160,7 @@ export default function CalendarFilters({
                      {filterOptions.priorities.map((priority) => {
                         const config = priorityConfig[priority as keyof typeof priorityConfig];
                         const isActive = isFilterActive('priorities', priority);
-                        
+
                         return (
                            <button
                               key={priority}
@@ -164,9 +171,11 @@ export default function CalendarFilters({
                                     : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                               }`}
                            >
-                              <div 
+                              <div
                                  className="w-3 h-3 rounded-full flex-shrink-0"
-                                 style={{ backgroundColor: config?.color || '#6b7280' }}
+                                 style={{
+                                    backgroundColor: config?.color || '#6b7280'
+                                 }}
                               />
                               <span className="text-sm font-medium">
                                  {config?.label || priority}
@@ -185,7 +194,7 @@ export default function CalendarFilters({
                      <div className="space-y-2">
                         {filterOptions.doctors.map((doctorId) => {
                            const isActive = isFilterActive('doctors', doctorId);
-                           
+
                            return (
                               <button
                                  key={doctorId}
@@ -214,7 +223,7 @@ export default function CalendarFilters({
                      <div className="grid grid-cols-2 gap-3">
                         {filterOptions.rooms.map((room) => {
                            const isActive = isFilterActive('rooms', room);
-                           
+
                            return (
                               <button
                                  key={room}

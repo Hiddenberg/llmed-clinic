@@ -1,6 +1,8 @@
 'use client';
 
-import { CalendarEvent, getEventsForDate, formatEventTime } from '@/data/mockData/calendarData';
+import {
+   CalendarEvent, getEventsForDate, formatEventTime
+} from '@/data/mockData/calendarData';
 import CalendarEventCard from './CalendarEventCard';
 
 interface DayViewProps {
@@ -9,12 +11,16 @@ interface DayViewProps {
    onEventClick: (event: CalendarEvent) => void;
 }
 
-export default function DayView({ currentDate, events, onEventClick }: DayViewProps) {
+export default function DayView ({
+   currentDate, events, onEventClick
+}: DayViewProps) {
    const dayEvents = getEventsForDate(currentDate, events);
-   
+
    // Sort events by start time
-   const sortedEvents = [...dayEvents].sort((a, b) => 
-      new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
+   const sortedEvents = [...dayEvents].sort((a, b) =>
+      new Date(a.startTime)
+         .getTime() - new Date(b.startTime)
+         .getTime()
    );
 
    const today = new Date();
@@ -23,7 +29,8 @@ export default function DayView({ currentDate, events, onEventClick }: DayViewPr
    // Generate time slots (6 AM to 10 PM)
    const timeSlots: string[] = [];
    for (let hour = 6; hour <= 22; hour++) {
-      timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
+      timeSlots.push(`${hour.toString()
+         .padStart(2, '0')}:00`);
    }
 
    const getEventPosition = (event: CalendarEvent) => {
@@ -31,12 +38,15 @@ export default function DayView({ currentDate, events, onEventClick }: DayViewPr
       const endTime = new Date(event.endTime);
       const startHour = startTime.getHours() + startTime.getMinutes() / 60;
       const duration = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60); // hours
-      
+
       // Calculate position relative to 6 AM start
       const top = Math.max(0, (startHour - 6) * 60); // 60px per hour
       const height = Math.max(30, duration * 60); // minimum 30px height
-      
-      return { top, height };
+
+      return {
+         top,
+         height
+      };
    };
 
    return (
@@ -96,14 +106,23 @@ export default function DayView({ currentDate, events, onEventClick }: DayViewPr
                         <div className="absolute left-16 top-0 w-px bg-gray-200 h-full ml-4" />
 
                         {/* Events positioned on timeline */}
-                        <div className="ml-24 relative" style={{ height: `${timeSlots.length * 60}px` }}>
+                        <div className="ml-24 relative"
+                           style={{
+                              height: `${timeSlots.length * 60}px`
+                           }}
+                        >
                            {sortedEvents.map((event) => {
-                              const { top, height } = getEventPosition(event);
+                              const {
+                                 top, height
+                              } = getEventPosition(event);
                               return (
                                  <div
                                     key={event.id}
                                     className="absolute left-0 right-0 pr-4"
-                                    style={{ top: `${top}px`, height: `${height}px` }}
+                                    style={{
+                                       top: `${top}px`,
+                                       height: `${height}px`
+                                    }}
                                  >
                                     <CalendarEventCard
                                        event={event}

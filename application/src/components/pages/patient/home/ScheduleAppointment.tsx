@@ -1,7 +1,7 @@
 "use client"
 
 import {
-   Calendar, Clock, User, MessageSquare, Send, CheckCircle
+   Calendar, Clock, MessageSquare, Send, CheckCircle
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -23,17 +23,49 @@ export default function ScheduleAppointment () {
    const [isSubmitted, setIsSubmitted] = useState(false);
 
    const appointmentTypes = [
-      { value: 'hemodialysis', label: 'Hemodiálisis', icon: '🩸' },
-      { value: 'consultation', label: 'Consulta General', icon: '👨‍⚕️' },
-      { value: 'follow-up', label: 'Seguimiento', icon: '📋' },
-      { value: 'lab-work', label: 'Exámenes de Laboratorio', icon: '🧪' }
-   ];
+      {
+         value: 'hemodialysis',
+         label: 'Hemodiálisis',
+         icon: '🩸'
+      },
+      {
+         value: 'consultation',
+         label: 'Consulta General',
+         icon: '👨‍⚕️'
+      },
+      {
+         value: 'follow-up',
+         label: 'Seguimiento',
+         icon: '📋'
+      },
+      {
+         value: 'lab-work',
+         label: 'Exámenes de Laboratorio',
+         icon: '🧪'
+      }
+   ] as const satisfies ReadonlyArray<{
+      value: AppointmentRequest['type'];
+      label: string;
+      icon: string;
+   }>;
 
    const timePreferences = [
-      { value: 'morning', label: 'Mañana (8:00 - 12:00)' },
-      { value: 'afternoon', label: 'Tarde (13:00 - 17:00)' },
-      { value: 'any', label: 'Cualquier hora' }
-   ];
+      {
+         value: 'morning',
+         label: 'Mañana (8:00 - 12:00)'
+      },
+      {
+         value: 'afternoon',
+         label: 'Tarde (13:00 - 17:00)'
+      },
+      {
+         value: 'any',
+         label: 'Cualquier hora'
+      }
+   ] as const satisfies ReadonlyArray<{
+      value: AppointmentRequest['preferredTime'];
+      label: string;
+   }>;
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -82,7 +114,10 @@ export default function ScheduleAppointment () {
                   <button
                      key={type.value}
                      type="button"
-                     onClick={() => setAppointmentRequest(prev => ({ ...prev, type: type.value as any }))}
+                     onClick={() => setAppointmentRequest(prev => ({
+                        ...prev,
+                        type: type.value
+                     }))}
                      className={`flex items-center gap-3 p-3 border rounded-lg text-left transition-all duration-200 ${
                         appointmentRequest.type === type.value
                            ? 'border-brand-300 bg-brand-50 text-brand-700'
@@ -108,8 +143,13 @@ export default function ScheduleAppointment () {
                   <input
                      type="date"
                      value={appointmentRequest.preferredDate}
-                     onChange={(e) => setAppointmentRequest(prev => ({ ...prev, preferredDate: e.target.value }))}
-                     min={new Date().toISOString().split('T')[0]}
+                     onChange={(e) => setAppointmentRequest(prev => ({
+                        ...prev,
+                        preferredDate: e.target.value
+                     }))}
+                     min={new Date()
+                        .toISOString()
+                        .split('T')[0]}
                      className="py-2 pr-4 pl-10 border border-gray-200 focus:border-brand-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-100 w-full text-sm transition-all"
                      required
                   />
@@ -125,7 +165,10 @@ export default function ScheduleAppointment () {
                   <Clock size={16} className="top-3 left-3 absolute text-gray-400" />
                   <select
                      value={appointmentRequest.preferredTime}
-                     onChange={(e) => setAppointmentRequest(prev => ({ ...prev, preferredTime: e.target.value as any }))}
+                     onChange={(e) => setAppointmentRequest(prev => ({
+                        ...prev,
+                        preferredTime: e.target.value as AppointmentRequest['preferredTime']
+                     }))}
                      className="py-2 pr-4 pl-10 border border-gray-200 focus:border-brand-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-100 w-full text-sm transition-all appearance-none"
                   >
                      {timePreferences.map((time) => (
@@ -147,7 +190,10 @@ export default function ScheduleAppointment () {
                <MessageSquare size={16} className="top-3 left-3 absolute text-gray-400" />
                <textarea
                   value={appointmentRequest.reason}
-                  onChange={(e) => setAppointmentRequest(prev => ({ ...prev, reason: e.target.value }))}
+                  onChange={(e) => setAppointmentRequest(prev => ({
+                     ...prev,
+                     reason: e.target.value
+                  }))}
                   placeholder="Describa brevemente el motivo de su cita..."
                   rows={3}
                   className="py-2 pr-4 pl-10 border border-gray-200 focus:border-brand-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-100 w-full text-sm transition-all resize-none"

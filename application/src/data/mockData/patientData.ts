@@ -132,7 +132,10 @@ export const mockRecentVitalSigns: VitalSign[] = [
    {
       id: '1',
       date: '2024-01-13',
-      bloodPressure: { systolic: 140, diastolic: 85 },
+      bloodPressure: {
+         systolic: 140,
+         diastolic: 85
+      },
       heartRate: 72,
       weight: 68.5,
       temperature: 36.7,
@@ -141,7 +144,10 @@ export const mockRecentVitalSigns: VitalSign[] = [
    {
       id: '2',
       date: '2024-01-11',
-      bloodPressure: { systolic: 135, diastolic: 82 },
+      bloodPressure: {
+         systolic: 135,
+         diastolic: 82
+      },
       heartRate: 75,
       weight: 69.2,
       temperature: 36.5,
@@ -150,7 +156,10 @@ export const mockRecentVitalSigns: VitalSign[] = [
    {
       id: '3',
       date: '2024-01-09',
-      bloodPressure: { systolic: 142, diastolic: 88 },
+      bloodPressure: {
+         systolic: 142,
+         diastolic: 88
+      },
       heartRate: 78,
       weight: 69.8,
       temperature: 36.8,

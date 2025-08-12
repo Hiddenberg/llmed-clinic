@@ -74,7 +74,7 @@ export default function InterfaceNavigationBar () {
                <nav className="flex items-center gap-2">
                   {navigationItems.map((item) => {
                      const isActive = currentInterface === item.key;
-                     
+
                      return (
                         <Link
                            key={item.key}
@@ -90,7 +90,8 @@ export default function InterfaceNavigationBar () {
                               isActive
                                  ? 'bg-white/20 text-white'
                                  : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
-                           }`}>
+                           }`}
+                           >
                               <item.icon size={16} />
                            </div>
 
@@ -98,12 +99,14 @@ export default function InterfaceNavigationBar () {
                            <div className="hidden sm:block">
                               <p className={`font-medium text-sm leading-tight ${
                                  isActive ? 'text-white' : 'text-gray-700 group-hover:text-gray-800'
-                              }`}>
+                              }`}
+                              >
                                  {item.label}
                               </p>
                               <p className={`text-xs leading-tight ${
                                  isActive ? 'text-white/80' : 'text-gray-500 group-hover:text-gray-600'
-                              }`}>
+                              }`}
+                              >
                                  {item.description}
                               </p>
                            </div>

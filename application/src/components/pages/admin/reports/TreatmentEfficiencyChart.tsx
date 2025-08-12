@@ -7,31 +7,40 @@ import { getFilteredTreatmentEfficiency } from '@/data/mockData/reportsData';
 
 export default function TreatmentEfficiencyChart ({ selectedPeriod }: { selectedPeriod: 'week' | 'month' | 'quarter' | 'year' }) {
    // Format data for the chart
-   const chartData = getFilteredTreatmentEfficiency(selectedPeriod).map(day => ({
-   date: new Date(day.date).toLocaleDateString('es-ES', { 
-      weekday: 'short', 
-      day: 'numeric' 
-   }),
-   'Eficiencia (%)': day.averageEfficiency,
-   'Duración (min)': day.averageSessionDuration,
-   'Complicaciones (%)': day.complicationRate
-   }));
+   const chartData = getFilteredTreatmentEfficiency(selectedPeriod)
+      .map(day => ({
+         date: new Date(day.date)
+            .toLocaleDateString('es-ES', {
+               weekday: 'short',
+               day: 'numeric'
+            }),
+         'Eficiencia (%)': day.averageEfficiency,
+         'Duración (min)': day.averageSessionDuration,
+         'Complicaciones (%)': day.complicationRate
+      }));
 
    // Custom tooltip
-   function CustomTooltip ({ active, payload, label }: any) {
-   if (active && payload && payload.length) {
-      return (
-         <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
-            <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
-            {payload.map((entry: any, index: number) => (
-               <p key={index} className="text-sm" style={{ color: entry.color }}>
-                  {`${entry.dataKey}: ${entry.value}${entry.dataKey.includes('%') ? '%' : entry.dataKey.includes('min') ? ' min' : ''}`}
-               </p>
-            ))}
-         </div>
-      );
-   }
-   return null;
+   function CustomTooltip ({
+      active, payload, label
+   }: any) {
+      if (active && payload && payload.length) {
+         return (
+            <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
+               <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
+               {payload.map((entry: any, index: number) => (
+                  <p key={index}
+                     className="text-sm"
+                     style={{
+                        color: entry.color
+                     }}
+                  >
+                     {`${entry.dataKey}: ${entry.value}${entry.dataKey.includes('%') ? '%' : entry.dataKey.includes('min') ? ' min' : ''}`}
+                  </p>
+               ))}
+            </div>
+         );
+      }
+      return null;
    }
 
    const averageEfficiency = Math.round(
@@ -63,52 +72,80 @@ export default function TreatmentEfficiencyChart ({ selectedPeriod }: { selected
                   }}
                >
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                     dataKey="date" 
+                  <XAxis
+                     dataKey="date"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
-                  <YAxis 
+                  <YAxis
                      yAxisId="left"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
-                  <YAxis 
+                  <YAxis
                      yAxisId="right"
                      orientation="right"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: '12px' }} />
-                  <Bar 
+                  <Legend wrapperStyle={{
+                     fontSize: '12px'
+                  }}
+                  />
+                  <Bar
                      yAxisId="right"
-                     dataKey="Duración (min)" 
-                     fill="#E5E7EB" 
+                     dataKey="Duración (min)"
+                     fill="#E5E7EB"
                      opacity={0.6}
                      radius={[2, 2, 0, 0]}
                   />
-                  <Line 
+                  <Line
                      yAxisId="left"
-                     type="monotone" 
-                     dataKey="Eficiencia (%)" 
-                     stroke="#8B5CF6" 
+                     type="monotone"
+                     dataKey="Eficiencia (%)"
+                     stroke="#8B5CF6"
                      strokeWidth={3}
-                     dot={{ fill: '#8B5CF6', strokeWidth: 2, r: 4 }}
-                     activeDot={{ r: 6, stroke: '#8B5CF6', strokeWidth: 2 }}
+                     dot={{
+                        fill: '#8B5CF6',
+                        strokeWidth: 2,
+                        r: 4
+                     }}
+                     activeDot={{
+                        r: 6,
+                        stroke: '#8B5CF6',
+                        strokeWidth: 2
+                     }}
                   />
-                  <Line 
+                  <Line
                      yAxisId="left"
-                     type="monotone" 
-                     dataKey="Complicaciones (%)" 
-                     stroke="#EF4444" 
+                     type="monotone"
+                     dataKey="Complicaciones (%)"
+                     stroke="#EF4444"
                      strokeWidth={2}
                      strokeDasharray="5 5"
-                     dot={{ fill: '#EF4444', strokeWidth: 2, r: 3 }}
-                     activeDot={{ r: 5, stroke: '#EF4444', strokeWidth: 2 }}
+                     dot={{
+                        fill: '#EF4444',
+                        strokeWidth: 2,
+                        r: 3
+                     }}
+                     activeDot={{
+                        r: 5,
+                        stroke: '#EF4444',
+                        strokeWidth: 2
+                     }}
                   />
                </ComposedChart>
             </ResponsiveContainer>

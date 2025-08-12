@@ -16,7 +16,9 @@ export default function MonthlyOverviewChart ({ selectedPeriod }: { selectedPeri
    }));
 
    // Custom tooltip
-   function CustomTooltip ({ active, payload, label }: any) {
+   function CustomTooltip ({
+      active, payload, label
+   }: any) {
       if (active && payload && payload.length) {
          return (
             <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
@@ -24,16 +26,21 @@ export default function MonthlyOverviewChart ({ selectedPeriod }: { selectedPeri
                {payload.map((entry: any, index: number) => {
                   let value = entry.value;
                   let suffix = '';
-                  
+
                   if (entry.dataKey === 'Satisfacción') {
                      value = (value / 20).toFixed(1);
                      suffix = '/5';
                   } else if (entry.dataKey === 'Utilización Staff (%)') {
                      suffix = '%';
                   }
-                  
+
                   return (
-                     <p key={index} className="text-sm" style={{ color: entry.color }}>
+                     <p key={index}
+                        className="text-sm"
+                        style={{
+                           color: entry.color
+                        }}
+                     >
                         {`${entry.dataKey.replace(' (%)', '')}: ${value}${suffix}`}
                      </p>
                   );
@@ -57,7 +64,8 @@ export default function MonthlyOverviewChart ({ selectedPeriod }: { selectedPeri
             </div>
             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm ${
                growth > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-            }`}>
+            }`}
+            >
                <div className={`rounded-full w-2 h-2 ${growth > 0 ? 'bg-green-400' : 'bg-red-400'}`} />
                <span className="font-medium">{growth > 0 ? '+' : ''}{growth.toFixed(1)}% pacientes</span>
             </div>
@@ -89,19 +97,28 @@ export default function MonthlyOverviewChart ({ selectedPeriod }: { selectedPeri
                      </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                     dataKey="month" 
+                  <XAxis
+                     dataKey="month"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
-                  <YAxis 
+                  <YAxis
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: '12px' }} />
+                  <Legend wrapperStyle={{
+                     fontSize: '12px'
+                  }}
+                  />
                   <Area
                      type="monotone"
                      dataKey="Pacientes"

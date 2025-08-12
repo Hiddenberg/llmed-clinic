@@ -220,7 +220,7 @@ export const getDoctorStats = (): DoctorStats => {
    const completedToday = mockTodayAppointments.filter(apt => apt.status === 'completed').length;
    const cancelledToday = mockTodayAppointments.filter(apt => apt.status === 'cancelled').length;
    const patientsImproving = mockPatientEvolution.filter(patient => patient.trend === 'improving').length;
-   const alertsActive = mockDoctorActivities.filter(activity => 
+   const alertsActive = mockDoctorActivities.filter(activity =>
       activity.priority === 'high' && activity.actionRequired
    ).length;
 

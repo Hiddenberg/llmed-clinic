@@ -324,23 +324,63 @@ export const mockMonthlyOverview: MonthlyOverview[] = [
 
 // Patient demographics
 export const mockPatientDemographics: PatientDemographics[] = [
-   { ageGroup: '18-30', count: 45, percentage: 8.2 },
-   { ageGroup: '31-45', count: 89, percentage: 16.1 },
-   { ageGroup: '46-60', count: 167, percentage: 30.3 },
-   { ageGroup: '61-75', count: 189, percentage: 34.2 },
-   { ageGroup: '76+', count: 62, percentage: 11.2 }
+   {
+      ageGroup: '18-30',
+      count: 45,
+      percentage: 8.2
+   },
+   {
+      ageGroup: '31-45',
+      count: 89,
+      percentage: 16.1
+   },
+   {
+      ageGroup: '46-60',
+      count: 167,
+      percentage: 30.3
+   },
+   {
+      ageGroup: '61-75',
+      count: 189,
+      percentage: 34.2
+   },
+   {
+      ageGroup: '76+',
+      count: 62,
+      percentage: 11.2
+   }
 ];
 
 // Treatment outcomes
 export const mockTreatmentOutcomes: TreatmentOutcomes[] = [
-   { outcome: 'Excelente', count: 312, percentage: 56.5, color: '#10B981' },
-   { outcome: 'Bueno', count: 178, percentage: 32.2, color: '#3B82F6' },
-   { outcome: 'Regular', count: 45, percentage: 8.1, color: '#F59E0B' },
-   { outcome: 'Complicaciones', count: 17, percentage: 3.1, color: '#EF4444' }
+   {
+      outcome: 'Excelente',
+      count: 312,
+      percentage: 56.5,
+      color: '#10B981'
+   },
+   {
+      outcome: 'Bueno',
+      count: 178,
+      percentage: 32.2,
+      color: '#3B82F6'
+   },
+   {
+      outcome: 'Regular',
+      count: 45,
+      percentage: 8.1,
+      color: '#F59E0B'
+   },
+   {
+      outcome: 'Complicaciones',
+      count: 17,
+      percentage: 3.1,
+      color: '#EF4444'
+   }
 ];
 
 // Data filtering functions
-export function getFilteredDailyPatientStats(period: 'week' | 'month' | 'quarter' | 'year') {
+export function getFilteredDailyPatientStats (period: 'week' | 'month' | 'quarter' | 'year') {
    const multiplier = period === 'week' ? 1 : period === 'month' ? 4 : period === 'quarter' ? 12 : 52;
    return mockDailyPatientStats.map(day => ({
       ...day,
@@ -353,7 +393,7 @@ export function getFilteredDailyPatientStats(period: 'week' | 'month' | 'quarter
    }));
 }
 
-export function getFilteredStaffAttendance(period: 'week' | 'month' | 'quarter' | 'year') {
+export function getFilteredStaffAttendance (period: 'week' | 'month' | 'quarter' | 'year') {
    const multiplier = period === 'week' ? 1 : period === 'month' ? 1.2 : period === 'quarter' ? 1.5 : 2;
    return mockStaffAttendance.map(day => ({
       ...day,
@@ -364,7 +404,7 @@ export function getFilteredStaffAttendance(period: 'week' | 'month' | 'quarter' 
    }));
 }
 
-export function getFilteredTreatmentEfficiency(period: 'week' | 'month' | 'quarter' | 'year') {
+export function getFilteredTreatmentEfficiency (period: 'week' | 'month' | 'quarter' | 'year') {
    const variation = period === 'week' ? 0.02 : period === 'month' ? 0.05 : period === 'quarter' ? 0.08 : 0.1;
    return mockTreatmentEfficiency.map(day => ({
       ...day,
@@ -375,10 +415,10 @@ export function getFilteredTreatmentEfficiency(period: 'week' | 'month' | 'quart
    }));
 }
 
-export function getFilteredKPIs(period: 'week' | 'month' | 'quarter' | 'year') {
+export function getFilteredKPIs (period: 'week' | 'month' | 'quarter' | 'year') {
    const multiplier = period === 'week' ? 1 : period === 'month' ? 4.3 : period === 'quarter' ? 13 : 52;
    const variation = period === 'week' ? 0.95 : period === 'month' ? 0.9 : period === 'quarter' ? 0.85 : 0.8;
-   
+
    return {
       ...mockKPIs,
       totalPatients: Math.round(mockKPIs.totalPatients * multiplier * (variation + Math.random() * (2 - variation))),

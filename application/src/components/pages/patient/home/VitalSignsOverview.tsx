@@ -1,5 +1,6 @@
 import {
-   Heart, Activity, Thermometer, Scale, Droplets, TrendingUp, TrendingDown, Minus, ChevronRight, BarChart3
+   Heart, Activity, Thermometer, Scale, Droplets, TrendingUp, TrendingDown, Minus, ChevronRight, BarChart3,
+   LucideIcon
 } from 'lucide-react';
 import { mockRecentVitalSigns, mockTreatmentMetrics } from '@/data/mockData/patientData';
 
@@ -36,12 +37,12 @@ function getTrendInfo (current: number, previous: number) {
 function VitalSignCard ({
    icon: Icon, label, value, unit, trend, color
 }: {
-   icon: any;
+   icon: LucideIcon;
    label: string;
    value: string | number;
    unit: string;
    trend?: {
-      icon: any;
+      icon: LucideIcon;
       color: string;
       bgColor: string;
       label: string;
@@ -61,7 +62,7 @@ function VitalSignCard ({
                </div>
             )}
          </div>
-         
+
          <div>
             <p className="font-semibold text-gray-800 text-lg">{value} <span className="font-normal text-gray-500 text-sm">{unit}</span></p>
             <p className="text-gray-600 text-sm">{label}</p>
@@ -74,7 +75,7 @@ function VitalSignCard ({
 function TreatmentMetricCard ({
    icon: Icon, label, value, unit, color, description
 }: {
-   icon: any;
+   icon: LucideIcon;
    label: string;
    value: string | number;
    unit: string;
@@ -128,11 +129,12 @@ export default function VitalSignsOverview () {
             <div className="flex justify-between items-center mb-4">
                <h3 className="font-medium text-gray-800">Última medición</h3>
                <span className="text-gray-500 text-xs">
-                  {new Date(latestVitals.date).toLocaleDateString('es-ES', {
-                     day: 'numeric',
-                     month: 'short',
-                     year: 'numeric'
-                  })}
+                  {new Date(latestVitals.date)
+                     .toLocaleDateString('es-ES', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                     })}
                </span>
             </div>
 
@@ -145,7 +147,7 @@ export default function VitalSignsOverview () {
                   trend={bpTrend}
                   color="from-red-500 to-pink-500"
                />
-               
+
                <VitalSignCard
                   icon={Activity}
                   label="Frecuencia Cardíaca"
@@ -154,7 +156,7 @@ export default function VitalSignsOverview () {
                   trend={hrTrend}
                   color="from-blue-500 to-cyan-500"
                />
-               
+
                <VitalSignCard
                   icon={Scale}
                   label="Peso"
@@ -163,7 +165,7 @@ export default function VitalSignsOverview () {
                   trend={weightTrend}
                   color="from-green-500 to-emerald-500"
                />
-               
+
                <VitalSignCard
                   icon={Thermometer}
                   label="Temperatura"
@@ -180,10 +182,11 @@ export default function VitalSignsOverview () {
                <div className="flex justify-between items-center mb-4">
                   <h3 className="font-medium text-gray-800">Última sesión de tratamiento</h3>
                   <span className="text-gray-500 text-xs">
-                     {new Date(latestTreatment.date).toLocaleDateString('es-ES', {
-                        day: 'numeric',
-                        month: 'short'
-                     })}
+                     {new Date(latestTreatment.date)
+                        .toLocaleDateString('es-ES', {
+                           day: 'numeric',
+                           month: 'short'
+                        })}
                   </span>
                </div>
 
@@ -195,7 +198,7 @@ export default function VitalSignsOverview () {
                      unit="L"
                      color="from-blue-500 to-cyan-500"
                   />
-                  
+
                   <TreatmentMetricCard
                      icon={BarChart3}
                      label="Eficiencia"
@@ -203,7 +206,7 @@ export default function VitalSignsOverview () {
                      unit="%"
                      color="from-green-500 to-emerald-500"
                   />
-                  
+
                   <TreatmentMetricCard
                      icon={Heart}
                      label="Comodidad"

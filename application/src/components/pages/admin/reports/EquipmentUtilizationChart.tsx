@@ -7,7 +7,9 @@ import { mockEquipmentUtilization } from '@/data/mockData/reportsData';
 
 // Format data for the chart
 const chartData = mockEquipmentUtilization.map(equipment => ({
-   name: equipment.equipmentName.replace('Máquina Diálisis ', '').replace('Sistema ', '').replace('Monitor Paciente ', 'Monitor '),
+   name: equipment.equipmentName.replace('Máquina Diálisis ', '')
+      .replace('Sistema ', '')
+      .replace('Monitor Paciente ', 'Monitor '),
    'Utilización (%)': equipment.utilizationRate,
    'Eficiencia (%)': equipment.efficiency,
    'Tiempo Parada (h)': equipment.downtime,
@@ -15,7 +17,9 @@ const chartData = mockEquipmentUtilization.map(equipment => ({
 }));
 
 // Custom tooltip
-function CustomTooltip ({ active, payload, label }: any) {
+function CustomTooltip ({
+   active, payload, label
+}: any) {
    if (active && payload && payload.length) {
       return (
          <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
@@ -24,9 +28,14 @@ function CustomTooltip ({ active, payload, label }: any) {
                let suffix = '';
                if (entry.dataKey.includes('(%)')) suffix = '%';
                if (entry.dataKey.includes('(h)')) suffix = 'h';
-               
+
                return (
-                  <p key={index} className="text-sm" style={{ color: entry.color }}>
+                  <p key={index}
+                     className="text-sm"
+                     style={{
+                        color: entry.color
+                     }}
+                  >
                      {`${entry.dataKey}: ${entry.value}${suffix}`}
                   </p>
                );
@@ -67,43 +76,52 @@ export default function EquipmentUtilizationChart ({ selectedPeriod }: { selecte
                   }}
                >
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                     dataKey="name" 
+                  <XAxis
+                     dataKey="name"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 10, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 10,
+                        fill: '#6b7280'
+                     }}
                      angle={-45}
                      textAnchor="end"
                      height={80}
                   />
-                  <YAxis 
+                  <YAxis
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: '12px' }} />
-                  <Bar 
-                     dataKey="Utilización (%)" 
-                     fill="#6366F1" 
+                  <Legend wrapperStyle={{
+                     fontSize: '12px'
+                  }}
+                  />
+                  <Bar
+                     dataKey="Utilización (%)"
+                     fill="#6366F1"
                      radius={[2, 2, 0, 0]}
                      opacity={0.8}
                   />
-                  <Bar 
-                     dataKey="Eficiencia (%)" 
-                     fill="#10B981" 
+                  <Bar
+                     dataKey="Eficiencia (%)"
+                     fill="#10B981"
                      radius={[2, 2, 0, 0]}
                      opacity={0.7}
                   />
-                  <Bar 
-                     dataKey="Tiempo Parada (h)" 
-                     fill="#EF4444" 
+                  <Bar
+                     dataKey="Tiempo Parada (h)"
+                     fill="#EF4444"
                      radius={[2, 2, 0, 0]}
                      opacity={0.6}
                   />
-                  <Bar 
-                     dataKey="Mantenimiento (h)" 
-                     fill="#F59E0B" 
+                  <Bar
+                     dataKey="Mantenimiento (h)"
+                     fill="#F59E0B"
                      radius={[2, 2, 0, 0]}
                      opacity={0.6}
                   />
@@ -113,29 +131,30 @@ export default function EquipmentUtilizationChart ({ selectedPeriod }: { selecte
 
          {/* Equipment status cards */}
          <div className="gap-4 grid grid-cols-2 lg:grid-cols-3 mt-6 pt-4 border-gray-100 border-t">
-            {mockEquipmentUtilization.slice(0, 3).map((equipment, index) => (
-               <div key={index} className="bg-gray-50 p-3 rounded-lg">
-                  <h4 className="mb-2 font-medium text-gray-800 text-sm">
-                     {equipment.equipmentName}
-                  </h4>
-                  <div className="space-y-1 text-xs">
-                     <div className="flex justify-between">
-                        <span className="text-gray-600">Utilización:</span>
-                        <span className="font-medium text-indigo-600">{equipment.utilizationRate}%</span>
-                     </div>
-                     <div className="flex justify-between">
-                        <span className="text-gray-600">Eficiencia:</span>
-                        <span className="font-medium text-green-600">{equipment.efficiency}%</span>
-                     </div>
-                     <div className="flex justify-between">
-                        <span className="text-gray-600">Estado:</span>
-                        <span className={`font-medium ${equipment.utilizationRate > 90 ? 'text-green-600' : equipment.utilizationRate > 80 ? 'text-yellow-600' : 'text-red-600'}`}>
-                           {equipment.utilizationRate > 90 ? 'Óptimo' : equipment.utilizationRate > 80 ? 'Bueno' : 'Revisar'}
-                        </span>
+            {mockEquipmentUtilization.slice(0, 3)
+               .map((equipment, index) => (
+                  <div key={index} className="bg-gray-50 p-3 rounded-lg">
+                     <h4 className="mb-2 font-medium text-gray-800 text-sm">
+                        {equipment.equipmentName}
+                     </h4>
+                     <div className="space-y-1 text-xs">
+                        <div className="flex justify-between">
+                           <span className="text-gray-600">Utilización:</span>
+                           <span className="font-medium text-indigo-600">{equipment.utilizationRate}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                           <span className="text-gray-600">Eficiencia:</span>
+                           <span className="font-medium text-green-600">{equipment.efficiency}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                           <span className="text-gray-600">Estado:</span>
+                           <span className={`font-medium ${equipment.utilizationRate > 90 ? 'text-green-600' : equipment.utilizationRate > 80 ? 'text-yellow-600' : 'text-red-600'}`}>
+                              {equipment.utilizationRate > 90 ? 'Óptimo' : equipment.utilizationRate > 80 ? 'Bueno' : 'Revisar'}
+                           </span>
+                        </div>
                      </div>
                   </div>
-               </div>
-            ))}
+               ))}
          </div>
       </div>
    );

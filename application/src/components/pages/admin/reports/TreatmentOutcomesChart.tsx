@@ -6,7 +6,9 @@ import {
 import { mockTreatmentOutcomes } from '@/data/mockData/reportsData';
 
 // Custom tooltip
-function CustomTooltip ({ active, payload }: any) {
+function CustomTooltip ({
+   active, payload
+}: any) {
    if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
@@ -21,18 +23,20 @@ function CustomTooltip ({ active, payload }: any) {
 }
 
 // Custom label function for donut chart
-function renderCustomLabel ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) {
+function renderCustomLabel ({
+   cx, cy, midAngle, innerRadius, outerRadius, percent
+}: any) {
    const RADIAN = Math.PI / 180;
    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
    const x = cx + radius * Math.cos(-midAngle * RADIAN);
    const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
    return (
-      <text 
-         x={x} 
-         y={y} 
-         fill="white" 
-         textAnchor={x > cx ? 'start' : 'end'} 
+      <text
+         x={x}
+         y={y}
+         fill="white"
+         textAnchor={x > cx ? 'start' : 'end'}
          dominantBaseline="central"
          fontSize={12}
          fontWeight="bold"
@@ -80,10 +84,12 @@ export default function TreatmentOutcomesChart ({ selectedPeriod }: { selectedPe
                      ))}
                   </Pie>
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend 
-                     verticalAlign="bottom" 
+                  <Legend
+                     verticalAlign="bottom"
                      height={36}
-                     wrapperStyle={{ fontSize: '12px' }}
+                     wrapperStyle={{
+                        fontSize: '12px'
+                     }}
                   />
                </PieChart>
             </ResponsiveContainer>
@@ -94,9 +100,11 @@ export default function TreatmentOutcomesChart ({ selectedPeriod }: { selectedPe
             {mockTreatmentOutcomes.map((outcome, index) => (
                <div key={index} className="text-center">
                   <div className="flex justify-center items-center gap-2 mb-1">
-                     <div 
-                        className="rounded-full w-3 h-3" 
-                        style={{ backgroundColor: outcome.color }}
+                     <div
+                        className="rounded-full w-3 h-3"
+                        style={{
+                           backgroundColor: outcome.color
+                        }}
                      />
                      <span className="font-medium text-gray-700 text-xs">{outcome.outcome}</span>
                   </div>

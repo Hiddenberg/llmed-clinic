@@ -1,6 +1,6 @@
 'use client';
 
-import { CalendarEvent, getEventsForDate, formatEventTime } from '@/data/mockData/calendarData';
+import { CalendarEvent, getEventsForDate } from '@/data/mockData/calendarData';
 import CalendarEventCard from './CalendarEventCard';
 
 interface WeekViewProps {
@@ -10,7 +10,9 @@ interface WeekViewProps {
    onDateClick: (date: Date) => void;
 }
 
-export default function WeekView({ currentDate, events, onEventClick, onDateClick }: WeekViewProps) {
+export default function WeekView ({
+   currentDate, events, onEventClick, onDateClick
+}: WeekViewProps) {
    // Get week start (Sunday)
    const weekStart = new Date(currentDate);
    weekStart.setDate(currentDate.getDate() - currentDate.getDay());
@@ -35,12 +37,12 @@ export default function WeekView({ currentDate, events, onEventClick, onDateClic
    const weekDayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
    return (
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
          {/* Header with days */}
-         <div className="grid grid-cols-7 border-b border-gray-200">
+         <div className="grid grid-cols-7 border-gray-200 border-b">
             {weekDays.map((date, index) => {
                const isTodayDate = isToday(date);
-               
+
                return (
                   <button
                      key={index}
@@ -52,14 +54,16 @@ export default function WeekView({ currentDate, events, onEventClick, onDateClic
                      <div className="space-y-1">
                         <p className={`text-sm font-medium ${
                            isTodayDate ? 'text-brand-600' : 'text-gray-600'
-                        }`}>
+                        }`}
+                        >
                            {weekDayNames[index]}
                         </p>
                         <div className={`w-8 h-8 mx-auto flex items-center justify-center rounded-full text-lg font-semibold ${
                            isTodayDate
                               ? 'bg-brand-500 text-white'
                               : 'text-gray-900'
-                        }`}>
+                        }`}
+                        >
                            {date.getDate()}
                         </div>
                      </div>
@@ -83,8 +87,8 @@ export default function WeekView({ currentDate, events, onEventClick, onDateClic
                   >
                      <div className="p-3 h-full">
                         {dayEvents.length === 0 ? (
-                           <div className="h-full flex items-center justify-center">
-                              <p className="text-sm text-gray-400">Sin eventos</p>
+                           <div className="flex justify-center items-center h-full">
+                              <p className="text-gray-400 text-sm">Sin eventos</p>
                            </div>
                         ) : (
                            <div className="space-y-2">

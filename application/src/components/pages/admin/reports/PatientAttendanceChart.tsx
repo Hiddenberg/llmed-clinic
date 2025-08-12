@@ -7,32 +7,41 @@ import { getFilteredDailyPatientStats } from '@/data/mockData/reportsData';
 
 export default function PatientAttendanceChart ({ selectedPeriod }: { selectedPeriod: 'week' | 'month' | 'quarter' | 'year' }) {
    // Format data for the chart
-   const chartData = getFilteredDailyPatientStats(selectedPeriod).map(day => ({
-   date: new Date(day.date).toLocaleDateString('es-ES', { 
-      weekday: 'short', 
-      day: 'numeric' 
-   }),
-   'Hemodiálisis': day.hemodialysisPatients,
-   'Consultas': day.consultationPatients,
-   'Emergencias': day.emergencyPatients,
-   'Total': day.totalPatients
-   }));
+   const chartData = getFilteredDailyPatientStats(selectedPeriod)
+      .map(day => ({
+         date: new Date(day.date)
+            .toLocaleDateString('es-ES', {
+               weekday: 'short',
+               day: 'numeric'
+            }),
+         'Hemodiálisis': day.hemodialysisPatients,
+         'Consultas': day.consultationPatients,
+         'Emergencias': day.emergencyPatients,
+         'Total': day.totalPatients
+      }));
 
    // Custom tooltip
-   function CustomTooltip ({ active, payload, label }: any) {
-   if (active && payload && payload.length) {
-      return (
-         <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
-            <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
-            {payload.map((entry: any, index: number) => (
-               <p key={index} className="text-sm" style={{ color: entry.color }}>
-                  {`${entry.dataKey}: ${entry.value} pacientes`}
-               </p>
-            ))}
-         </div>
-      );
-   }
-   return null;
+   function CustomTooltip ({
+      active, payload, label
+   }: any) {
+      if (active && payload && payload.length) {
+         return (
+            <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
+               <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
+               {payload.map((entry: any, index: number) => (
+                  <p key={index}
+                     className="text-sm"
+                     style={{
+                        color: entry.color
+                     }}
+                  >
+                     {`${entry.dataKey}: ${entry.value} pacientes`}
+                  </p>
+               ))}
+            </div>
+         );
+      }
+      return null;
    }
 
    return (
@@ -60,39 +69,47 @@ export default function PatientAttendanceChart ({ selectedPeriod }: { selectedPe
                   }}
                >
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                     dataKey="date" 
+                  <XAxis
+                     dataKey="date"
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
-                  <YAxis 
+                  <YAxis
                      axisLine={false}
                      tickLine={false}
-                     tick={{ fontSize: 12, fill: '#6b7280' }}
+                     tick={{
+                        fontSize: 12,
+                        fill: '#6b7280'
+                     }}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend 
-                     wrapperStyle={{ fontSize: '12px' }}
+                  <Legend
+                     wrapperStyle={{
+                        fontSize: '12px'
+                     }}
                   />
-                  <Bar 
-                     dataKey="Hemodiálisis" 
-                     stackId="a" 
-                     fill="#3B82F6" 
+                  <Bar
+                     dataKey="Hemodiálisis"
+                     stackId="a"
+                     fill="#3B82F6"
                      radius={[0, 0, 0, 0]}
                      name="Hemodiálisis"
                   />
-                  <Bar 
-                     dataKey="Consultas" 
-                     stackId="a" 
-                     fill="#10B981" 
+                  <Bar
+                     dataKey="Consultas"
+                     stackId="a"
+                     fill="#10B981"
                      radius={[0, 0, 0, 0]}
                      name="Consultas"
                   />
-                  <Bar 
-                     dataKey="Emergencias" 
-                     stackId="a" 
-                     fill="#EF4444" 
+                  <Bar
+                     dataKey="Emergencias"
+                     stackId="a"
+                     fill="#EF4444"
                      radius={[4, 4, 0, 0]}
                      name="Emergencias"
                   />

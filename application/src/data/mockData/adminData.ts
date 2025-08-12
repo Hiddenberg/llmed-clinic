@@ -325,7 +325,7 @@ export const getPatientStats = () => {
    const scheduled = mockPatients.filter(p => p.status === 'scheduled').length;
    const emergency = mockPatients.filter(p => p.status === 'emergency').length;
    const completed = mockPatients.filter(p => p.status === 'completed').length;
-   
+
    return {
       total,
       active,
@@ -341,7 +341,7 @@ export const getStaffStats = () => {
    const onBreak = mockStaff.filter(s => s.status === 'break').length;
    const doctors = mockStaff.filter(s => s.role === 'doctor' && s.status === 'on-duty').length;
    const nurses = mockStaff.filter(s => s.role === 'nurse' && s.status === 'on-duty').length;
-   
+
    return {
       total,
       onDuty,
@@ -356,7 +356,7 @@ export const getAlertStats = () => {
    const critical = mockPriorityAlerts.filter(a => a.type === 'critical').length;
    const warnings = mockPriorityAlerts.filter(a => a.type === 'warning').length;
    const actionRequired = mockPriorityAlerts.filter(a => a.actionRequired).length;
-   
+
    return {
       total,
       critical,

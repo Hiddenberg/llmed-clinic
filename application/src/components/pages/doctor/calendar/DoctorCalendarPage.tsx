@@ -1,4 +1,4 @@
-import { Calendar as CalendarIcon, Stethoscope } from 'lucide-react';
+import { Stethoscope } from 'lucide-react';
 import Calendar from '@/features/calendar/components/Calendar';
 import { mockDoctor } from '@/data/mockData/doctorData';
 

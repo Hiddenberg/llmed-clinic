@@ -15,10 +15,12 @@ interface CalendarProps {
    userRole?: 'admin' | 'doctor';
 }
 
-export default function Calendar({ doctorId, userRole = 'admin' }: CalendarProps) {
+export default function Calendar ({
+   doctorId, userRole = 'admin'
+}: CalendarProps) {
    const router = useRouter();
    const [showFilters, setShowFilters] = useState(false);
-   
+
    const {
       currentDate,
       view,
@@ -28,13 +30,15 @@ export default function Calendar({ doctorId, userRole = 'admin' }: CalendarProps
       goToToday,
       goToPrevious,
       goToNext,
-      goToDate,
+      // goToDate,
       setView,
       updateFilters,
       clearFilters,
       getFilterOptions,
       getViewTitle
-   } = useCalendar({ doctorId });
+   } = useCalendar({
+      doctorId
+   });
 
    const handleEventClick = (event: CalendarEvent) => {
       // Navigate to event detail page
@@ -45,16 +49,18 @@ export default function Calendar({ doctorId, userRole = 'admin' }: CalendarProps
    const handleDateClick = (date: Date) => {
       // Navigate to day view for that specific date
       const baseRoute = userRole === 'admin' ? '/admin' : '/doctor';
-      const dateParam = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+      const dateParam = date.toISOString()
+         .split('T')[0]; // YYYY-MM-DD format
       router.push(`${baseRoute}/calendar/day/${dateParam}`);
    };
 
-   const hasActiveFilters = Object.values(filters).some(arr => arr && arr.length > 0);
+   const hasActiveFilters = Object.values(filters)
+      .some(arr => arr && arr.length > 0);
 
    if (isLoading) {
       return (
-         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500" />
+         <div className="flex justify-center items-center min-h-[400px]">
+            <div className="border-b-2 border-brand-500 rounded-full w-12 h-12 animate-spin" />
          </div>
       );
    }
@@ -82,7 +88,7 @@ export default function Calendar({ doctorId, userRole = 'admin' }: CalendarProps
                   onDateClick={handleDateClick}
                />
             )}
-            
+
             {view === 'week' && (
                <WeekView
                   currentDate={currentDate}
@@ -91,7 +97,7 @@ export default function Calendar({ doctorId, userRole = 'admin' }: CalendarProps
                   onDateClick={handleDateClick}
                />
             )}
-            
+
             {view === 'day' && (
                <DayView
                   currentDate={currentDate}
@@ -102,57 +108,57 @@ export default function Calendar({ doctorId, userRole = 'admin' }: CalendarProps
          </div>
 
          {/* Quick Stats */}
-         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
+         <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="bg-white p-4 border border-gray-200 rounded-lg">
                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-brand-100 rounded-lg flex items-center justify-center">
-                     <div className="w-3 h-3 bg-brand-500 rounded-full" />
+                  <div className="flex justify-center items-center bg-brand-100 rounded-lg w-10 h-10">
+                     <div className="bg-brand-500 rounded-full w-3 h-3" />
                   </div>
                   <div>
-                     <p className="text-2xl font-semibold text-gray-900">{events.length}</p>
-                     <p className="text-sm text-gray-500">Eventos totales</p>
+                     <p className="font-semibold text-gray-900 text-2xl">{events.length}</p>
+                     <p className="text-gray-500 text-sm">Eventos totales</p>
                   </div>
                </div>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="bg-white p-4 border border-gray-200 rounded-lg">
                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                     <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  <div className="flex justify-center items-center bg-green-100 rounded-lg w-10 h-10">
+                     <div className="bg-green-500 rounded-full w-3 h-3" />
                   </div>
                   <div>
-                     <p className="text-2xl font-semibold text-gray-900">
+                     <p className="font-semibold text-gray-900 text-2xl">
                         {events.filter(e => e.type === 'hemodialysis').length}
                      </p>
-                     <p className="text-sm text-gray-500">Hemodiálisis</p>
+                     <p className="text-gray-500 text-sm">Hemodiálisis</p>
                   </div>
                </div>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="bg-white p-4 border border-gray-200 rounded-lg">
                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                     <div className="w-3 h-3 bg-orange-500 rounded-full" />
+                  <div className="flex justify-center items-center bg-orange-100 rounded-lg w-10 h-10">
+                     <div className="bg-orange-500 rounded-full w-3 h-3" />
                   </div>
                   <div>
-                     <p className="text-2xl font-semibold text-gray-900">
+                     <p className="font-semibold text-gray-900 text-2xl">
                         {events.filter(e => e.status === 'rescheduled' || e.status === 'cancelled').length}
                      </p>
-                     <p className="text-sm text-gray-500">Reagendados</p>
+                     <p className="text-gray-500 text-sm">Reagendados</p>
                   </div>
                </div>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="bg-white p-4 border border-gray-200 rounded-lg">
                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                     <div className="w-3 h-3 bg-red-500 rounded-full" />
+                  <div className="flex justify-center items-center bg-red-100 rounded-lg w-10 h-10">
+                     <div className="bg-red-500 rounded-full w-3 h-3" />
                   </div>
                   <div>
-                     <p className="text-2xl font-semibold text-gray-900">
+                     <p className="font-semibold text-gray-900 text-2xl">
                         {events.filter(e => e.priority === 'critical' || e.priority === 'high').length}
                      </p>
-                     <p className="text-sm text-gray-500">Prioridad alta</p>
+                     <p className="text-gray-500 text-sm">Prioridad alta</p>
                   </div>
                </div>
             </div>

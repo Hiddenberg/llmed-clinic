@@ -3,7 +3,7 @@ import {
 } from 'lucide-react';
 import { mockPatientEvolution, type PatientEvolution } from '@/data/mockData/doctorData';
 
-function getTrendIcon(trend: PatientEvolution['trend']) {
+function getTrendIcon (trend: PatientEvolution['trend']) {
    const icons = {
       improving: <TrendingUp size={16} />,
       stable: <Minus size={16} />,
@@ -12,7 +12,7 @@ function getTrendIcon(trend: PatientEvolution['trend']) {
    return icons[trend];
 }
 
-function getTrendColor(trend: PatientEvolution['trend']) {
+function getTrendColor (trend: PatientEvolution['trend']) {
    const colors = {
       improving: 'text-green-600 bg-green-50 border-green-200',
       stable: 'text-blue-600 bg-blue-50 border-blue-200',
@@ -21,7 +21,7 @@ function getTrendColor(trend: PatientEvolution['trend']) {
    return colors[trend];
 }
 
-function getTrendLabel(trend: PatientEvolution['trend']) {
+function getTrendLabel (trend: PatientEvolution['trend']) {
    const labels = {
       improving: 'Mejorando',
       stable: 'Estable',
@@ -30,11 +30,11 @@ function getTrendLabel(trend: PatientEvolution['trend']) {
    return labels[trend];
 }
 
-function formatDate(dateString: string): string {
+function formatDate (dateString: string): string {
    const date = new Date(dateString);
-   return date.toLocaleDateString('es-ES', { 
-      day: 'numeric', 
-      month: 'short' 
+   return date.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'short'
    });
 }
 
@@ -43,18 +43,23 @@ interface PatientEvolutionItemProps {
    index: number;
 }
 
-function PatientEvolutionItem ({ patient, index }: PatientEvolutionItemProps) {
+function PatientEvolutionItem ({
+   patient, index
+}: PatientEvolutionItemProps) {
    return (
-      <div 
+      <div
          className="group bg-white/90 hover:bg-white hover:shadow-md p-5 border border-gray-200/50 rounded-xl overflow-hidden hover:scale-[1.01] transition-all animate-fade-in-up duration-300"
-         style={{ animationDelay: `${index * 100}ms` }}
+         style={{
+            animationDelay: `${index * 100}ms`
+         }}
       >
          {/* Trend indicator line */}
          <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-xl ${
             patient.trend === 'improving' ? 'bg-green-400' :
-            patient.trend === 'stable' ? 'bg-blue-400' :
-            'bg-red-400'
-         }`} />
+               patient.trend === 'stable' ? 'bg-blue-400' :
+                  'bg-red-400'
+         }`}
+         />
 
          <div className="z-10 relative ml-2">
             <div className="flex justify-between items-start mb-4">
@@ -65,7 +70,7 @@ function PatientEvolutionItem ({ patient, index }: PatientEvolutionItemProps) {
                      </div>
                      <h4 className="font-semibold text-gray-800 text-lg">{patient.patientName}</h4>
                   </div>
-                  
+
                   <p className="text-gray-600 text-sm">
                      Última sesión: {formatDate(patient.lastSession)}
                   </p>
@@ -127,7 +132,11 @@ function PatientEvolutionItem ({ patient, index }: PatientEvolutionItemProps) {
 export default function PatientEvolutionPanel () {
    // Sort patients by trend priority (declining first, then improving, then stable)
    const sortedPatients = [...mockPatientEvolution].sort((a, b) => {
-      const trendPriority = { declining: 0, improving: 1, stable: 2 };
+      const trendPriority = {
+         declining: 0,
+         improving: 1,
+         stable: 2
+      };
       return trendPriority[a.trend] - trendPriority[b.trend];
    });
 

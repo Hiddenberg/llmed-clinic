@@ -10,7 +10,9 @@ interface MonthViewProps {
    onDateClick: (date: Date) => void;
 }
 
-export default function MonthView({ currentDate, events, onEventClick, onDateClick }: MonthViewProps) {
+export default function MonthView ({
+   currentDate, events, onEventClick, onDateClick
+}: MonthViewProps) {
    // Get the first day of the month and calculate calendar grid
    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
@@ -77,8 +79,8 @@ export default function MonthView({ currentDate, events, onEventClick, onDateCli
                               isTodayDate
                                  ? 'bg-brand-500 text-white hover:bg-brand-600'
                                  : isCurrentMonthDay
-                                 ? 'text-gray-900'
-                                 : 'text-gray-400'
+                                    ? 'text-gray-900'
+                                    : 'text-gray-400'
                            }`}
                         >
                            {date.getDate()}
@@ -86,15 +88,16 @@ export default function MonthView({ currentDate, events, onEventClick, onDateCli
 
                         {/* Events */}
                         <div className="flex-1 space-y-1 overflow-hidden">
-                           {dayEvents.slice(0, 3).map((event) => (
-                              <CalendarEventCard
-                                 key={event.id}
-                                 event={event}
-                                 isCompact={true}
-                                 onClick={() => onEventClick(event)}
-                              />
-                           ))}
-                           
+                           {dayEvents.slice(0, 3)
+                              .map((event) => (
+                                 <CalendarEventCard
+                                    key={event.id}
+                                    event={event}
+                                    isCompact={true}
+                                    onClick={() => onEventClick(event)}
+                                 />
+                              ))}
+
                            {dayEvents.length > 3 && (
                               <button
                                  onClick={() => onDateClick(date)}
