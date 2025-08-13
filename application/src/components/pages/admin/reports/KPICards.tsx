@@ -1,10 +1,11 @@
 import {
-   Users, Heart, TrendingUp, Activity, Shield, Clock, AlertTriangle
+   Users, Heart, TrendingUp, Activity, Shield, Clock, AlertTriangle,
+   LucideIcon
 } from 'lucide-react';
 import { getFilteredKPIs } from '@/data/mockData/reportsData';
 
 interface KPICardProps {
-   icon: any;
+   icon: LucideIcon;
    title: string;
    value: string | number;
    unit?: string;

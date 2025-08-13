@@ -1,7 +1,8 @@
 "use client"
 
 import {
-   Heart, Stethoscope, User, Shield
+   Heart, Stethoscope, User, Shield,
+   LucideIcon
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,7 +11,7 @@ interface NavigationItem {
    key: string;
    label: string;
    href: string;
-   icon: any;
+   icon: LucideIcon;
    color: string;
    description: string;
 }

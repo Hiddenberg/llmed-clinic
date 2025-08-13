@@ -156,17 +156,18 @@ export default function DoctorHomePage () {
                   <div className="gap-8 grid grid-cols-1 xl:grid-cols-3">
                      {/* Doctor Activity Feed */}
                      <div className="xl:col-span-2">
-                        <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
-                           <DoctorActivityFeed />
-                        </div>
+                        <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl" />
                      </div>
-                     {/* Today's Appointments */}
+                     {/* Today's Appointments
                      <div className="xl:col-span-1">
-                        <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
-                           <TodayAppointments />
-                        </div>
-                     </div>
+                     <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl" />
+                     </div> */}
                   </div>
+
+                  <div>
+                     <DoctorActivityFeed />
+                  </div>
+                  <TodayAppointments />
                </section>
 
                {/* Patient Evolution Section */}

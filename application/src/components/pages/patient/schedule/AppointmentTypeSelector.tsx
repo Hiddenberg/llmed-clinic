@@ -132,7 +132,7 @@ export default function AppointmentTypeSelector ({
                   </h4>
                   <p className="text-blue-800 text-sm">
                      Las citas de hemodiálisis requieren autorización médica previa.
-                     Si es tu primera vez, selecciona "Consulta Médica" para evaluación inicial.
+                     Si es tu primera vez, selecciona &quot;Consulta Médica&quot; para evaluación inicial.
                   </p>
                </div>
             </div>

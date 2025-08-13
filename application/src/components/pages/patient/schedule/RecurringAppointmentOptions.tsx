@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Calendar, Repeat, AlertCircle } from 'lucide-react';
+import {
+   Calendar, Repeat, AlertCircle
+} from 'lucide-react';
 
 interface RecurringAppointmentOptionsProps {
    isRecurring: boolean;
@@ -28,7 +30,7 @@ const frequencyDescriptions = {
    monthly: 'Una vez por mes'
 };
 
-export default function RecurringAppointmentOptions({
+export default function RecurringAppointmentOptions ({
    isRecurring,
    recurringPattern,
    onRecurringChange,
@@ -64,10 +66,10 @@ export default function RecurringAppointmentOptions({
 
    const calculateEndDate = () => {
       if (!recurringPattern.duration) return '';
-      
+
       const startDate = new Date();
-      let endDate = new Date(startDate);
-      
+      const endDate = new Date(startDate);
+
       switch (recurringPattern.frequency) {
          case 'weekly':
             endDate.setDate(startDate.getDate() + (recurringPattern.duration * 7));
@@ -79,7 +81,7 @@ export default function RecurringAppointmentOptions({
             endDate.setMonth(startDate.getMonth() + recurringPattern.duration);
             break;
       }
-      
+
       return endDate.toLocaleDateString('es-MX', {
          weekday: 'long',
          year: 'numeric',
@@ -103,7 +105,7 @@ export default function RecurringAppointmentOptions({
                   </p>
                </div>
             </div>
-            
+
             <label className="flex items-center cursor-pointer">
                <input
                   type="checkbox"
@@ -113,10 +115,12 @@ export default function RecurringAppointmentOptions({
                />
                <div className={`w-12 h-6 rounded-full transition-colors ${
                   isRecurring ? 'bg-green-500' : 'bg-gray-300'
-               }`}>
+               }`}
+               >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${
                      isRecurring ? 'translate-x-6' : 'translate-x-0.5'
-                  } mt-0.5`} />
+                  } mt-0.5`}
+                  />
                </div>
             </label>
          </div>
@@ -135,24 +139,25 @@ export default function RecurringAppointmentOptions({
                      Frecuencia
                   </label>
                   <div className="gap-3 grid grid-cols-1 sm:grid-cols-3">
-                     {Object.entries(frequencyLabels).map(([value, label]) => (
-                        <label key={value} className="flex items-center cursor-pointer">
-                           <input
-                              type="radio"
-                              name="frequency"
-                              value={value}
-                              checked={recurringPattern.frequency === value}
-                              onChange={(e) => handleFrequencyChange(e.target.value as 'weekly' | 'biweekly' | 'monthly')}
-                              className="border-gray-300 focus:ring-green-500 w-4 h-4 text-green-600"
-                           />
-                           <div className="ml-3">
-                              <span className="font-medium text-gray-900 text-sm">{label}</span>
-                              <p className="text-gray-600 text-xs">
-                                 {frequencyDescriptions[value as keyof typeof frequencyDescriptions]}
-                              </p>
-                           </div>
-                        </label>
-                     ))}
+                     {Object.entries(frequencyLabels)
+                        .map(([value, label]) => (
+                           <label key={value} className="flex items-center cursor-pointer">
+                              <input
+                                 type="radio"
+                                 name="frequency"
+                                 value={value}
+                                 checked={recurringPattern.frequency === value}
+                                 onChange={(e) => handleFrequencyChange(e.target.value as 'weekly' | 'biweekly' | 'monthly')}
+                                 className="border-gray-300 focus:ring-green-500 w-4 h-4 text-green-600"
+                              />
+                              <div className="ml-3">
+                                 <span className="font-medium text-gray-900 text-sm">{label}</span>
+                                 <p className="text-gray-600 text-xs">
+                                    {frequencyDescriptions[value as keyof typeof frequencyDescriptions]}
+                                 </p>
+                              </div>
+                           </label>
+                        ))}
                   </div>
                </div>
 
@@ -211,8 +216,8 @@ export default function RecurringAppointmentOptions({
                         Citas Recurrentes de Hemodiálisis
                      </h4>
                      <p className="text-amber-800 text-sm">
-                        Las citas recurrentes de hemodiálisis requieren aprobación médica adicional. 
-                        El equipo médico revisará tu solicitud y confirmará la disponibilidad para 
+                        Las citas recurrentes de hemodiálisis requieren aprobación médica adicional.
+                        El equipo médico revisará tu solicitud y confirmará la disponibilidad para
                         todas las sesiones programadas.
                      </p>
                   </div>

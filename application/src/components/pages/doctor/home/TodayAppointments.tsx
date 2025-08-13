@@ -160,8 +160,9 @@ export default function TodayAppointments () {
             </div>
          </div>
 
-         {/* Upcoming & In Progress */}
-         {upcomingAppointments.length > 0 && (
+         <div className='grid grid-cols-2'>
+            {/* Upcoming & In Progress */}
+            {upcomingAppointments.length > 0 && (
             <div className="space-y-3">
                <h3 className="flex items-center gap-2 font-semibold text-gray-800 text-lg">
                   <div className="bg-blue-400 rounded-full w-2 h-2 animate-pulse" />
@@ -173,10 +174,10 @@ export default function TodayAppointments () {
                   ))}
                </div>
             </div>
-         )}
+            )}
 
-         {/* Completed */}
-         {completedAppointments.length > 0 && (
+            {/* Completed */}
+            {completedAppointments.length > 0 && (
             <div className="space-y-3">
                <h3 className="flex items-center gap-2 font-semibold text-gray-600 text-lg">
                   <div className="bg-green-400 rounded-full w-2 h-2" />
@@ -186,7 +187,8 @@ export default function TodayAppointments () {
                   <AppointmentItem key={appointment.id} appointment={appointment} index={index + upcomingAppointments.length} />
                ))}
             </div>
-         )}
+            )}
+         </div>
       </div>
    );
 }

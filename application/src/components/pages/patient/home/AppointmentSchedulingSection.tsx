@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, User, Plus, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
+import {
+   Calendar, Clock, User, Plus, ArrowRight, CheckCircle, AlertCircle
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { loadEventsFromStorage, CalendarEvent } from '@/data/mockData/calendarData';
 
@@ -23,14 +25,34 @@ const appointmentTypeLabels = {
 };
 
 const statusColors = {
-   scheduled: { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200' },
-   'in-progress': { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
-   completed: { bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-gray-200' },
-   cancelled: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
-   rescheduled: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' }
+   scheduled: {
+      bg: 'bg-green-50',
+      text: 'text-green-700',
+      border: 'border-green-200'
+   },
+   'in-progress': {
+      bg: 'bg-blue-50',
+      text: 'text-blue-700',
+      border: 'border-blue-200'
+   },
+   completed: {
+      bg: 'bg-gray-50',
+      text: 'text-gray-700',
+      border: 'border-gray-200'
+   },
+   cancelled: {
+      bg: 'bg-red-50',
+      text: 'text-red-700',
+      border: 'border-red-200'
+   },
+   rescheduled: {
+      bg: 'bg-amber-50',
+      text: 'text-amber-700',
+      border: 'border-amber-200'
+   }
 };
 
-export default function AppointmentSchedulingSection() {
+export default function AppointmentSchedulingSection () {
    const [appointments, setAppointments] = useState<PatientAppointment[]>([]);
    const [isLoading, setIsLoading] = useState(true);
    const router = useRouter();
@@ -41,12 +63,12 @@ export default function AppointmentSchedulingSection() {
 
    const loadPatientAppointments = () => {
       setIsLoading(true);
-      
+
       try {
          const allEvents = loadEventsFromStorage();
-         
+
          // Filter events for the current patient (in real app, this would use actual patient ID)
-         const patientEvents = allEvents.filter((event: CalendarEvent) => 
+         const patientEvents = allEvents.filter((event: CalendarEvent) =>
             event.patientId === 'patient-001' || event.createdBy === 'patient'
          );
 
@@ -58,8 +80,15 @@ export default function AppointmentSchedulingSection() {
                type: event.type,
                title: appointmentTypeLabels[event.type as keyof typeof appointmentTypeLabels] || event.title,
                doctorName: event.doctorName || 'Doctor asignado',
-               date: `${eventDate.getFullYear()}-${(eventDate.getMonth() + 1).toString().padStart(2, '0')}-${eventDate.getDate().toString().padStart(2, '0')}`,
-               time: `${eventDate.getHours().toString().padStart(2, '0')}:${eventDate.getMinutes().toString().padStart(2, '0')}`,
+               date: `${eventDate.getFullYear()}-${(eventDate.getMonth() + 1).toString()
+                  .padStart(2, '0')}-${eventDate.getDate()
+                  .toString()
+                  .padStart(2, '0')}`,
+               time: `${eventDate.getHours()
+                  .toString()
+                  .padStart(2, '0')}:${eventDate.getMinutes()
+                  .toString()
+                  .padStart(2, '0')}`,
                status: event.status,
                room: event.room
             };
@@ -67,14 +96,18 @@ export default function AppointmentSchedulingSection() {
 
          // Sort by date (upcoming first)
          patientAppointments.sort((a, b) => {
-            const [yearA, monthA, dayA] = a.date.split('-').map(Number);
-            const [hoursA, minutesA] = a.time.split(':').map(Number);
+            const [yearA, monthA, dayA] = a.date.split('-')
+               .map(Number);
+            const [hoursA, minutesA] = a.time.split(':')
+               .map(Number);
             const dateA = new Date(yearA, monthA - 1, dayA, hoursA, minutesA);
-            
-            const [yearB, monthB, dayB] = b.date.split('-').map(Number);
-            const [hoursB, minutesB] = b.time.split(':').map(Number);
+
+            const [yearB, monthB, dayB] = b.date.split('-')
+               .map(Number);
+            const [hoursB, minutesB] = b.time.split(':')
+               .map(Number);
             const dateB = new Date(yearB, monthB - 1, dayB, hoursB, minutesB);
-            
+
             return dateA.getTime() - dateB.getTime();
          });
 
@@ -95,7 +128,8 @@ export default function AppointmentSchedulingSection() {
       return appointments.filter(apt => {
          const appointmentDate = new Date(`${apt.date}T${apt.time}`);
          return appointmentDate >= now && apt.status !== 'cancelled';
-      }).slice(0, 3); // Show only next 3 appointments
+      })
+         .slice(0, 3); // Show only next 3 appointments
    };
 
    const getStatusIcon = (status: string) => {
@@ -143,11 +177,11 @@ export default function AppointmentSchedulingSection() {
                   <Calendar className="w-5 h-5 text-green-600" />
                   Próximas Citas
                </h3>
-               
+
                <div className="space-y-3">
                   {upcomingAppointments.map((appointment) => {
                      const statusStyle = statusColors[appointment.status as keyof typeof statusColors] || statusColors.scheduled;
-                     
+
                      return (
                         <div
                            key={appointment.id}
@@ -163,39 +197,40 @@ export default function AppointmentSchedulingSection() {
                                        {getStatusIcon(appointment.status)}
                                        <span className="capitalize">
                                           {appointment.status === 'scheduled' ? 'Programada' :
-                                           appointment.status === 'rescheduled' ? 'Reagendada' :
-                                           appointment.status === 'completed' ? 'Completada' :
-                                           appointment.status === 'cancelled' ? 'Cancelada' :
-                                           appointment.status}
+                                             appointment.status === 'rescheduled' ? 'Reagendada' :
+                                                appointment.status === 'completed' ? 'Completada' :
+                                                   appointment.status === 'cancelled' ? 'Cancelada' :
+                                                      appointment.status}
                                        </span>
                                     </div>
                                  </div>
-                                 
+
                                  <div className="space-y-1 text-gray-600 text-sm">
                                     <div className="flex items-center gap-2">
                                        <User className="w-4 h-4" />
                                        <span>{appointment.doctorName}</span>
                                     </div>
-                                    
+
                                     <div className="flex items-center gap-4">
                                        <div className="flex items-center gap-2">
                                           <Calendar className="w-4 h-4" />
                                           <span>
-                                             {new Date(appointment.date + 'T12:00:00').toLocaleDateString('es-MX', {
-                                                weekday: 'long',
-                                                year: 'numeric',
-                                                month: 'long',
-                                                day: 'numeric'
-                                             })}
+                                             {new Date(appointment.date + 'T12:00:00')
+                                                .toLocaleDateString('es-MX', {
+                                                   weekday: 'long',
+                                                   year: 'numeric',
+                                                   month: 'long',
+                                                   day: 'numeric'
+                                                })}
                                           </span>
                                        </div>
-                                       
+
                                        <div className="flex items-center gap-2">
                                           <Clock className="w-4 h-4" />
                                           <span>{appointment.time}</span>
                                        </div>
                                     </div>
-                                    
+
                                     {appointment.room && (
                                        <div className="text-gray-500 text-xs">
                                           📍 {appointment.room}
@@ -208,7 +243,7 @@ export default function AppointmentSchedulingSection() {
                      );
                   })}
                </div>
-               
+
                {appointments.length > 3 && (
                   <div className="mt-4 text-center">
                      <button
@@ -226,15 +261,15 @@ export default function AppointmentSchedulingSection() {
                <div className="flex justify-center items-center bg-gray-100 mx-auto mb-4 rounded-full w-16 h-16">
                   <Calendar className="w-8 h-8 text-gray-400" />
                </div>
-               
+
                <h3 className="mb-2 font-medium text-gray-900 text-lg">
                   No tienes citas programadas
                </h3>
-               
+
                <p className="mb-4 text-gray-600">
                   Agenda tu primera cita médica de forma rápida y sencilla
                </p>
-               
+
                <button
                   onClick={handleScheduleNew}
                   className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-medium text-white transition-colors"

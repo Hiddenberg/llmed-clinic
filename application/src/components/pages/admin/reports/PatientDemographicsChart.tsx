@@ -8,10 +8,26 @@ import { mockPatientDemographics } from '@/data/mockData/reportsData';
 // Colors for each age group
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
 
+interface DemographicDatum {
+   ageGroup: string;
+   count: number;
+   percentage: number;
+   color?: string;
+}
+
+interface TooltipPayloadItem {
+   payload: DemographicDatum;
+}
+
+interface CustomTooltipProps {
+   active?: boolean;
+   payload?: TooltipPayloadItem[] | null;
+}
+
 // Custom tooltip
 function CustomTooltip ({
    active, payload
-}: any) {
+}: CustomTooltipProps) {
    if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
@@ -26,9 +42,18 @@ function CustomTooltip ({
 }
 
 // Custom label function
+interface LabelProps {
+   cx?: number;
+   cy?: number;
+   midAngle?: number;
+   innerRadius?: number;
+   outerRadius?: number;
+   percent?: number;
+}
+
 function renderCustomLabel ({
-   cx, cy, midAngle, innerRadius, outerRadius, percent
-}: any) {
+   cx = 0, cy = 0, midAngle = 0, innerRadius = 0, outerRadius = 0, percent = 0
+}: LabelProps) {
    const RADIAN = Math.PI / 180;
    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
    const x = cx + radius * Math.cos(-midAngle * RADIAN);

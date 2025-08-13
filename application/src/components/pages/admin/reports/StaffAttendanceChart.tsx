@@ -20,15 +20,28 @@ export default function StaffAttendanceChart ({ selectedPeriod }: { selectedPeri
          'Total': day.totalStaff
       }));
 
+   // Local tooltip types
+   interface ChartTooltipEntry {
+      dataKey?: string;
+      value?: number | string;
+      color?: string;
+   }
+
+   interface CustomTooltipProps {
+      active?: boolean;
+      payload?: ChartTooltipEntry[] | null;
+      label?: string | number;
+   }
+
    // Custom tooltip
    function CustomTooltip ({
       active, payload, label
-   }: any) {
+   }: CustomTooltipProps) {
       if (active && payload && payload.length) {
          return (
             <div className="bg-white shadow-lg p-4 border border-gray-200 rounded-lg">
                <p className="mb-2 font-semibold text-gray-800">{`${label}`}</p>
-               {payload.map((entry: any, index: number) => (
+               {payload.map((entry: ChartTooltipEntry, index: number) => (
                   <p key={index}
                      className="text-sm"
                      style={{
