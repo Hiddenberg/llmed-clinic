@@ -6,6 +6,7 @@ import DoctorStatsBar from './DoctorStatsBar';
 import TodayAppointments from './TodayAppointments';
 import PatientEvolutionPanel from './PatientEvolutionPanel';
 import DoctorActivityFeed from './DoctorActivityFeed';
+import QuickNavigation from './QuickNavigation';
 
 // Floating geometric shapes for background decoration
 function FloatingGeometry () {
@@ -180,6 +181,11 @@ export default function DoctorHomePage () {
                      </div>
                      <PatientEvolutionPanel />
                   </div>
+               </section>
+
+               {/* Quick Navigation Section */}
+               <section>
+                  <QuickNavigation />
                </section>
             </div>
 
