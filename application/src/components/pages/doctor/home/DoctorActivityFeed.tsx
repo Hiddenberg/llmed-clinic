@@ -1,12 +1,10 @@
 import {
-   User, AlertTriangle, Pill, FileText, Calendar, Clock, CheckCircle
+   User, AlertTriangle, Pill, FileText, Calendar, CheckCircle
 } from 'lucide-react';
 import { mockDoctorActivities, type DoctorActivity } from '@/data/mockData/doctorData';
 
-function formatTimeAgo (timestamp: string): string {
-   const date = new Date(timestamp);
-   const now = new Date();
-   const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+function formatTimeAgo (): string {
+   const diffInHours = Math.floor(Math.random() * 300);
 
    if (diffInHours < 1) {
       return 'Hace unos minutos';
@@ -131,7 +129,7 @@ function ActivityItemComponent ({
                   <div className="flex flex-shrink-0 items-center gap-2">
                      {getPriorityIndicator(activity.priority)}
                      <span className="bg-gray-100/80 px-2 py-1 rounded-full font-medium text-gray-500 text-xs">
-                        {formatTimeAgo(activity.timestamp)}
+                        {formatTimeAgo()}
                      </span>
                   </div>
                </div>
@@ -190,9 +188,9 @@ export default function DoctorActivityFeed () {
                   </div>
                   <p className="ml-11 text-gray-600 text-sm">Actualizaciones y alertas de pacientes</p>
                </div>
-               <button className="group flex items-center gap-2 bg-gradient-to-r from-purple-50 hover:from-purple-100 to-pink-50 hover:to-pink-100 px-4 py-2 border border-purple-200/50 rounded-lg font-medium text-purple-600 hover:text-purple-700 text-sm transition-all duration-300">
+               {/* <button className="group flex items-center gap-2 bg-gradient-to-r from-purple-50 hover:from-purple-100 to-pink-50 hover:to-pink-100 px-4 py-2 border border-purple-200/50 rounded-lg font-medium text-purple-600 hover:text-purple-700 text-sm transition-all duration-300">
                   Ver historial completo
-               </button>
+               </button> */}
             </div>
          </div>
 
@@ -236,14 +234,14 @@ export default function DoctorActivityFeed () {
          </div>
 
          {/* Load more button */}
-         <div className="pt-4 text-center">
+         {/* <div className="pt-4 text-center">
             <button className="group inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 hover:shadow-lg px-6 py-3 border hover:border-purple-200/50 border-transparent rounded-xl font-medium text-purple-600 hover:text-purple-700 text-sm transition-all duration-300">
                <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-1.5 rounded-lg group-hover:scale-110 transition-transform duration-300">
                   <Clock size={14} className="text-white" />
                </div>
                <span>Ver más actividades</span>
             </button>
-         </div>
+         </div> */}
 
          {/* Activity stats footer */}
          <div className="bg-gradient-to-r from-gray-50/80 to-purple-50/30 p-4 border border-gray-100/50 rounded-xl">

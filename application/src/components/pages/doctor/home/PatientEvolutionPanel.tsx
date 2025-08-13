@@ -194,7 +194,7 @@ export default function PatientEvolutionPanel () {
          </div>
 
          {/* Patient Evolution List */}
-         <div className="space-y-4">
+         <div className="space-y-4 max-h-[70dvh] overflow-y-auto">
             {sortedPatients.map((patient, index) => (
                <PatientEvolutionItem key={patient.id} patient={patient} index={index} />
             ))}

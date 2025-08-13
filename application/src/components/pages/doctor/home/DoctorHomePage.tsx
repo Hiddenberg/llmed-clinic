@@ -147,28 +147,20 @@ export default function DoctorHomePage () {
             {/* Main Content Sections */}
             <div className="space-y-8">
                {/* Activity and Appointments Section */}
-               <section>
-                  <div className="flex items-center gap-3 mb-6">
+               <section className='space-y-6'>
+                  <div className="flex items-center gap-3">
                      <div className="bg-gradient-to-b from-blue-600 to-cyan-500 rounded-full w-1 h-6" />
                      <h2 className="font-semibold text-gray-800 text-lg">Actividad y Citas de Hoy</h2>
                      <div className="flex-1 bg-gradient-to-r from-gray-300/30 to-transparent ml-4 h-px" />
                   </div>
 
-                  <div className="gap-8 grid grid-cols-1 xl:grid-cols-3">
-                     {/* Doctor Activity Feed */}
-                     <div className="xl:col-span-2">
-                        <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl" />
-                     </div>
-                     {/* Today's Appointments
-                     <div className="xl:col-span-1">
-                     <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl" />
-                     </div> */}
-                  </div>
 
-                  <div>
+                  <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl" >
                      <DoctorActivityFeed />
                   </div>
-                  <TodayAppointments />
+                  <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl" >
+                     <TodayAppointments />
+                  </div>
                </section>
 
                {/* Patient Evolution Section */}

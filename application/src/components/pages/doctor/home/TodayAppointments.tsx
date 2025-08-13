@@ -27,6 +27,16 @@ function getStatusColor (status: DoctorAppointment['status']) {
    return colors[status];
 }
 
+function getStatusText (status: DoctorAppointment['status']) {
+   const texts = {
+      upcoming: 'Próxima',
+      'in-progress': 'En Curso',
+      completed: 'Completadas',
+      cancelled: 'Canceladas'
+   };
+   return texts[status];
+}
+
 function getTypeLabel (type: DoctorAppointment['type']) {
    const labels = {
       hemodialysis: 'Hemodiálisis',
@@ -98,7 +108,7 @@ function AppointmentItem ({
                <div className="flex flex-col items-end gap-2">
                   <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(appointment.status)}`}>
                      {getStatusIcon(appointment.status)}
-                     <span className="capitalize">{appointment.status.replace('-', ' ')}</span>
+                     <span className="capitalize">{getStatusText(appointment.status)}</span>
                   </div>
 
                   <div className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${getTypeColor(appointment.type)}`}>
@@ -160,7 +170,7 @@ export default function TodayAppointments () {
             </div>
          </div>
 
-         <div className='grid grid-cols-2'>
+         <div className='gap-6 grid grid-cols-2'>
             {/* Upcoming & In Progress */}
             {upcomingAppointments.length > 0 && (
             <div className="space-y-3">
