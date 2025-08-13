@@ -121,8 +121,7 @@ function PatientRow ({
    };
 
    const handleViewRecord = () => {
-      // TODO: Navigate to patient detail page
-      console.log('View patient record:', patient.id);
+      window.location.href = `/${userType}/patients/${patient.id}`;
    };
 
    const handleCall = () => {
