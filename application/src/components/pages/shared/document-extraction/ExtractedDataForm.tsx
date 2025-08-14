@@ -25,21 +25,43 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
    useEffect(() => {
       if (!isAnimating) return;
 
-      const fields = [
-         'fullName', 'dateOfBirth', 'gender', 'phone', 'email', 'address', 
-         'mrn', 'bloodType', 'emergencyContactName', 'emergencyContactPhone',
-         'insuranceProvider', 'medicalHistory', 'medications', 'labResults',
-         'vitalSigns', 'allergies', 'clinicalNotes'
+      const fieldsWithTabs = [
+         // Personal info fields
+         { field: 'fullName', tab: 'personal' },
+         { field: 'dateOfBirth', tab: 'personal' },
+         { field: 'gender', tab: 'personal' },
+         { field: 'phone', tab: 'personal' },
+         { field: 'email', tab: 'personal' },
+         { field: 'address', tab: 'personal' },
+         { field: 'mrn', tab: 'personal' },
+         { field: 'bloodType', tab: 'personal' },
+         { field: 'emergencyContactName', tab: 'personal' },
+         { field: 'emergencyContactPhone', tab: 'personal' },
+         { field: 'insuranceProvider', tab: 'personal' },
+         // Medical history fields
+         { field: 'medicalHistory', tab: 'medical' },
+         { field: 'allergies', tab: 'medical' },
+         // Medications
+         { field: 'medications', tab: 'medications' },
+         // Lab results
+         { field: 'labResults', tab: 'labs' },
+         // Vital signs
+         { field: 'vitalSigns', tab: 'vitals' },
+         // Clinical notes
+         { field: 'clinicalNotes', tab: 'notes' }
       ];
 
       let currentFieldIndex = 0;
       const animateNextField = () => {
-         if (currentFieldIndex >= fields.length) {
+         if (currentFieldIndex >= fieldsWithTabs.length) {
             setIsAnimating(false);
             return;
          }
 
-         const fieldId = fields[currentFieldIndex];
+         const { field: fieldId, tab } = fieldsWithTabs[currentFieldIndex];
+         
+         // Switch to the appropriate tab
+         setActiveTab(tab);
          
          // Start animation
          setAnimationState(prev => ({
@@ -47,7 +69,7 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
             [fieldId]: { isAnimating: true, isCompleted: false }
          }));
 
-         // Complete animation after delay
+         // Complete animation after delay (faster now)
          setTimeout(() => {
             setAnimationState(prev => ({
                ...prev,
@@ -55,12 +77,12 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
             }));
             
             currentFieldIndex++;
-            setTimeout(animateNextField, 200); // Small delay between fields
-         }, 800 + Math.random() * 400); // Random duration for realism
+            setTimeout(animateNextField, 100); // Faster delay between fields
+         }, 400 + Math.random() * 200); // Faster duration for each field
       };
 
       // Start animation sequence after a brief delay
-      setTimeout(animateNextField, 500);
+      setTimeout(animateNextField, 300);
    }, [isAnimating]);
 
    const handleEdit = useCallback(() => {
@@ -85,6 +107,36 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
       { id: 'vitals', label: 'Signos Vitales', icon: Heart },
       { id: 'notes', label: 'Notas Clínicas', icon: Activity }
    ];
+
+   // Check if any field in a tab is currently being filled
+   const isTabBeingFilled = useCallback((tabId: string) => {
+      const tabFields = {
+         personal: ['fullName', 'dateOfBirth', 'gender', 'phone', 'email', 'address', 'mrn', 'bloodType', 'emergencyContactName', 'emergencyContactPhone', 'insuranceProvider'],
+         medical: ['medicalHistory', 'allergies'],
+         medications: ['medications'],
+         labs: ['labResults'],
+         vitals: ['vitalSigns'],
+         notes: ['clinicalNotes']
+      };
+
+      const fields = tabFields[tabId as keyof typeof tabFields] || [];
+      return fields.some(field => animationState[field]?.isAnimating);
+   }, [animationState]);
+
+   // Check if all fields in a tab are completed
+   const isTabCompleted = useCallback((tabId: string) => {
+      const tabFields = {
+         personal: ['fullName', 'dateOfBirth', 'gender', 'phone', 'email', 'address', 'mrn', 'bloodType', 'emergencyContactName', 'emergencyContactPhone', 'insuranceProvider'],
+         medical: ['medicalHistory', 'allergies'],
+         medications: ['medications'],
+         labs: ['labResults'],
+         vitals: ['vitalSigns'],
+         notes: ['clinicalNotes']
+      };
+
+      const fields = tabFields[tabId as keyof typeof tabFields] || [];
+      return fields.length > 0 && fields.every(field => animationState[field]?.isCompleted);
+   }, [animationState]);
 
    return (
       <div className="space-y-6">
@@ -143,15 +195,31 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
 
             {/* Animation Status */}
             {isAnimating && (
-               <div className="bg-brand-50/50 p-4 border border-brand-200 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                     <div className="bg-brand-500 rounded-full w-2 h-2 animate-pulse" />
-                     <span className="font-medium text-brand-800 text-sm">
-                        IA llenando campos automáticamente...
-                     </span>
+               <div className="bg-gradient-to-r from-brand-50 to-blue-50 shadow-sm p-4 border border-brand-300 rounded-lg">
+                  <div className="flex justify-between items-center mb-3">
+                     <div className="flex items-center gap-2">
+                        <div className="relative">
+                           <div className="absolute bg-brand-500 rounded-full w-3 h-3 animate-ping" />
+                           <div className="bg-brand-600 rounded-full w-3 h-3" />
+                        </div>
+                        <span className="font-semibold text-brand-800 text-sm">
+                           IA procesando información médica
+                        </span>
+                     </div>
+                     <div className="bg-brand-100 px-3 py-1 rounded-full">
+                        <span className="font-medium text-brand-700 text-xs">EN PROGRESO</span>
+                     </div>
                   </div>
+                  
+                  <div className="flex items-center gap-2 mb-2">
+                     <div className="bg-brand-200 rounded-full w-full h-2 overflow-hidden">
+                        <div className="bg-brand-500 rounded-full w-1/3 h-full animate-pulse" />
+                     </div>
+                     <span className="font-medium text-brand-600 text-xs whitespace-nowrap">Llenando...</span>
+                  </div>
+                  
                   <p className="text-brand-700 text-xs">
-                     Los campos se están completando con la información extraída del documento
+                     <span className="font-medium">Sección actual:</span> {tabs.find(tab => tab.id === activeTab)?.label || 'Información del paciente'}
                   </p>
                </div>
             )}
@@ -162,17 +230,31 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
             <div className="flex flex-wrap border-gray-200/50 border-b">
                {tabs.map((tab) => {
                   const Icon = tab.icon;
+                  const isBeingFilled = isTabBeingFilled(tab.id);
+                  const isCompleted = isTabCompleted(tab.id);
+                  const isActive = activeTab === tab.id;
+                  
                   return (
                      <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-2 px-6 py-4 text-sm font-medium transition-all ${
-                           activeTab === tab.id
+                           isActive
                               ? 'bg-brand-50 border-brand-500 border-b-2 text-brand-700'
-                              : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50/50'
-                        }`}
+                              : isCompleted
+                                 ? 'text-green-600 hover:text-green-700 hover:bg-green-50/50'
+                                 : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50/50'
+                        } ${isBeingFilled && isAnimating ? 'animate-pulse' : ''}`}
                      >
-                        <Icon size={16} />
+                        <div className="flex items-center gap-2">
+                           <Icon size={16} />
+                           {isBeingFilled && isAnimating && (
+                              <div className="bg-brand-500 rounded-full w-2 h-2 animate-pulse" />
+                           )}
+                           {isCompleted && !isBeingFilled && (
+                              <CheckCircle size={14} className="text-green-500" />
+                           )}
+                        </div>
                         {tab.label}
                      </button>
                   );

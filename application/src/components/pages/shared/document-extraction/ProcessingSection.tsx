@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-   Loader2, FileText, Brain, Search, Database, CheckCircle
+   Loader2, FileText, Brain, Search, Database, CheckCircle,
+   LucideIcon
 } from 'lucide-react';
 
 interface ProcessingSectionProps {
@@ -12,7 +13,7 @@ interface ProcessingSectionProps {
 interface ProcessingStep {
    id: string;
    label: string;
-   icon: React.ComponentType<{ size?: number; className?: string }>;
+   icon: LucideIcon;
    description: string;
 }
 
@@ -87,6 +88,8 @@ export default function ProcessingSection ({ fileName }: ProcessingSectionProps)
       };
    }, []);
 
+   const Icon = processingSteps[currentStep].icon;
+
    return (
       <div className="space-y-6">
          {/* Processing Header */}
@@ -120,10 +123,7 @@ export default function ProcessingSection ({ fileName }: ProcessingSectionProps)
             {/* Current Step */}
             <div className="bg-brand-50/50 p-4 border border-brand-200 rounded-lg">
                <div className="flex justify-center items-center gap-3 mb-2">
-                  {React.createElement(processingSteps[currentStep].icon, {
-                     size: 24,
-                     className: "text-brand-600"
-                  })}
+                  <Icon size={24} className="text-brand-600" />
                   <span className="font-semibold text-brand-800 text-lg">
                      {processingSteps[currentStep].label}
                   </span>

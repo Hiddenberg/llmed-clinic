@@ -46,7 +46,7 @@ export default function AnimatedField({
                clearInterval(typeInterval);
                setIsTyping(false);
             }
-         }, 30 + Math.random() * 40); // Variable typing speed for realism
+         }, 15 + Math.random() * 20); // Faster variable typing speed
 
          return () => clearInterval(typeInterval);
       } else if (animationState?.isCompleted || isEditing) {
@@ -103,16 +103,28 @@ export default function AnimatedField({
       // Display mode
       if (type === 'textarea') {
          return (
-            <div className="bg-gray-50 px-3 py-2 border rounded-lg min-h-[100px] whitespace-pre-wrap">
-               {getDisplayLabel()}
+            <div className={`px-3 py-2 border rounded-lg min-h-[100px] whitespace-pre-wrap transition-all ${
+               animationState?.isAnimating && !isEditing
+                  ? 'bg-brand-50/50 border-brand-300'
+                  : 'bg-gray-50 border-gray-300'
+            }`}>
+               {getDisplayLabel() || (animationState?.isAnimating && !isEditing ? (
+                  <span className="text-brand-500 italic">Completando información...</span>
+               ) : '')}
                {isTyping && <span className="text-brand-500 animate-pulse">|</span>}
             </div>
          );
       }
 
       return (
-         <div className="bg-gray-50 px-3 py-2 border rounded-lg">
-            {getDisplayLabel()}
+         <div className={`px-3 py-2 border rounded-lg transition-all ${
+            animationState?.isAnimating && !isEditing
+               ? 'bg-brand-50/50 border-brand-300'
+               : 'bg-gray-50 border-gray-300'
+         }`}>
+            {getDisplayLabel() || (animationState?.isAnimating && !isEditing ? (
+               <span className="text-brand-500 italic">Completando...</span>
+            ) : '')}
             {isTyping && <span className="text-brand-500 animate-pulse">|</span>}
          </div>
       );
@@ -129,15 +141,15 @@ export default function AnimatedField({
             {animationState && !isEditing && (
                <div className="flex items-center gap-1">
                   {animationState.isAnimating ? (
-                     <>
-                        <Loader2 size={14} className="text-brand-500 animate-spin" />
-                        <span className="text-brand-600 text-xs">Llenando...</span>
-                     </>
+                     <div className="flex items-center gap-1 bg-brand-100 px-2 py-1 rounded-full">
+                        <Loader2 size={12} className="text-brand-500 animate-spin" />
+                        <span className="font-medium text-brand-700 text-xs">Llenando</span>
+                     </div>
                   ) : animationState.isCompleted ? (
-                     <>
-                        <CheckCircle size={14} className="text-green-500" />
-                        <span className="text-green-600 text-xs">Completado</span>
-                     </>
+                     <div className="flex items-center gap-1 bg-green-100 px-2 py-1 rounded-full">
+                        <CheckCircle size={12} className="text-green-500" />
+                        <span className="font-medium text-green-700 text-xs">Completado</span>
+                     </div>
                   ) : (
                      <div className="bg-gray-300 rounded-full w-3 h-3" />
                   )}
@@ -145,13 +157,19 @@ export default function AnimatedField({
             )}
          </div>
 
-         <div className={`transition-all duration-200 ${
+         <div className={`relative transition-all duration-200 ${
             animationState?.isAnimating && !isEditing
                ? 'ring-2 ring-brand-500 ring-opacity-50 shadow-sm'
                : animationState?.isCompleted && !isEditing
                   ? 'ring-2 ring-green-500 ring-opacity-50'
                   : ''
          }`}>
+            {/* Progress bar for filling animation */}
+            {animationState?.isAnimating && !isEditing && (
+               <div className="top-0 left-0 absolute bg-brand-200/30 rounded-lg w-full h-full overflow-hidden">
+                  <div className="bg-brand-400/20 w-full h-1 animate-pulse" />
+               </div>
+            )}
             {renderField()}
          </div>
 

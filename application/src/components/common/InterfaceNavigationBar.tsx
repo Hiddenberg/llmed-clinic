@@ -1,7 +1,7 @@
 "use client"
 
 import {
-   Heart, Stethoscope, User, Shield,
+   Heart, Stethoscope, User, Shield, FileText,
    LucideIcon
 } from 'lucide-react';
 import Link from 'next/link';
@@ -40,6 +40,14 @@ const navigationItems: NavigationItem[] = [
       icon: Heart,
       color: 'from-purple-500 to-pink-500',
       description: 'Portal del paciente'
+   },
+   {
+      key: 'document-extraction',
+      label: 'Extracción de Documentos',
+      href: '/document-extraction',
+      icon: FileText,
+      color: 'from-orange-500 to-red-500',
+      description: 'IA para documentos médicos'
    }
 ];
 
@@ -51,6 +59,7 @@ export default function InterfaceNavigationBar () {
       if (pathname.includes('/admin')) return 'admin';
       if (pathname.includes('/doctor')) return 'doctor';
       if (pathname.includes('/patient')) return 'patient';
+      if (pathname.includes('/document-extraction')) return 'document-extraction';
       return '';
    };
 
@@ -72,7 +81,7 @@ export default function InterfaceNavigationBar () {
                </div>
 
                {/* Navigation Items */}
-               <nav className="flex items-center gap-2">
+               <nav className="flex items-center gap-1 sm:gap-2">
                   {navigationItems.map((item) => {
                      const isActive = currentInterface === item.key;
 
@@ -80,7 +89,7 @@ export default function InterfaceNavigationBar () {
                         <Link
                            key={item.key}
                            href={item.href}
-                           className={`group relative flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 ${
+                           className={`group relative flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2.5 rounded-xl transition-all duration-200 ${
                               isActive
                                  ? 'bg-gradient-to-r ' + item.color + ' text-white shadow-md'
                                  : 'hover:bg-gray-50 text-gray-600 hover:text-gray-800'
