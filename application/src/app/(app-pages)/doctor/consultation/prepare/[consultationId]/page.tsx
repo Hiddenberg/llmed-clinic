@@ -6,6 +6,6 @@ interface PreConsultationPageProps {
    };
 }
 
-export default function PreConsultationRoute({ params }: PreConsultationPageProps) {
+export default function PreConsultationRoute ({ params }: PreConsultationPageProps) {
    return <PreConsultationPage consultationId={params.consultationId} />;
 }

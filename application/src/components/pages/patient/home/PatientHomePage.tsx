@@ -1,5 +1,5 @@
 import {
-   Heart, Activity, Phone, FileText, Plus,
+   Heart, Activity, Phone, FileText, Plus, Video,
    LucideIcon
 } from 'lucide-react';
 // import { mockPatient } from '@/data/mockData/patientData';
@@ -10,6 +10,7 @@ import VitalSignsOverview from './VitalSignsOverview';
 import DoctorCallSection from './DoctorCallSection';
 import DoctorNotesSection from './DoctorNotesSection';
 import QuickActions from './QuickActionsButton';
+import ActiveConsultationsSection from './ActiveConsultationsSection';
 
 // Floating geometric shapes for background decoration - patient themed
 function FloatingGeometry () {
@@ -86,6 +87,17 @@ export default function PatientHomePage () {
 
             {/* Main Content Sections */}
             <div className="space-y-6">
+               {/* Video Consultations Section */}
+               <section id="consultations-section" className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
+                  <SectionHeader
+                     icon={Video}
+                     title="Video Consultas"
+                     gradient="from-blue-500 to-cyan-500"
+                     id="consultations-section"
+                  />
+                  <ActiveConsultationsSection />
+               </section>
+
                {/* Appointment Scheduling Section */}
                <section id="schedule-section" className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
                   <SectionHeader
