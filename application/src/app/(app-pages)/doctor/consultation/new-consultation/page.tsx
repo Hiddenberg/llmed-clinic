@@ -11,7 +11,7 @@ export default function NewConsultationPage () {
 
       // In a real app, you would create the consultation in your backend here
       setTimeout(() => {
-         window.location.href = `/doctor/consultation/${consultationId}?type=${type}`;
+         window.location.href = `/doctor/consultation/prepare/${consultationId}?type=${type}`;
       }, 1000);
    }, []);
 

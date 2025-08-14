@@ -126,7 +126,7 @@ function ConsultationStats () {
    const stats = [
       {
          label: 'Consultas Hoy',
-         value: '8',
+         value: '4',
          icon: Calendar,
          color: 'bg-blue-100 text-blue-600'
       },
@@ -170,8 +170,8 @@ export default function ConsultationPage () {
    const [showNewConsultationModal, setShowNewConsultationModal] = useState(false);
 
    const handleStartConsultation = (appointmentId: string, type: 'in-person' | 'video') => {
-      // Navigate to active consultation
-      window.location.href = `/doctor/consultation/cons-${appointmentId}?type=${type}`;
+      // Navigate to consultation preparation
+      window.location.href = `/doctor/consultation/prepare/cons-${appointmentId}?type=${type}`;
    };
 
    const handleNewConsultation = () => {
@@ -297,7 +297,7 @@ export default function ConsultationPage () {
                            <button
                               onClick={() => {
                                  setShowNewConsultationModal(false);
-                                 window.location.href = '/doctor/consultation/new-consultation?type=in-person';
+                                 window.location.href = '/doctor/consultation/prepare/new-consultation?type=in-person';
                               }}
                               className="flex justify-center items-center gap-2 hover:bg-gray-50 p-3 border border-gray-300 rounded-lg transition-colors"
                            >
@@ -307,7 +307,7 @@ export default function ConsultationPage () {
                            <button
                               onClick={() => {
                                  setShowNewConsultationModal(false);
-                                 window.location.href = '/doctor/consultation/new-consultation?type=video';
+                                 window.location.href = '/doctor/consultation/prepare/new-consultation?type=video';
                               }}
                               className="flex justify-center items-center gap-2 hover:bg-gray-50 p-3 border border-gray-300 rounded-lg transition-colors"
                            >

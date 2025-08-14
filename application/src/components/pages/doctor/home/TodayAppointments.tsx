@@ -67,7 +67,7 @@ function AppointmentItem ({
    appointment, index
 }: AppointmentItemProps) {
    const handleStartConsultation = (type: 'in-person' | 'video') => {
-      window.location.href = `/doctor/consultation/cons-${appointment.id}?type=${type}`;
+      window.location.href = `/doctor/consultation/prepare/cons-${appointment.id}?type=${type}`;
    };
 
    const handleContinueConsultation = () => {

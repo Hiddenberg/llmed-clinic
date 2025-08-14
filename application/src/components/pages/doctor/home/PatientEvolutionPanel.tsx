@@ -120,7 +120,7 @@ function PatientEvolutionItem ({
             <div className="flex gap-2 mt-4">
                <Link
                   href="/doctor/patients/1"
-                  className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200"
+                  className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm text-center transition-colors duration-200"
                >
                   Ver Historial
                </Link>
