@@ -308,6 +308,14 @@ export const mockNavCards: AdminNavCard[] = [
       icon: 'Settings',
       href: '/admin/equipments',
       color: 'info'
+   },
+   {
+      id: '6',
+      title: 'Investigación',
+      description: 'Análisis avanzado y correlaciones para investigación médica',
+      icon: 'Brain',
+      href: '/admin/research-analytics',
+      color: 'success'
    }
 ];
 

@@ -416,8 +416,8 @@ export default function AIConsultationAssistant ({ suggestions }: AIConsultation
                   onClick={() => setActiveTab('suggestions')}
                   className={`flex-1 py-1.5 px-3 text-xs font-medium rounded transition-colors ${
                      activeTab === 'suggestions'
-                        ? 'bg-white text-purple-600'
-                        : 'text-white hover:bg-white hover:bg-opacity-10'
+                        ? 'text-purple-600 bg-purple-100'
+                        : 'text-purple-400 hover:bg-purple-200 hover:bg-opacity-10'
                   }`}
                >
                   Sugerencias
@@ -426,8 +426,8 @@ export default function AIConsultationAssistant ({ suggestions }: AIConsultation
                   onClick={() => setActiveTab('insights')}
                   className={`flex-1 py-1.5 px-3 text-xs font-medium rounded transition-colors ${
                      activeTab === 'insights'
-                        ? 'bg-white text-purple-600'
-                        : 'text-white hover:bg-white hover:bg-opacity-10'
+                        ? 'text-purple-600 bg-purple-100'
+                        : 'text-purple-400 hover:bg-purple-200 hover:bg-opacity-10'
                   }`}
                >
                   Insights
@@ -436,8 +436,8 @@ export default function AIConsultationAssistant ({ suggestions }: AIConsultation
                   onClick={() => setActiveTab('actions')}
                   className={`flex-1 py-1.5 px-3 text-xs font-medium rounded transition-colors ${
                      activeTab === 'actions'
-                        ? 'bg-white text-purple-600'
-                        : 'text-white hover:bg-white hover:bg-opacity-10'
+                        ? 'text-purple-600 bg-purple-100'
+                        : 'text-purple-400 hover:bg-purple-200 hover:bg-opacity-10'
                   }`}
                >
                   Acciones

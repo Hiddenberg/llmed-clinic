@@ -6,6 +6,7 @@ import {
    BarChart3,
    Activity,
    Settings,
+   Brain,
    ArrowRight,
    LucideIcon
 } from 'lucide-react';
@@ -18,7 +19,8 @@ const iconMap: Record<string, LucideIcon> = {
    UserCheck,
    BarChart3,
    Activity,
-   Settings
+   Settings,
+   Brain
 };
 
 interface NavigationCardProps {
