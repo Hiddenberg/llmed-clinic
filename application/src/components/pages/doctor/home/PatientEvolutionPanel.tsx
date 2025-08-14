@@ -2,6 +2,7 @@ import {
    TrendingUp, TrendingDown, Minus, Heart, Droplets, Clock, User
 } from 'lucide-react';
 import { mockPatientEvolution, type PatientEvolution } from '@/data/mockData/doctorData';
+import Link from 'next/link';
 
 function getTrendIcon (trend: PatientEvolution['trend']) {
    const icons = {
@@ -117,9 +118,12 @@ function PatientEvolutionItem ({
 
             {/* Action Buttons */}
             <div className="flex gap-2 mt-4">
-               <button className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
+               <Link
+                  href="/doctor/patients/1"
+                  className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200"
+               >
                   Ver Historial
-               </button>
+               </Link>
                <button className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200">
                   Actualizar
                </button>
