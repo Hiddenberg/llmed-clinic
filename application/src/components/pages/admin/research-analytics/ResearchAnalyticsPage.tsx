@@ -1,7 +1,7 @@
 "use client"
 
 import {
-   Brain, TrendingUp, Users, BarChart3, Activity, Target, 
+   Brain, TrendingUp, Users, BarChart3, Activity, Target,
    AlertCircle, FileText, Calendar, Database, LucideIcon
 } from 'lucide-react';
 import { useState } from 'react';
@@ -53,10 +53,22 @@ function ResearchHeader ({
    setSelectedPeriod: (period: string) => void;
 }) {
    const periods = [
-      { value: '1year', label: '1 Año' },
-      { value: '2years', label: '2 Años' },
-      { value: '5years', label: '5 Años' },
-      { value: 'all', label: 'Todo el período' }
+      {
+         value: '1year',
+         label: '1 Año'
+      },
+      {
+         value: '2years',
+         label: '2 Años'
+      },
+      {
+         value: '5years',
+         label: '5 Años'
+      },
+      {
+         value: 'all',
+         label: 'Todo el período'
+      }
    ];
 
    return (
@@ -99,12 +111,36 @@ function AnalysisNavigation ({
    setActiveSection: (section: string) => void;
 }) {
    const sections = [
-      { id: 'overview', label: 'Resumen General', icon: BarChart3 },
-      { id: 'demographics', label: 'Demografia', icon: Users },
-      { id: 'correlations', label: 'Correlaciones', icon: TrendingUp },
-      { id: 'survival', label: 'Supervivencia', icon: Activity },
-      { id: 'effectiveness', label: 'Efectividad', icon: Target },
-      { id: 'ai-insights', label: 'IA Insights', icon: Brain }
+      {
+         id: 'overview',
+         label: 'Resumen General',
+         icon: BarChart3
+      },
+      {
+         id: 'demographics',
+         label: 'Demografia',
+         icon: Users
+      },
+      {
+         id: 'correlations',
+         label: 'Correlaciones',
+         icon: TrendingUp
+      },
+      {
+         id: 'survival',
+         label: 'Supervivencia',
+         icon: Activity
+      },
+      {
+         id: 'effectiveness',
+         label: 'Efectividad',
+         icon: Target
+      },
+      {
+         id: 'ai-insights',
+         label: 'IA Insights',
+         icon: Brain
+      }
    ];
 
    return (
@@ -113,16 +149,16 @@ function AnalysisNavigation ({
             {sections.map((section) => {
                const Icon = section.icon;
                const isActive = activeSection === section.id;
-               
+
                return (
                   <button
                      key={section.id}
                      onClick={() => setActiveSection(section.id)}
                      className={`
                         flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
-                        ${isActive 
-                           ? 'bg-brand-500 text-white shadow-md shadow-brand-500/25' 
-                           : 'text-gray-600 hover:text-brand-600 hover:bg-brand-50'
+                        ${isActive
+                        ? 'bg-brand-500 text-white shadow-md shadow-brand-500/25'
+                        : 'text-gray-600 hover:text-brand-600 hover:bg-brand-50'
                         }
                      `}
                   >
@@ -200,14 +236,14 @@ export default function ResearchAnalyticsPage () {
    return (
       <div className="relative bg-gray-50 min-h-screen">
          <FloatingGeometry />
-         
+
          <div className="z-10 relative mx-auto p-6 max-w-7xl">
-            <ResearchHeader 
+            <ResearchHeader
                selectedPeriod={selectedPeriod}
                setSelectedPeriod={setSelectedPeriod}
             />
-            
-            <AnalysisNavigation 
+
+            <AnalysisNavigation
                activeSection={activeSection}
                setActiveSection={setActiveSection}
             />
@@ -225,9 +261,9 @@ export default function ResearchAnalyticsPage () {
                         Nota sobre los datos de investigación
                      </h4>
                      <p className="text-blue-700 text-sm">
-                        Los datos presentados en esta sección están diseñados para demostración y propósitos de investigación. 
-                        Todos los análisis estadísticos y correlaciones mostrados se basan en datos simulados que reflejan 
-                        patrones típicos observados en centros de hemodiálisis. Para uso en investigación real, se requiere 
+                        Los datos presentados en esta sección están diseñados para demostración y propósitos de investigación.
+                        Todos los análisis estadísticos y correlaciones mostrados se basan en datos simulados que reflejan
+                        patrones típicos observados en centros de hemodiálisis. Para uso en investigación real, se requiere
                         validación adicional y aprobación del comité de ética correspondiente.
                      </p>
                   </div>

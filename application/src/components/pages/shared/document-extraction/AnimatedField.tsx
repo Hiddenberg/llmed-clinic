@@ -14,7 +14,7 @@ interface AnimatedFieldProps {
    onChange?: (value: string) => void;
 }
 
-export default function AnimatedField({
+export default function AnimatedField ({
    label,
    value,
    animationState,
@@ -107,7 +107,8 @@ export default function AnimatedField({
                animationState?.isAnimating && !isEditing
                   ? 'bg-brand-50/50 border-brand-300'
                   : 'bg-gray-50 border-gray-300'
-            }`}>
+            }`}
+            >
                {getDisplayLabel() || (animationState?.isAnimating && !isEditing ? (
                   <span className="text-brand-500 italic">Completando información...</span>
                ) : '')}
@@ -121,7 +122,8 @@ export default function AnimatedField({
             animationState?.isAnimating && !isEditing
                ? 'bg-brand-50/50 border-brand-300'
                : 'bg-gray-50 border-gray-300'
-         }`}>
+         }`}
+         >
             {getDisplayLabel() || (animationState?.isAnimating && !isEditing ? (
                <span className="text-brand-500 italic">Completando...</span>
             ) : '')}
@@ -136,7 +138,7 @@ export default function AnimatedField({
             <label className="block font-medium text-gray-700 text-sm">
                {label}
             </label>
-            
+
             {/* Animation Status Indicator */}
             {animationState && !isEditing && (
                <div className="flex items-center gap-1">
@@ -163,7 +165,8 @@ export default function AnimatedField({
                : animationState?.isCompleted && !isEditing
                   ? 'ring-2 ring-green-500 ring-opacity-50'
                   : ''
-         }`}>
+         }`}
+         >
             {/* Progress bar for filling animation */}
             {animationState?.isAnimating && !isEditing && (
                <div className="top-0 left-0 absolute bg-brand-200/30 rounded-lg w-full h-full overflow-hidden">

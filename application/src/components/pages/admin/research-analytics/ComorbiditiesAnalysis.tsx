@@ -1,7 +1,11 @@
 "use client"
 
-import { AlertTriangle, Users, TrendingUp, Clock } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import {
+   AlertTriangle, Users, TrendingUp, Clock
+} from 'lucide-react';
+import {
+   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid
+} from 'recharts';
 import { mockComorbiditiesData } from '@/data/mockData/researchAnalyticsData';
 
 export default function ComorbiditiesAnalysis () {
@@ -13,7 +17,8 @@ export default function ComorbiditiesAnalysis () {
 
    // Prepare data for charts
    const pieData = data.map((item, index) => ({
-      name: item.condition.replace(' Mellitus', '').replace(' Arterial', ''),
+      name: item.condition.replace(' Mellitus', '')
+         .replace(' Arterial', ''),
       value: item.prevalence,
       color: COLORS[index % COLORS.length]
    }));
@@ -74,85 +79,108 @@ export default function ComorbiditiesAnalysis () {
                </div>
                <div className="text-amber-600 text-sm">Prevalencia Promedio</div>
             </div>
-                   </div>
+         </div>
 
-          {/* Charts section */}
-          <div className="gap-6 grid grid-cols-1 lg:grid-cols-2 mb-8">
-             {/* Pie chart for prevalence */}
-             <div>
-                <h3 className="mb-4 font-semibold text-gray-900 text-lg">
-                   Distribución de Prevalencia
-                </h3>
-                <div className="h-80">
-                   <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                         <Pie
-                            data={pieData}
-                            cx="50%"
-                            cy="50%"
-                            outerRadius={100}
-                            fill="#8884d8"
-                            dataKey="value"
-                            label={({ name, value }) => `${name}: ${value.toFixed(1)}%`}
-                            labelLine={false}
-                         >
-                            {pieData.map((entry, index) => (
-                               <Cell key={`cell-${index}`} fill={entry.color} />
-                            ))}
-                         </Pie>
-                         <Tooltip formatter={(value: number) => [`${value.toFixed(1)}%`, 'Prevalencia']} />
-                      </PieChart>
-                   </ResponsiveContainer>
-                </div>
-             </div>
+         {/* Charts section */}
+         <div className="gap-6 grid grid-cols-1 lg:grid-cols-2 mb-8">
+            {/* Pie chart for prevalence */}
+            <div>
+               <h3 className="mb-4 font-semibold text-gray-900 text-lg">
+                  Distribución de Prevalencia
+               </h3>
+               <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                     <PieChart>
+                        <Pie
+                           data={pieData}
+                           cx="50%"
+                           cy="50%"
+                           outerRadius={100}
+                           fill="#8884d8"
+                           dataKey="value"
+                           label={(entry: { name?: string; value?: number }) => `${entry.name}: ${(entry.value ?? 0).toFixed(1)}%`}
+                           labelLine={false}
+                        >
+                           {pieData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                           ))}
+                        </Pie>
+                        <Tooltip formatter={(value: number) => [`${value.toFixed(1)}%`, 'Prevalencia']} />
+                     </PieChart>
+                  </ResponsiveContainer>
+               </div>
+            </div>
 
-             {/* Bar chart for complications */}
-             <div>
-                <h3 className="mb-4 font-semibold text-gray-900 text-lg">
-                   Complicaciones por Condición
-                </h3>
-                <div className="h-80">
-                   <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                         <XAxis 
-                            dataKey="condition" 
-                            tick={{ fontSize: 10, fill: '#6b7280' }}
-                            axisLine={{ stroke: '#e5e7eb' }}
-                            angle={-45}
-                            textAnchor="end"
-                            height={80}
-                         />
-                         <YAxis 
-                            tick={{ fontSize: 12, fill: '#6b7280' }}
-                            axisLine={{ stroke: '#e5e7eb' }}
-                            label={{ value: 'Complicaciones (%)', angle: -90, position: 'insideLeft' }}
-                         />
-                         <Tooltip 
-                            contentStyle={{
-                               backgroundColor: 'white',
-                               border: '1px solid #e5e7eb',
-                               borderRadius: '8px',
-                               fontSize: '12px'
-                            }}
-                            formatter={(value: number) => [`${value.toFixed(1)}%`, 'Complicaciones']}
-                         />
-                         <Bar dataKey="treatmentComplications" radius={[4, 4, 0, 0]}>
-                            {data.map((entry, index) => (
-                               <Cell key={`cell-${index}`} fill={
+            {/* Bar chart for complications */}
+            <div>
+               <h3 className="mb-4 font-semibold text-gray-900 text-lg">
+                  Complicaciones por Condición
+               </h3>
+               <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                     <BarChart data={data}
+                        margin={{
+                           top: 20,
+                           right: 30,
+                           left: 20,
+                           bottom: 5
+                        }}
+                     >
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                        <XAxis
+                           dataKey="condition"
+                           tick={{
+                              fontSize: 10,
+                              fill: '#6b7280'
+                           }}
+                           axisLine={{
+                              stroke: '#e5e7eb'
+                           }}
+                           angle={-45}
+                           textAnchor="end"
+                           height={80}
+                        />
+                        <YAxis
+                           tick={{
+                              fontSize: 12,
+                              fill: '#6b7280'
+                           }}
+                           axisLine={{
+                              stroke: '#e5e7eb'
+                           }}
+                           label={{
+                              value: 'Complicaciones (%)',
+                              angle: -90,
+                              position: 'insideLeft'
+                           }}
+                        />
+                        <Tooltip
+                           contentStyle={{
+                              backgroundColor: 'white',
+                              border: '1px solid #e5e7eb',
+                              borderRadius: '8px',
+                              fontSize: '12px'
+                           }}
+                           formatter={(value: number) => [`${value.toFixed(1)}%`, 'Complicaciones']}
+                        />
+                        <Bar dataKey="treatmentComplications" radius={[4, 4, 0, 0]}>
+                           {data.map((entry, index) => (
+                              <Cell key={`cell-${index}`}
+                                 fill={
                                   entry.impact === 'high' ? '#EF4444' :
-                                  entry.impact === 'medium' ? '#F59E0B' : '#10B981'
-                               } />
-                            ))}
-                         </Bar>
-                      </BarChart>
-                   </ResponsiveContainer>
-                </div>
-             </div>
-          </div>
+                                     entry.impact === 'medium' ? '#F59E0B' : '#10B981'
+                               }
+                              />
+                           ))}
+                        </Bar>
+                     </BarChart>
+                  </ResponsiveContainer>
+               </div>
+            </div>
+         </div>
 
-          {/* Comorbidities list */}
-          <div className="space-y-4">
+         {/* Comorbidities list */}
+         <div className="space-y-4">
             {data.map((condition, index) => (
                <div key={index} className="hover:shadow-sm p-4 border border-gray-200 rounded-lg transition-shadow">
                   <div className="flex justify-between items-center mb-3">
@@ -185,15 +213,17 @@ export default function ComorbiditiesAnalysis () {
                         </span>
                      </div>
                      <div className="bg-gray-200 rounded-full w-full h-2">
-                        <div 
+                        <div
                            className={`h-2 rounded-full transition-all duration-500 ${
-                              condition.prevalence >= 70 
+                              condition.prevalence >= 70
                                  ? 'bg-gradient-to-r from-red-400 to-red-600'
                                  : condition.prevalence >= 40
-                                 ? 'bg-gradient-to-r from-amber-400 to-amber-600'
-                                 : 'bg-gradient-to-r from-blue-400 to-blue-600'
+                                    ? 'bg-gradient-to-r from-amber-400 to-amber-600'
+                                    : 'bg-gradient-to-r from-blue-400 to-blue-600'
                            }`}
-                           style={{ width: `${(condition.prevalence / maxPrevalence) * 100}%` }}
+                           style={{
+                              width: `${(condition.prevalence / maxPrevalence) * 100}%`
+                           }}
                         />
                      </div>
                   </div>
@@ -232,21 +262,21 @@ export default function ComorbiditiesAnalysis () {
                <div className="flex items-start gap-2">
                   <TrendingUp className="flex-shrink-0 mt-0.5 w-4 h-4 text-red-600" />
                   <p>
-                     La hipertensión arterial presenta la mayor prevalencia (89.1%), 
+                     La hipertensión arterial presenta la mayor prevalencia (89.1%),
                      siendo prácticamente universal en nuestra población.
                   </p>
                </div>
                <div className="flex items-start gap-2">
                   <AlertTriangle className="flex-shrink-0 mt-0.5 w-4 h-4 text-amber-600" />
                   <p>
-                     La diabetes mellitus afecta al 68.4% de los pacientes y está 
+                     La diabetes mellitus afecta al 68.4% de los pacientes y está
                      asociada con mayor tasa de complicaciones (24.7%).
                   </p>
                </div>
                <div className="flex items-start gap-2">
                   <Clock className="flex-shrink-0 mt-0.5 w-4 h-4 text-blue-600" />
                   <p>
-                     Los pacientes con enfermedad cardiovascular tienen mayor edad promedio 
+                     Los pacientes con enfermedad cardiovascular tienen mayor edad promedio
                      (67.5 años) y mayor tasa de complicaciones (31.2%).
                   </p>
                </div>

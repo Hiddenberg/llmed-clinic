@@ -1,7 +1,11 @@
 "use client"
 
-import { TrendingUp, Users, Target, AlertCircle } from 'lucide-react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import {
+   TrendingUp, Users, Target, AlertCircle
+} from 'lucide-react';
+import {
+   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell
+} from 'recharts';
 import { mockTreatmentCorrelations } from '@/data/mockData/researchAnalyticsData';
 
 export default function TreatmentCorrelationsChart () {
@@ -35,10 +39,22 @@ export default function TreatmentCorrelationsChart () {
 
    const getCorrelationStrength = (coefficient: number) => {
       const abs = Math.abs(coefficient);
-      if (abs >= 0.7) return { label: 'Fuerte', color: 'text-green-600' };
-      if (abs >= 0.5) return { label: 'Moderada', color: 'text-amber-600' };
-      if (abs >= 0.3) return { label: 'Débil', color: 'text-orange-600' };
-      return { label: 'Muy débil', color: 'text-gray-600' };
+      if (abs >= 0.7) return {
+         label: 'Fuerte',
+         color: 'text-green-600'
+      };
+      if (abs >= 0.5) return {
+         label: 'Moderada',
+         color: 'text-amber-600'
+      };
+      if (abs >= 0.3) return {
+         label: 'Débil',
+         color: 'text-orange-600'
+      };
+      return {
+         label: 'Muy débil',
+         color: 'text-gray-600'
+      };
    };
 
    return (
@@ -78,62 +94,85 @@ export default function TreatmentCorrelationsChart () {
                   </div>
                </div>
             </div>
-                   </div>
+         </div>
 
-          {/* Correlation strength visualization */}
-          <div className="mb-8">
-             <h3 className="mb-4 font-semibold text-gray-900 text-lg">
-                Fuerza de Correlaciones
-             </h3>
-             <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                   <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 100 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                      <XAxis 
-                         dataKey="parameter1" 
-                         tick={{ fontSize: 10, fill: '#6b7280' }}
-                         axisLine={{ stroke: '#e5e7eb' }}
-                         angle={-45}
-                         textAnchor="end"
-                         height={100}
-                      />
-                      <YAxis 
-                         domain={[0, 1]}
-                         tick={{ fontSize: 12, fill: '#6b7280' }}
-                         axisLine={{ stroke: '#e5e7eb' }}
-                         label={{ value: 'Coeficiente de Correlación', angle: -90, position: 'insideLeft' }}
-                      />
-                      <Tooltip 
-                         contentStyle={{
-                            backgroundColor: 'white',
-                            border: '1px solid #e5e7eb',
-                            borderRadius: '8px',
-                            fontSize: '12px'
-                         }}
-                         formatter={(value: number) => [
-                            `r = ${value.toFixed(3)}`,
-                            'Correlación'
-                         ]}
-                         labelFormatter={(label: string) => `${label}`}
-                      />
-                      <Bar dataKey="correlationCoefficient" radius={[4, 4, 0, 0]}>
-                         {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={
+         {/* Correlation strength visualization */}
+         <div className="mb-8">
+            <h3 className="mb-4 font-semibold text-gray-900 text-lg">
+               Fuerza de Correlaciones
+            </h3>
+            <div className="h-80">
+               <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={data}
+                     margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 100
+                     }}
+                  >
+                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                     <XAxis
+                        dataKey="parameter1"
+                        tick={{
+                           fontSize: 10,
+                           fill: '#6b7280'
+                        }}
+                        axisLine={{
+                           stroke: '#e5e7eb'
+                        }}
+                        angle={-45}
+                        textAnchor="end"
+                        height={100}
+                     />
+                     <YAxis
+                        domain={[0, 1]}
+                        tick={{
+                           fontSize: 12,
+                           fill: '#6b7280'
+                        }}
+                        axisLine={{
+                           stroke: '#e5e7eb'
+                        }}
+                        label={{
+                           value: 'Coeficiente de Correlación',
+                           angle: -90,
+                           position: 'insideLeft'
+                        }}
+                     />
+                     <Tooltip
+                        contentStyle={{
+                           backgroundColor: 'white',
+                           border: '1px solid #e5e7eb',
+                           borderRadius: '8px',
+                           fontSize: '12px'
+                        }}
+                        formatter={(value: number) => [
+                           `r = ${value.toFixed(3)}`,
+                           'Correlación'
+                        ]}
+                        labelFormatter={(label: string) => `${label}`}
+                     />
+                     <Bar dataKey="correlationCoefficient" radius={[4, 4, 0, 0]}>
+                        {data.map((entry, index) => (
+                           <Cell key={`cell-${index}`}
+                              fill={
                                Math.abs(entry.correlationCoefficient) >= 0.7 ? '#10B981' :
-                               Math.abs(entry.correlationCoefficient) >= 0.5 ? '#F59E0B' : '#EF4444'
-                            } />
-                         ))}
-                      </Bar>
-                   </BarChart>
-                </ResponsiveContainer>
-             </div>
-          </div>
+                                  Math.abs(entry.correlationCoefficient) >= 0.5 ? '#F59E0B' : '#EF4444'
+                            }
+                           />
+                        ))}
+                     </Bar>
+                  </BarChart>
+               </ResponsiveContainer>
+            </div>
+         </div>
 
-          {/* Correlations */}
-          <div className="space-y-4">
+         {/* Correlations */}
+         <div className="space-y-4">
             {data.map((correlation, index) => {
                const strength = getCorrelationStrength(correlation.correlationCoefficient);
-               
+
                return (
                   <div key={index} className="hover:shadow-sm p-4 border border-gray-200 rounded-lg transition-shadow">
                      <div className="flex justify-between items-start mb-3">
@@ -159,15 +198,17 @@ export default function TreatmentCorrelationsChart () {
                            </span>
                         </div>
                         <div className="bg-gray-200 rounded-full w-full h-2">
-                           <div 
+                           <div
                               className={`h-2 rounded-full transition-all duration-500 ${
-                                 Math.abs(correlation.correlationCoefficient) >= 0.7 
+                                 Math.abs(correlation.correlationCoefficient) >= 0.7
                                     ? 'bg-gradient-to-r from-green-400 to-green-600'
                                     : Math.abs(correlation.correlationCoefficient) >= 0.5
-                                    ? 'bg-gradient-to-r from-amber-400 to-amber-600'
-                                    : 'bg-gradient-to-r from-orange-400 to-orange-600'
+                                       ? 'bg-gradient-to-r from-amber-400 to-amber-600'
+                                       : 'bg-gradient-to-r from-orange-400 to-orange-600'
                               }`}
-                              style={{ width: `${Math.abs(correlation.correlationCoefficient) * 100}%` }}
+                              style={{
+                                 width: `${Math.abs(correlation.correlationCoefficient) * 100}%`
+                              }}
                            />
                         </div>
                      </div>
@@ -208,21 +249,21 @@ export default function TreatmentCorrelationsChart () {
                <div className="flex items-start gap-2">
                   <AlertCircle className="flex-shrink-0 mt-0.5 w-4 h-4 text-green-600" />
                   <p>
-                     La fuerte correlación entre Kt/V y supervivencia (r=0.78) sugiere que 
+                     La fuerte correlación entre Kt/V y supervivencia (r=0.78) sugiere que
                      la optimización de la dosis de diálisis es crítica para mejorar resultados.
                   </p>
                </div>
                <div className="flex items-start gap-2">
                   <AlertCircle className="flex-shrink-0 mt-0.5 w-4 h-4 text-amber-600" />
                   <p>
-                     La correlación entre adherencia al tratamiento y resultados clínicos (r=0.81) 
+                     La correlación entre adherencia al tratamiento y resultados clínicos (r=0.81)
                      resalta la importancia de programas de educación y seguimiento del paciente.
                   </p>
                </div>
                <div className="flex items-start gap-2">
                   <AlertCircle className="flex-shrink-0 mt-0.5 w-4 h-4 text-blue-600" />
                   <p>
-                     El control del fósforo sérico muestra correlación significativa con eventos 
+                     El control del fósforo sérico muestra correlación significativa con eventos
                      cardiovasculares, indicando la necesidad de monitoreo estricto.
                   </p>
                </div>

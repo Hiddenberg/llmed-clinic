@@ -1,6 +1,8 @@
 "use client"
 
-import { Brain, TrendingUp, Target, AlertTriangle, Users, Database, Calendar, Lightbulb } from 'lucide-react';
+import {
+   Brain, TrendingUp, Target, AlertTriangle, Users, Database, Calendar, Lightbulb
+} from 'lucide-react';
 import { mockAIResearchInsights } from '@/data/mockData/researchAnalyticsData';
 
 export default function AIResearchInsights () {
@@ -87,10 +89,15 @@ export default function AIResearchInsights () {
 
    // Sort by priority and confidence
    const sortedData = [...data].sort((a, b) => {
-      const priorityOrder = { 'critical': 4, 'high': 3, 'medium': 2, 'low': 1 };
+      const priorityOrder = {
+         'critical': 4,
+         'high': 3,
+         'medium': 2,
+         'low': 1
+      };
       const aPriority = priorityOrder[a.priority as keyof typeof priorityOrder] || 0;
       const bPriority = priorityOrder[b.priority as keyof typeof priorityOrder] || 0;
-      
+
       if (aPriority !== bPriority) {
          return bPriority - aPriority;
       }
@@ -135,7 +142,8 @@ export default function AIResearchInsights () {
             </div>
             <div className="bg-blue-50 p-3 rounded-lg text-center">
                <div className="font-bold text-blue-900 text-lg">
-                  {data.reduce((sum, d) => sum + d.dataPoints, 0).toLocaleString()}
+                  {data.reduce((sum, d) => sum + d.dataPoints, 0)
+                     .toLocaleString()}
                </div>
                <div className="text-blue-600 text-xs">Puntos de Datos</div>
             </div>
@@ -224,10 +232,11 @@ export default function AIResearchInsights () {
                      <div className="bg-gray-50 p-2 rounded text-center">
                         <div className="flex justify-center items-center gap-1 font-semibold text-gray-900">
                            <Calendar className="w-3 h-3" />
-                           {new Date(insight.generatedDate).toLocaleDateString('es-ES', { 
-                              month: 'short', 
-                              day: 'numeric' 
-                           })}
+                           {new Date(insight.generatedDate)
+                              .toLocaleDateString('es-ES', {
+                                 month: 'short',
+                                 day: 'numeric'
+                              })}
                         </div>
                         <div className="text-gray-600 text-xs">Generado</div>
                      </div>
@@ -240,15 +249,17 @@ export default function AIResearchInsights () {
                         <span className="font-medium text-gray-900">{insight.confidence}%</span>
                      </div>
                      <div className="bg-gray-200 rounded-full w-full h-1.5">
-                        <div 
+                        <div
                            className={`h-1.5 rounded-full transition-all duration-500 ${
-                              insight.confidence >= 85 
+                              insight.confidence >= 85
                                  ? 'bg-gradient-to-r from-green-400 to-green-600'
                                  : insight.confidence >= 70
-                                 ? 'bg-gradient-to-r from-amber-400 to-amber-600'
-                                 : 'bg-gradient-to-r from-red-400 to-red-600'
+                                    ? 'bg-gradient-to-r from-amber-400 to-amber-600'
+                                    : 'bg-gradient-to-r from-red-400 to-red-600'
                            }`}
-                           style={{ width: `${insight.confidence}%` }}
+                           style={{
+                              width: `${insight.confidence}%`
+                           }}
                         />
                      </div>
                   </div>
@@ -265,9 +276,9 @@ export default function AIResearchInsights () {
                      Acerca de los Insights de IA
                   </h4>
                   <p className="text-purple-800 text-sm leading-relaxed">
-                     Estos insights son generados automáticamente mediante algoritmos de machine learning 
-                     que analizan patrones en los datos clínicos. Aunque están basados en evidencia científica 
-                     y estadística robusta, siempre deben ser interpretados por profesionales médicos calificados. 
+                     Estos insights son generados automáticamente mediante algoritmos de machine learning
+                     que analizan patrones en los datos clínicos. Aunque están basados en evidencia científica
+                     y estadística robusta, siempre deben ser interpretados por profesionales médicos calificados.
                      Los modelos se actualizan continuamente con nuevos datos para mejorar su precisión y relevancia clínica.
                   </p>
                </div>

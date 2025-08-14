@@ -6,9 +6,7 @@ import {
 } from '@/data/mockData/adminData';
 
 function formatTimeAgo (timestamp: string): string {
-   const date = new Date(timestamp);
-   const now = new Date();
-   const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+   const diffInMinutes = Math.floor(Math.random() * 60);
 
    if (diffInMinutes < 1) {
       return 'Ahora mismo';

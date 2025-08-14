@@ -1,13 +1,17 @@
 "use client"
 
-import { useState, useCallback, useRef } from 'react';
-import { Upload, FileText, AlertCircle, CheckCircle } from 'lucide-react';
+import {
+   useState, useCallback, useRef
+} from 'react';
+import {
+   Upload, FileText, AlertCircle, CheckCircle
+} from 'lucide-react';
 
 interface FileUploadSectionProps {
    onFileUpload: (file: File) => void;
 }
 
-export default function FileUploadSection({ onFileUpload }: FileUploadSectionProps) {
+export default function FileUploadSection ({ onFileUpload }: FileUploadSectionProps) {
    const [isDragOver, setIsDragOver] = useState(false);
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
    const [error, setError] = useState<string | null>(null);
@@ -108,7 +112,7 @@ export default function FileUploadSection({ onFileUpload }: FileUploadSectionPro
                         className="absolute inset-0 opacity-0 cursor-pointer"
                      />
                   )}
-                  
+
                   {/* Hidden file input for when overlay is not shown */}
                   <input
                      ref={hiddenFileInputRef}
@@ -169,10 +173,10 @@ export default function FileUploadSection({ onFileUpload }: FileUploadSectionPro
                               {isDragOver ? 'Suelta el archivo aquí' : 'Arrastra y suelta tu documento PDF'}
                            </h3>
                            <p className="mt-2 text-gray-600">
-                              o <button 
+                              o <button
                                  onClick={() => hiddenFileInputRef.current?.click()}
                                  className="font-medium text-brand-500 hover:text-brand-600 underline"
-                              >
+                                >
                                  haz clic aquí para seleccionar
                               </button>
                            </p>
@@ -195,10 +199,22 @@ export default function FileUploadSection({ onFileUpload }: FileUploadSectionPro
             </h3>
             <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                {[
-                  { type: 'Historia Clínica', description: 'Expedientes médicos completos' },
-                  { type: 'Resultados de Laboratorio', description: 'Análisis clínicos y bioquímicos' },
-                  { type: 'Recetas Médicas', description: 'Prescripciones y medicamentos' },
-                  { type: 'Reportes de Imagen', description: 'Radiografías, ultrasonidos, etc.' }
+                  {
+                     type: 'Historia Clínica',
+                     description: 'Expedientes médicos completos'
+                  },
+                  {
+                     type: 'Resultados de Laboratorio',
+                     description: 'Análisis clínicos y bioquímicos'
+                  },
+                  {
+                     type: 'Recetas Médicas',
+                     description: 'Prescripciones y medicamentos'
+                  },
+                  {
+                     type: 'Reportes de Imagen',
+                     description: 'Radiografías, ultrasonidos, etc.'
+                  }
                ].map((doc, index) => (
                   <div key={index} className="bg-white/50 p-4 border border-white/30 rounded-lg">
                      <h4 className="font-medium text-gray-800 text-sm">{doc.type}</h4>

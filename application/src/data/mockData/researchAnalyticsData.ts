@@ -169,17 +169,72 @@ export const mockTreatmentCorrelations: TreatmentCorrelation[] = [
 
 // Survival analysis data
 export const mockSurvivalData: SurvivalData[] = [
-   { timePoint: '0', survivalRate: 100, confidenceInterval: [100, 100], atRisk: 285 },
-   { timePoint: '6', survivalRate: 96.8, confidenceInterval: [94.2, 99.4], atRisk: 276 },
-   { timePoint: '12', survivalRate: 92.3, confidenceInterval: [88.9, 95.7], atRisk: 263 },
-   { timePoint: '18', survivalRate: 87.9, confidenceInterval: [83.8, 92.0], atRisk: 251 },
-   { timePoint: '24', survivalRate: 83.2, confidenceInterval: [78.5, 87.9], atRisk: 237 },
-   { timePoint: '30', survivalRate: 78.1, confidenceInterval: [72.8, 83.4], atRisk: 223 },
-   { timePoint: '36', survivalRate: 72.8, confidenceInterval: [67.0, 78.6], atRisk: 208 },
-   { timePoint: '42', survivalRate: 67.3, confidenceInterval: [61.0, 73.6], atRisk: 192 },
-   { timePoint: '48', survivalRate: 61.5, confidenceInterval: [54.8, 68.2], atRisk: 175 },
-   { timePoint: '54', survivalRate: 55.4, confidenceInterval: [48.2, 62.6], atRisk: 158 },
-   { timePoint: '60', survivalRate: 49.1, confidenceInterval: [41.5, 56.7], atRisk: 140 }
+   {
+      timePoint: '0',
+      survivalRate: 100,
+      confidenceInterval: [100, 100],
+      atRisk: 285
+   },
+   {
+      timePoint: '6',
+      survivalRate: 96.8,
+      confidenceInterval: [94.2, 99.4],
+      atRisk: 276
+   },
+   {
+      timePoint: '12',
+      survivalRate: 92.3,
+      confidenceInterval: [88.9, 95.7],
+      atRisk: 263
+   },
+   {
+      timePoint: '18',
+      survivalRate: 87.9,
+      confidenceInterval: [83.8, 92.0],
+      atRisk: 251
+   },
+   {
+      timePoint: '24',
+      survivalRate: 83.2,
+      confidenceInterval: [78.5, 87.9],
+      atRisk: 237
+   },
+   {
+      timePoint: '30',
+      survivalRate: 78.1,
+      confidenceInterval: [72.8, 83.4],
+      atRisk: 223
+   },
+   {
+      timePoint: '36',
+      survivalRate: 72.8,
+      confidenceInterval: [67.0, 78.6],
+      atRisk: 208
+   },
+   {
+      timePoint: '42',
+      survivalRate: 67.3,
+      confidenceInterval: [61.0, 73.6],
+      atRisk: 192
+   },
+   {
+      timePoint: '48',
+      survivalRate: 61.5,
+      confidenceInterval: [54.8, 68.2],
+      atRisk: 175
+   },
+   {
+      timePoint: '54',
+      survivalRate: 55.4,
+      confidenceInterval: [48.2, 62.6],
+      atRisk: 158
+   },
+   {
+      timePoint: '60',
+      survivalRate: 49.1,
+      confidenceInterval: [41.5, 56.7],
+      atRisk: 140
+   }
 ];
 
 // Treatment effectiveness data
@@ -268,12 +323,36 @@ export const mockLabParameterTrends: LabParameterTrend[] = [
       averageValue: 10.8,
       trend: 'improving',
       monthlyData: [
-         { month: 'Ene', value: 10.2, patientCount: 285 },
-         { month: 'Feb', value: 10.4, patientCount: 283 },
-         { month: 'Mar', value: 10.6, patientCount: 281 },
-         { month: 'Abr', value: 10.7, patientCount: 279 },
-         { month: 'May', value: 10.8, patientCount: 277 },
-         { month: 'Jun', value: 10.9, patientCount: 275 }
+         {
+            month: 'Ene',
+            value: 10.2,
+            patientCount: 285
+         },
+         {
+            month: 'Feb',
+            value: 10.4,
+            patientCount: 283
+         },
+         {
+            month: 'Mar',
+            value: 10.6,
+            patientCount: 281
+         },
+         {
+            month: 'Abr',
+            value: 10.7,
+            patientCount: 279
+         },
+         {
+            month: 'May',
+            value: 10.8,
+            patientCount: 277
+         },
+         {
+            month: 'Jun',
+            value: 10.9,
+            patientCount: 275
+         }
       ]
    },
    {
@@ -283,12 +362,36 @@ export const mockLabParameterTrends: LabParameterTrend[] = [
       averageValue: 5.8,
       trend: 'stable',
       monthlyData: [
-         { month: 'Ene', value: 5.9, patientCount: 285 },
-         { month: 'Feb', value: 5.8, patientCount: 283 },
-         { month: 'Mar', value: 5.7, patientCount: 281 },
-         { month: 'Abr', value: 5.8, patientCount: 279 },
-         { month: 'May', value: 5.9, patientCount: 277 },
-         { month: 'Jun', value: 5.8, patientCount: 275 }
+         {
+            month: 'Ene',
+            value: 5.9,
+            patientCount: 285
+         },
+         {
+            month: 'Feb',
+            value: 5.8,
+            patientCount: 283
+         },
+         {
+            month: 'Mar',
+            value: 5.7,
+            patientCount: 281
+         },
+         {
+            month: 'Abr',
+            value: 5.8,
+            patientCount: 279
+         },
+         {
+            month: 'May',
+            value: 5.9,
+            patientCount: 277
+         },
+         {
+            month: 'Jun',
+            value: 5.8,
+            patientCount: 275
+         }
       ]
    },
    {
@@ -298,12 +401,36 @@ export const mockLabParameterTrends: LabParameterTrend[] = [
       averageValue: 1.58,
       trend: 'improving',
       monthlyData: [
-         { month: 'Ene', value: 1.52, patientCount: 285 },
-         { month: 'Feb', value: 1.54, patientCount: 283 },
-         { month: 'Mar', value: 1.56, patientCount: 281 },
-         { month: 'Abr', value: 1.57, patientCount: 279 },
-         { month: 'May', value: 1.58, patientCount: 277 },
-         { month: 'Jun', value: 1.59, patientCount: 275 }
+         {
+            month: 'Ene',
+            value: 1.52,
+            patientCount: 285
+         },
+         {
+            month: 'Feb',
+            value: 1.54,
+            patientCount: 283
+         },
+         {
+            month: 'Mar',
+            value: 1.56,
+            patientCount: 281
+         },
+         {
+            month: 'Abr',
+            value: 1.57,
+            patientCount: 279
+         },
+         {
+            month: 'May',
+            value: 1.58,
+            patientCount: 277
+         },
+         {
+            month: 'Jun',
+            value: 1.59,
+            patientCount: 275
+         }
       ]
    }
 ];

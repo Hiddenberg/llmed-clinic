@@ -1,7 +1,11 @@
 "use client"
 
-import { TrendingUp, TrendingDown, Minus, Activity, AlertCircle } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import {
+   TrendingUp, TrendingDown, Minus, Activity, AlertCircle
+} from 'lucide-react';
+import {
+   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine
+} from 'recharts';
 import { mockLabParameterTrends } from '@/data/mockData/researchAnalyticsData';
 
 export default function LabParameterTrends () {
@@ -86,68 +90,92 @@ export default function LabParameterTrends () {
                         </div>
                      </div>
 
-                                           {/* Chart area */}
-                      <div className="mb-4 h-64">
-                         <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={parameter.monthlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                               <XAxis 
-                                  dataKey="month" 
-                                  tick={{ fontSize: 12, fill: '#6b7280' }}
-                                  axisLine={{ stroke: '#e5e7eb' }}
-                               />
-                               <YAxis 
-                                  domain={['dataMin - 0.1', 'dataMax + 0.1']}
-                                  tick={{ fontSize: 12, fill: '#6b7280' }}
-                                  axisLine={{ stroke: '#e5e7eb' }}
-                                  label={{ value: parameter.unit, angle: -90, position: 'insideLeft' }}
-                               />
-                               <Tooltip 
-                                  contentStyle={{
-                                     backgroundColor: 'white',
-                                     border: '1px solid #e5e7eb',
-                                     borderRadius: '8px',
-                                     fontSize: '12px'
-                                  }}
-                                  formatter={(value: number, name: string) => [
-                                     `${value.toFixed(2)} ${parameter.unit}`,
-                                     parameter.parameter
-                                  ]}
-                                  labelFormatter={(label: string) => `Mes: ${label}`}
-                               />
-                               
-                               {/* Reference line for normal range if applicable */}
-                               {parameter.parameter === 'Hemoglobina' && (
-                                  <>
-                                     <ReferenceLine y={11.0} stroke="#10B981" strokeDasharray="5 5" label="Min Normal" />
-                                     <ReferenceLine y={12.0} stroke="#10B981" strokeDasharray="5 5" label="Max Normal" />
-                                  </>
-                               )}
-                               {parameter.parameter === 'Fósforo' && (
-                                  <>
-                                     <ReferenceLine y={3.5} stroke="#10B981" strokeDasharray="5 5" label="Min Normal" />
-                                     <ReferenceLine y={5.5} stroke="#10B981" strokeDasharray="5 5" label="Max Normal" />
-                                  </>
-                               )}
-                               {parameter.parameter === 'Kt/V' && (
-                                  <ReferenceLine y={1.4} stroke="#10B981" strokeDasharray="5 5" label="Objetivo Min" />
-                               )}
-                               
-                               <Line 
-                                  type="monotone" 
-                                  dataKey="value" 
-                                  stroke={parameter.trend === 'improving' ? '#10B981' : parameter.trend === 'declining' ? '#EF4444' : '#6B7280'}
-                                  strokeWidth={3}
-                                  dot={{ 
-                                     fill: parameter.trend === 'improving' ? '#10B981' : parameter.trend === 'declining' ? '#EF4444' : '#6B7280', 
-                                     strokeWidth: 2, 
-                                     r: 4 
-                                  }}
-                                  activeDot={{ r: 6, strokeWidth: 2 }}
-                               />
-                            </LineChart>
-                         </ResponsiveContainer>
-                      </div>
+                     {/* Chart area */}
+                     <div className="mb-4 h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                           <LineChart data={parameter.monthlyData}
+                              margin={{
+                                 top: 20,
+                                 right: 30,
+                                 left: 20,
+                                 bottom: 5
+                              }}
+                           >
+                              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                              <XAxis
+                                 dataKey="month"
+                                 tick={{
+                                    fontSize: 12,
+                                    fill: '#6b7280'
+                                 }}
+                                 axisLine={{
+                                    stroke: '#e5e7eb'
+                                 }}
+                              />
+                              <YAxis
+                                 domain={['dataMin - 0.1', 'dataMax + 0.1']}
+                                 tick={{
+                                    fontSize: 12,
+                                    fill: '#6b7280'
+                                 }}
+                                 axisLine={{
+                                    stroke: '#e5e7eb'
+                                 }}
+                                 label={{
+                                    value: parameter.unit,
+                                    angle: -90,
+                                    position: 'insideLeft'
+                                 }}
+                              />
+                              <Tooltip
+                                 contentStyle={{
+                                    backgroundColor: 'white',
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '8px',
+                                    fontSize: '12px'
+                                 }}
+                                 formatter={(value: number, name: string) => [
+                                    `${value.toFixed(2)} ${parameter.unit}`,
+                                    parameter.parameter
+                                 ]}
+                                 labelFormatter={(label: string) => `Mes: ${label}`}
+                              />
+
+                              {/* Reference line for normal range if applicable */}
+                              {parameter.parameter === 'Hemoglobina' && (
+                              <>
+                                 <ReferenceLine y={11.0} stroke="#10B981" strokeDasharray="5 5" label="Min Normal" />
+                                 <ReferenceLine y={12.0} stroke="#10B981" strokeDasharray="5 5" label="Max Normal" />
+                              </>
+                              )}
+                              {parameter.parameter === 'Fósforo' && (
+                              <>
+                                 <ReferenceLine y={3.5} stroke="#10B981" strokeDasharray="5 5" label="Min Normal" />
+                                 <ReferenceLine y={5.5} stroke="#10B981" strokeDasharray="5 5" label="Max Normal" />
+                              </>
+                              )}
+                              {parameter.parameter === 'Kt/V' && (
+                              <ReferenceLine y={1.4} stroke="#10B981" strokeDasharray="5 5" label="Objetivo Min" />
+                              )}
+
+                              <Line
+                                 type="monotone"
+                                 dataKey="value"
+                                 stroke={parameter.trend === 'improving' ? '#10B981' : parameter.trend === 'declining' ? '#EF4444' : '#6B7280'}
+                                 strokeWidth={3}
+                                 dot={{
+                                    fill: parameter.trend === 'improving' ? '#10B981' : parameter.trend === 'declining' ? '#EF4444' : '#6B7280',
+                                    strokeWidth: 2,
+                                    r: 4
+                                 }}
+                                 activeDot={{
+                                    r: 6,
+                                    strokeWidth: 2
+                                 }}
+                              />
+                           </LineChart>
+                        </ResponsiveContainer>
+                     </div>
 
                      {/* Data table */}
                      <div className="overflow-x-auto">
@@ -198,21 +226,21 @@ export default function LabParameterTrends () {
                <div className="flex items-start gap-2">
                   <TrendingUp className="flex-shrink-0 mt-0.5 w-4 h-4 text-green-600" />
                   <p>
-                     La hemoglobina muestra tendencia de mejora gradual, alcanzando 10.9 g/dL en junio, 
+                     La hemoglobina muestra tendencia de mejora gradual, alcanzando 10.9 g/dL en junio,
                      aproximándose al rango objetivo (11.0-12.0 g/dL).
                   </p>
                </div>
                <div className="flex items-start gap-2">
                   <Minus className="flex-shrink-0 mt-0.5 w-4 h-4 text-gray-600" />
                   <p>
-                     Los niveles de fósforo se mantienen estables pero ligeramente elevados (5.8 mg/dL), 
+                     Los niveles de fósforo se mantienen estables pero ligeramente elevados (5.8 mg/dL),
                      requiriendo optimización del manejo dietético y farmacológico.
                   </p>
                </div>
                <div className="flex items-start gap-2">
                   <TrendingUp className="flex-shrink-0 mt-0.5 w-4 h-4 text-green-600" />
                   <p>
-                     El Kt/V muestra mejora sostenida (1.59), superando consistentemente el objetivo mínimo 
+                     El Kt/V muestra mejora sostenida (1.59), superando consistentemente el objetivo mínimo
                      de 1.4, indicando adecuación dialítica apropiada.
                   </p>
                </div>

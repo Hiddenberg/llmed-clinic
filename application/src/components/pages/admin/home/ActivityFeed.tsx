@@ -4,9 +4,7 @@ import {
 import { mockActivities, type ActivityItem } from '@/data/mockData/adminData';
 
 function formatTimeAgo (timestamp: string): string {
-   const date = new Date(timestamp);
-   const now = new Date();
-   const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+   const diffInHours = Math.floor(Math.random() * 24);
 
    if (diffInHours < 1) {
       return 'Hace unos minutos';

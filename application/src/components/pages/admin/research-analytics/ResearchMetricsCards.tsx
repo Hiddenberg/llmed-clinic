@@ -1,11 +1,14 @@
-import { Users, Calendar, Database, FileText, TrendingUp, Activity } from 'lucide-react';
+import {
+   Users, Calendar, Database, FileText, TrendingUp, Activity,
+   LucideIcon
+} from 'lucide-react';
 import { mockResearchMetrics } from '@/data/mockData/researchAnalyticsData';
 
 interface MetricCardProps {
    title: string;
    value: string | number;
    subtitle?: string;
-   icon: React.ComponentType<any>;
+   icon: LucideIcon;
    color: 'brand' | 'success' | 'warning' | 'info';
    trend?: {
       value: number;
@@ -13,7 +16,9 @@ interface MetricCardProps {
    };
 }
 
-function MetricCard ({ title, value, subtitle, icon: Icon, color, trend }: MetricCardProps) {
+function MetricCard ({
+   title, value, subtitle, icon: Icon, color, trend
+}: MetricCardProps) {
    const colorClasses = {
       brand: {
          bg: 'bg-brand-50',
@@ -79,7 +84,10 @@ export default function ResearchMetricsCards () {
          subtitle: 'En base de datos de investigación',
          icon: Users,
          color: 'brand' as const,
-         trend: { value: 12, label: 'vs año anterior' }
+         trend: {
+            value: 12,
+            label: 'vs año anterior'
+         }
       },
       {
          title: 'Duración del Estudio',
@@ -101,7 +109,10 @@ export default function ResearchMetricsCards () {
          subtitle: 'Registros completos y validados',
          icon: Database,
          color: 'success' as const,
-         trend: { value: 3, label: 'mejora continua' }
+         trend: {
+            value: 3,
+            label: 'mejora continua'
+         }
       },
       {
          title: 'Publicaciones Generadas',
@@ -126,7 +137,8 @@ export default function ResearchMetricsCards () {
                Métricas de Investigación
             </h2>
             <div className="text-gray-500 text-sm">
-               Actualizado: {new Date().toLocaleDateString('es-ES')}
+               Actualizado: {new Date()
+               .toLocaleDateString('es-ES')}
             </div>
          </div>
 
@@ -147,8 +159,8 @@ export default function ResearchMetricsCards () {
                      Calidad de los Datos de Investigación
                   </h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
-                     Nuestros datos de investigación mantienen estándares internacionales de calidad, 
-                     con validación automática y revisión manual. La alta completitud de datos ({mockResearchMetrics.dataCompleteness}%) 
+                     Nuestros datos de investigación mantienen estándares internacionales de calidad,
+                     con validación automática y revisión manual. La alta completitud de datos ({mockResearchMetrics.dataCompleteness}%)
                      permite análisis estadísticos robustos y conclusiones científicamente válidas.
                   </p>
                </div>

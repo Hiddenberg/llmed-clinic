@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useCallback } from 'react';
-import { 
-   Upload, FileText, CheckCircle, Loader2, ArrowLeft, 
-   User, AlertTriangle, Activity, TestTube, Heart, Pill 
+import {
+   Upload, FileText, CheckCircle, Loader2, ArrowLeft,
+   User, AlertTriangle, Activity, TestTube, Heart, Pill
 } from 'lucide-react';
 import Link from 'next/link';
 import FileUploadSection from './FileUploadSection';
@@ -13,7 +13,7 @@ import { ExtractedPatientData } from './types';
 
 type ExtractionStage = 'upload' | 'processing' | 'extracted' | 'completed';
 
-export default function DocumentExtractionPage() {
+export default function DocumentExtractionPage () {
    const [currentStage, setCurrentStage] = useState<ExtractionStage>('upload');
    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
    const [extractedData, setExtractedData] = useState<ExtractedPatientData | null>(null);
@@ -21,7 +21,7 @@ export default function DocumentExtractionPage() {
    const handleFileUpload = useCallback((file: File) => {
       setUploadedFile(file);
       setCurrentStage('processing');
-      
+
       // Simulate AI processing
       setTimeout(() => {
          setCurrentStage('extracted');
@@ -61,7 +61,7 @@ export default function DocumentExtractionPage() {
                      <ArrowLeft size={16} />
                      Volver al inicio
                   </Link>
-                  
+
                   {currentStage !== 'upload' && (
                      <button
                         onClick={resetProcess}
@@ -79,8 +79,8 @@ export default function DocumentExtractionPage() {
                      Extracción de Documentos Médicos
                   </h1>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                     Sube un documento médico en formato PDF (historia clínica, resultados de laboratorio, etc.) 
-                     y nuestro sistema de IA extraerá automáticamente la información relevante para integrarla 
+                     Sube un documento médico en formato PDF (historia clínica, resultados de laboratorio, etc.)
+                     y nuestro sistema de IA extraerá automáticamente la información relevante para integrarla
                      en el expediente del paciente.
                   </p>
                </div>
@@ -91,25 +91,42 @@ export default function DocumentExtractionPage() {
                <div className="bg-white/40 shadow-sm backdrop-blur-sm p-6 border border-white/50 rounded-2xl">
                   <div className="flex justify-between items-center">
                      {[
-                        { id: 'upload', label: 'Subir Documento', icon: Upload },
-                        { id: 'processing', label: 'Procesando', icon: Loader2 },
-                        { id: 'extracted', label: 'Revisar Datos', icon: FileText },
-                        { id: 'completed', label: 'Completado', icon: CheckCircle }
+                        {
+                           id: 'upload',
+                           label: 'Subir Documento',
+                           icon: Upload
+                        },
+                        {
+                           id: 'processing',
+                           label: 'Procesando',
+                           icon: Loader2
+                        },
+                        {
+                           id: 'extracted',
+                           label: 'Revisar Datos',
+                           icon: FileText
+                        },
+                        {
+                           id: 'completed',
+                           label: 'Completado',
+                           icon: CheckCircle
+                        }
                      ].map((step, index) => {
                         const Icon = step.icon;
                         const isActive = currentStage === step.id;
                         const isCompleted = ['upload', 'processing', 'extracted'].indexOf(currentStage) > ['upload', 'processing', 'extracted'].indexOf(step.id);
-                        
+
                         return (
                            <div key={step.id} className="flex items-center">
                               <div className={`flex items-center gap-3 ${index < 3 ? 'mr-4' : ''}`}>
                                  <div className={`flex items-center justify-center w-10 h-10 rounded-full transition-all ${
-                                    isCompleted 
-                                       ? 'bg-green-500 text-white' 
-                                       : isActive 
-                                          ? 'bg-brand-500 text-white' 
+                                    isCompleted
+                                       ? 'bg-green-500 text-white'
+                                       : isActive
+                                          ? 'bg-brand-500 text-white'
                                           : 'bg-gray-200 text-gray-500'
-                                 }`}>
+                                 }`}
+                                 >
                                     {isCompleted ? (
                                        <CheckCircle size={20} />
                                     ) : (
@@ -118,14 +135,16 @@ export default function DocumentExtractionPage() {
                                  </div>
                                  <span className={`font-medium ${
                                     isActive ? 'text-brand-600' : isCompleted ? 'text-green-600' : 'text-gray-500'
-                                 }`}>
+                                 }`}
+                                 >
                                     {step.label}
                                  </span>
                               </div>
                               {index < 3 && (
                                  <div className={`flex-1 h-0.5 mx-4 transition-all ${
                                     isCompleted ? 'bg-green-500' : 'bg-gray-200'
-                                 }`} />
+                                 }`}
+                                 />
                               )}
                            </div>
                         );
@@ -144,7 +163,7 @@ export default function DocumentExtractionPage() {
             )}
 
             {currentStage === 'extracted' && extractedData && (
-               <ExtractedDataForm 
+               <ExtractedDataForm
                   extractedData={extractedData}
                   onConfirm={handleDataConfirmation}
                   onEdit={(updatedData) => setExtractedData(updatedData)}
@@ -181,12 +200,13 @@ export default function DocumentExtractionPage() {
 }
 
 // Mock data generator - this would be replaced with actual AI extraction
-function generateMockExtractedData(): ExtractedPatientData {
+function generateMockExtractedData (): ExtractedPatientData {
    return {
       documentInfo: {
          fileName: 'historia_clinica_juan_perez.pdf',
          documentType: 'clinical_record',
-         extractionDate: new Date().toISOString(),
+         extractionDate: new Date()
+            .toISOString(),
          confidence: 0.95,
          pagesProcessed: 3
       },
@@ -319,7 +339,7 @@ function generateMockExtractedData(): ExtractedPatientData {
             type: 'consultation',
             author: 'Dr. Roberto Martínez',
             specialty: 'Nefrología',
-           chiefComplaint: 'Control de rutina de IRC',
+            chiefComplaint: 'Control de rutina de IRC',
             assessment: 'Paciente con IRC estadio 5 en programa de hemodiálisis. Presenta control adecuado de volemia y electrolitos.',
             plan: 'Continuar con hemodiálisis 3x/semana. Ajustar dosis de eritropoyetina. Control en 4 semanas.',
             followUp: 'Próxima cita en 4 semanas'

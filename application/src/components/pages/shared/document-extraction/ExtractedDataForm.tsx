@@ -1,8 +1,10 @@
 "use client"
 
-import { useState, useEffect, useCallback } from 'react';
-import { 
-   User, Phone, Heart, Pill, TestTube, Activity, 
+import {
+   useState, useEffect, useCallback
+} from 'react';
+import {
+   User, Phone, Heart, Pill, TestTube, Activity,
    FileText, AlertTriangle, CheckCircle, Edit3, Save
 } from 'lucide-react';
 import { ExtractedPatientData, FieldAnimationState } from './types';
@@ -14,10 +16,13 @@ interface ExtractedDataFormProps {
    onEdit: (updatedData: ExtractedPatientData) => void;
 }
 
-export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: ExtractedDataFormProps) {
+export default function ExtractedDataForm ({
+   extractedData, onConfirm, onEdit
+}: ExtractedDataFormProps) {
    const [activeTab, setActiveTab] = useState('personal');
    const [isAnimating, setIsAnimating] = useState(true);
-   const [animationState, setAnimationState] = useState<FieldAnimationState>({});
+   const [animationState, setAnimationState] = useState<FieldAnimationState>({
+   });
    const [isEditing, setIsEditing] = useState(false);
    const [editedData, setEditedData] = useState<ExtractedPatientData>(extractedData);
 
@@ -27,28 +32,79 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
 
       const fieldsWithTabs = [
          // Personal info fields
-         { field: 'fullName', tab: 'personal' },
-         { field: 'dateOfBirth', tab: 'personal' },
-         { field: 'gender', tab: 'personal' },
-         { field: 'phone', tab: 'personal' },
-         { field: 'email', tab: 'personal' },
-         { field: 'address', tab: 'personal' },
-         { field: 'mrn', tab: 'personal' },
-         { field: 'bloodType', tab: 'personal' },
-         { field: 'emergencyContactName', tab: 'personal' },
-         { field: 'emergencyContactPhone', tab: 'personal' },
-         { field: 'insuranceProvider', tab: 'personal' },
+         {
+            field: 'fullName',
+            tab: 'personal'
+         },
+         {
+            field: 'dateOfBirth',
+            tab: 'personal'
+         },
+         {
+            field: 'gender',
+            tab: 'personal'
+         },
+         {
+            field: 'phone',
+            tab: 'personal'
+         },
+         {
+            field: 'email',
+            tab: 'personal'
+         },
+         {
+            field: 'address',
+            tab: 'personal'
+         },
+         {
+            field: 'mrn',
+            tab: 'personal'
+         },
+         {
+            field: 'bloodType',
+            tab: 'personal'
+         },
+         {
+            field: 'emergencyContactName',
+            tab: 'personal'
+         },
+         {
+            field: 'emergencyContactPhone',
+            tab: 'personal'
+         },
+         {
+            field: 'insuranceProvider',
+            tab: 'personal'
+         },
          // Medical history fields
-         { field: 'medicalHistory', tab: 'medical' },
-         { field: 'allergies', tab: 'medical' },
+         {
+            field: 'medicalHistory',
+            tab: 'medical'
+         },
+         {
+            field: 'allergies',
+            tab: 'medical'
+         },
          // Medications
-         { field: 'medications', tab: 'medications' },
+         {
+            field: 'medications',
+            tab: 'medications'
+         },
          // Lab results
-         { field: 'labResults', tab: 'labs' },
+         {
+            field: 'labResults',
+            tab: 'labs'
+         },
          // Vital signs
-         { field: 'vitalSigns', tab: 'vitals' },
+         {
+            field: 'vitalSigns',
+            tab: 'vitals'
+         },
          // Clinical notes
-         { field: 'clinicalNotes', tab: 'notes' }
+         {
+            field: 'clinicalNotes',
+            tab: 'notes'
+         }
       ];
 
       let currentFieldIndex = 0;
@@ -58,24 +114,32 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
             return;
          }
 
-         const { field: fieldId, tab } = fieldsWithTabs[currentFieldIndex];
-         
+         const {
+            field: fieldId, tab
+         } = fieldsWithTabs[currentFieldIndex];
+
          // Switch to the appropriate tab
          setActiveTab(tab);
-         
+
          // Start animation
          setAnimationState(prev => ({
             ...prev,
-            [fieldId]: { isAnimating: true, isCompleted: false }
+            [fieldId]: {
+               isAnimating: true,
+               isCompleted: false
+            }
          }));
 
          // Complete animation after delay (faster now)
          setTimeout(() => {
             setAnimationState(prev => ({
                ...prev,
-               [fieldId]: { isAnimating: false, isCompleted: true }
+               [fieldId]: {
+                  isAnimating: false,
+                  isCompleted: true
+               }
             }));
-            
+
             currentFieldIndex++;
             setTimeout(animateNextField, 100); // Faster delay between fields
          }, 400 + Math.random() * 200); // Faster duration for each field
@@ -100,12 +164,36 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
    }, [extractedData]);
 
    const tabs = [
-      { id: 'personal', label: 'Información Personal', icon: User },
-      { id: 'medical', label: 'Historia Médica', icon: FileText },
-      { id: 'medications', label: 'Medicamentos', icon: Pill },
-      { id: 'labs', label: 'Laboratorios', icon: TestTube },
-      { id: 'vitals', label: 'Signos Vitales', icon: Heart },
-      { id: 'notes', label: 'Notas Clínicas', icon: Activity }
+      {
+         id: 'personal',
+         label: 'Información Personal',
+         icon: User
+      },
+      {
+         id: 'medical',
+         label: 'Historia Médica',
+         icon: FileText
+      },
+      {
+         id: 'medications',
+         label: 'Medicamentos',
+         icon: Pill
+      },
+      {
+         id: 'labs',
+         label: 'Laboratorios',
+         icon: TestTube
+      },
+      {
+         id: 'vitals',
+         label: 'Signos Vitales',
+         icon: Heart
+      },
+      {
+         id: 'notes',
+         label: 'Notas Clínicas',
+         icon: Activity
+      }
    ];
 
    // Check if any field in a tab is currently being filled
@@ -148,12 +236,12 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                   <div>
                      <h2 className="font-bold text-gray-800 text-2xl">Datos Extraídos</h2>
                      <p className="text-gray-600">
-                        Documento: {extractedData.documentInfo.fileName} • 
+                        Documento: {extractedData.documentInfo.fileName} •
                         Confianza: {Math.round(extractedData.documentInfo.confidence * 100)}%
                      </p>
                   </div>
                </div>
-               
+
                <div className="flex gap-3">
                   {!isEditing ? (
                      <button
@@ -180,7 +268,7 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         </button>
                      </>
                   )}
-                  
+
                   {!isAnimating && !isEditing && (
                      <button
                         onClick={onConfirm}
@@ -210,14 +298,14 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <span className="font-medium text-brand-700 text-xs">EN PROGRESO</span>
                      </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-2 mb-2">
                      <div className="bg-brand-200 rounded-full w-full h-2 overflow-hidden">
                         <div className="bg-brand-500 rounded-full w-1/3 h-full animate-pulse" />
                      </div>
                      <span className="font-medium text-brand-600 text-xs whitespace-nowrap">Llenando...</span>
                   </div>
-                  
+
                   <p className="text-brand-700 text-xs">
                      <span className="font-medium">Sección actual:</span> {tabs.find(tab => tab.id === activeTab)?.label || 'Información del paciente'}
                   </p>
@@ -233,7 +321,7 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                   const isBeingFilled = isTabBeingFilled(tab.id);
                   const isCompleted = isTabCompleted(tab.id);
                   const isActive = activeTab === tab.id;
-                  
+
                   return (
                      <button
                         key={tab.id}
@@ -269,7 +357,7 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <User size={20} className="text-brand-500" />
                         Información Personal
                      </h3>
-                     
+
                      <div className="gap-6 grid grid-cols-1 lg:grid-cols-2">
                         <AnimatedField
                            label="Nombre Completo"
@@ -278,10 +366,13 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            isEditing={isEditing}
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, fullName: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 fullName: value
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="Fecha de Nacimiento"
                            value={isEditing ? editedData.personalInfo.dateOfBirth : extractedData.personalInfo.dateOfBirth}
@@ -290,10 +381,13 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            type="date"
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, dateOfBirth: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 dateOfBirth: value
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="Género"
                            value={isEditing ? editedData.personalInfo.gender : extractedData.personalInfo.gender}
@@ -301,16 +395,28 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            isEditing={isEditing}
                            type="select"
                            options={[
-                              { value: 'male', label: 'Masculino' },
-                              { value: 'female', label: 'Femenino' },
-                              { value: 'other', label: 'Otro' }
+                              {
+                                 value: 'male',
+                                 label: 'Masculino'
+                              },
+                              {
+                                 value: 'female',
+                                 label: 'Femenino'
+                              },
+                              {
+                                 value: 'other',
+                                 label: 'Otro'
+                              }
                            ]}
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, gender: value as 'male' | 'female' | 'other' }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 gender: value as 'male' | 'female' | 'other'
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="Teléfono"
                            value={isEditing ? editedData.personalInfo.phone : extractedData.personalInfo.phone}
@@ -318,10 +424,13 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            isEditing={isEditing}
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, phone: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 phone: value
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="Email"
                            value={isEditing ? editedData.personalInfo.email : extractedData.personalInfo.email}
@@ -330,10 +439,13 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            type="email"
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, email: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 email: value
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="Dirección"
                            value={isEditing ? editedData.personalInfo.address : extractedData.personalInfo.address}
@@ -341,10 +453,13 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            isEditing={isEditing}
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, address: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 address: value
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="MRN"
                            value={isEditing ? editedData.personalInfo.mrn : extractedData.personalInfo.mrn}
@@ -352,10 +467,13 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            isEditing={isEditing}
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, mrn: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 mrn: value
+                              }
                            }))}
                         />
-                        
+
                         <AnimatedField
                            label="Tipo de Sangre"
                            value={isEditing ? editedData.personalInfo.bloodType : extractedData.personalInfo.bloodType}
@@ -363,7 +481,10 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                            isEditing={isEditing}
                            onChange={(value) => setEditedData(prev => ({
                               ...prev,
-                              personalInfo: { ...prev.personalInfo, bloodType: value }
+                              personalInfo: {
+                                 ...prev.personalInfo,
+                                 bloodType: value
+                              }
                            }))}
                         />
                      </div>
@@ -379,13 +500,16 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                               isEditing={isEditing}
                               onChange={(value) => setEditedData(prev => ({
                                  ...prev,
-                                 personalInfo: { 
-                                    ...prev.personalInfo, 
-                                    emergencyContact: { ...prev.personalInfo.emergencyContact, name: value }
+                                 personalInfo: {
+                                    ...prev.personalInfo,
+                                    emergencyContact: {
+                                       ...prev.personalInfo.emergencyContact,
+                                       name: value
+                                    }
                                  }
                               }))}
                            />
-                           
+
                            <AnimatedField
                               label="Teléfono"
                               value={isEditing ? editedData.personalInfo.emergencyContact.phone : extractedData.personalInfo.emergencyContact.phone}
@@ -393,9 +517,12 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                               isEditing={isEditing}
                               onChange={(value) => setEditedData(prev => ({
                                  ...prev,
-                                 personalInfo: { 
-                                    ...prev.personalInfo, 
-                                    emergencyContact: { ...prev.personalInfo.emergencyContact, phone: value }
+                                 personalInfo: {
+                                    ...prev.personalInfo,
+                                    emergencyContact: {
+                                       ...prev.personalInfo.emergencyContact,
+                                       phone: value
+                                    }
                                  }
                               }))}
                            />
@@ -413,9 +540,12 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                               isEditing={isEditing}
                               onChange={(value) => setEditedData(prev => ({
                                  ...prev,
-                                 personalInfo: { 
-                                    ...prev.personalInfo, 
-                                    insurance: { ...prev.personalInfo.insurance, provider: value }
+                                 personalInfo: {
+                                    ...prev.personalInfo,
+                                    insurance: {
+                                       ...prev.personalInfo.insurance,
+                                       provider: value
+                                    }
                                  }
                               }))}
                            />
@@ -430,13 +560,31 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <FileText size={20} className="text-red-500" />
                         Historia Médica
                      </h3>
-                     
+
                      <AnimatedField
                         label="Condiciones Médicas"
-                        value={extractedData.medicalHistory.map(h => h.condition).join(', ')}
+                        value={isEditing
+                           ? editedData.medicalHistory.map(h => h.condition)
+                              .join(', ')
+                           : extractedData.medicalHistory.map(h => h.condition)
+                              .join(', ')}
                         animationState={animationState.medicalHistory}
-                        isEditing={false}
+                        isEditing={isEditing}
                         type="textarea"
+                        onChange={(value) => {
+                           if (isEditing) {
+                              const conditions = value.split(', ')
+                                 .filter(c => c.trim());
+                              setEditedData(prev => ({
+                                 ...prev,
+                                 medicalHistory: conditions.map((condition, index) => ({
+                                    ...prev.medicalHistory[index] || {
+                                    },
+                                    condition: condition.trim()
+                                 }))
+                              }));
+                           }
+                        }}
                      />
 
                      <div className="space-y-4">
@@ -446,17 +594,19 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                                  <h4 className="font-semibold text-red-800">{condition.condition}</h4>
                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     condition.severity === 'severe' ? 'bg-red-100 text-red-700' :
-                                    condition.severity === 'moderate' ? 'bg-yellow-100 text-yellow-700' :
-                                    'bg-green-100 text-green-700'
-                                 }`}>
+                                       condition.severity === 'moderate' ? 'bg-yellow-100 text-yellow-700' :
+                                          'bg-green-100 text-green-700'
+                                 }`}
+                                 >
                                     {condition.severity === 'severe' ? 'Severa' :
-                                     condition.severity === 'moderate' ? 'Moderada' : 'Leve'}
+                                       condition.severity === 'moderate' ? 'Moderada' : 'Leve'}
                                  </span>
                               </div>
                               <p className="mb-2 text-red-700 text-sm">Código ICD-10: {condition.icd10Code}</p>
                               <p className="text-red-600 text-sm">{condition.notes}</p>
                               <p className="mt-2 text-red-600 text-xs">
-                                 Diagnóstico: {new Date(condition.diagnosisDate).toLocaleDateString('es-ES')}
+                                 Diagnóstico: {new Date(condition.diagnosisDate)
+                                 .toLocaleDateString('es-ES')}
                               </p>
                            </div>
                         ))}
@@ -470,22 +620,41 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         </h4>
                         <AnimatedField
                            label="Alergias Conocidas"
-                           value={extractedData.allergies.map(a => a.allergen).join(', ')}
+                           value={isEditing
+                              ? editedData.allergies.map(a => a.allergen)
+                                 .join(', ')
+                              : extractedData.allergies.map(a => a.allergen)
+                                 .join(', ')}
                            animationState={animationState.allergies}
-                           isEditing={false}
+                           isEditing={isEditing}
+                           onChange={(value) => {
+                              if (isEditing) {
+                                 const allergens = value.split(', ')
+                                    .filter(a => a.trim());
+                                 setEditedData(prev => ({
+                                    ...prev,
+                                    allergies: allergens.map((allergen, index) => ({
+                                       ...prev.allergies[index] || {
+                                       },
+                                       allergen: allergen.trim()
+                                    }))
+                                 }));
+                              }
+                           }}
                         />
-                        
+
                         {extractedData.allergies.map((allergy, index) => (
                            <div key={index} className="bg-orange-50/50 p-4 border border-orange-200/50 rounded-lg">
                               <div className="flex justify-between items-start mb-2">
                                  <h5 className="font-semibold text-orange-800">{allergy.allergen}</h5>
                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     allergy.severity === 'severe' ? 'bg-red-100 text-red-700' :
-                                    allergy.severity === 'moderate' ? 'bg-yellow-100 text-yellow-700' :
-                                    'bg-green-100 text-green-700'
-                                 }`}>
+                                       allergy.severity === 'moderate' ? 'bg-yellow-100 text-yellow-700' :
+                                          'bg-green-100 text-green-700'
+                                 }`}
+                                 >
                                     {allergy.severity === 'severe' ? 'Severa' :
-                                     allergy.severity === 'moderate' ? 'Moderada' : 'Leve'}
+                                       allergy.severity === 'moderate' ? 'Moderada' : 'Leve'}
                                  </span>
                               </div>
                               <p className="text-orange-700 text-sm">{allergy.reaction}</p>
@@ -501,13 +670,31 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <Pill size={20} className="text-blue-500" />
                         Medicamentos
                      </h3>
-                     
+
                      <AnimatedField
                         label="Medicamentos Actuales"
-                        value={extractedData.medications.map(m => m.name).join(', ')}
+                        value={isEditing
+                           ? editedData.medications.map(m => m.name)
+                              .join(', ')
+                           : extractedData.medications.map(m => m.name)
+                              .join(', ')}
                         animationState={animationState.medications}
-                        isEditing={false}
+                        isEditing={isEditing}
                         type="textarea"
+                        onChange={(value) => {
+                           if (isEditing) {
+                              const medicationNames = value.split(', ')
+                                 .filter(m => m.trim());
+                              setEditedData(prev => ({
+                                 ...prev,
+                                 medications: medicationNames.map((name, index) => ({
+                                    ...prev.medications[index] || {
+                                    },
+                                    name: name.trim()
+                                 }))
+                              }));
+                           }
+                        }}
                      />
 
                      <div className="space-y-4">
@@ -517,8 +704,9 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                                  <h4 className="font-semibold text-blue-800">{medication.name}</h4>
                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     medication.status === 'active' ? 'bg-green-100 text-green-700' :
-                                    'bg-gray-100 text-gray-700'
-                                 }`}>
+                                       'bg-gray-100 text-gray-700'
+                                 }`}
+                                 >
                                     {medication.status === 'active' ? 'Activo' : 'Inactivo'}
                                  </span>
                               </div>
@@ -555,13 +743,37 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <TestTube size={20} className="text-purple-500" />
                         Resultados de Laboratorio
                      </h3>
-                     
+
                      <AnimatedField
                         label="Estudios de Laboratorio"
-                        value={extractedData.labResults.map(l => `${l.testName}: ${l.value} ${l.unit}`).join(', ')}
+                        value={isEditing
+                           ? editedData.labResults.map(l => `${l.testName}: ${l.value} ${l.unit}`)
+                              .join(', ')
+                           : extractedData.labResults.map(l => `${l.testName}: ${l.value} ${l.unit}`)
+                              .join(', ')}
                         animationState={animationState.labResults}
-                        isEditing={false}
+                        isEditing={isEditing}
                         type="textarea"
+                        onChange={(value) => {
+                           if (isEditing) {
+                              const labEntries = value.split(', ')
+                                 .filter(l => l.trim());
+                              setEditedData(prev => ({
+                                 ...prev,
+                                 labResults: labEntries.map((entry, index) => {
+                                    const [testName, valueUnit] = entry.split(': ');
+                                    const [testValue, unit] = valueUnit ? valueUnit.split(' ') : ['', ''];
+                                    return {
+                                       ...prev.labResults[index] || {
+                                       },
+                                       testName: testName?.trim() || '',
+                                       value: testValue?.trim() || '',
+                                       unit: unit?.trim() || ''
+                                    };
+                                 })
+                              }));
+                           }
+                        }}
                      />
 
                      <div className="space-y-4">
@@ -571,11 +783,12 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                                  <h4 className="font-semibold text-purple-800">{result.testName}</h4>
                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     result.status === 'normal' ? 'bg-green-100 text-green-700' :
-                                    result.status === 'critical' ? 'bg-red-100 text-red-700' :
-                                    'bg-yellow-100 text-yellow-700'
-                                 }`}>
+                                       result.status === 'critical' ? 'bg-red-100 text-red-700' :
+                                          'bg-yellow-100 text-yellow-700'
+                                 }`}
+                                 >
                                     {result.status === 'normal' ? 'Normal' :
-                                     result.status === 'critical' ? 'Crítico' : 'Anormal'}
+                                       result.status === 'critical' ? 'Crítico' : 'Anormal'}
                                  </span>
                               </div>
                               <div className="gap-4 grid grid-cols-1 lg:grid-cols-3 mb-2 text-sm">
@@ -589,7 +802,8 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                                  </div>
                                  <div>
                                     <span className="font-medium text-purple-600">Fecha:</span>
-                                    <p className="text-purple-800">{new Date(result.date).toLocaleDateString('es-ES')}</p>
+                                    <p className="text-purple-800">{new Date(result.date)
+                                       .toLocaleDateString('es-ES')}</p>
                                  </div>
                               </div>
                               {result.notes && (
@@ -609,42 +823,126 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <Heart size={20} className="text-red-500" />
                         Signos Vitales
                      </h3>
-                     
+
                      <AnimatedField
                         label="Fecha de Registro"
-                        value={extractedData.vitalSigns.date}
+                        value={isEditing ? editedData.vitalSigns.date : extractedData.vitalSigns.date}
                         animationState={animationState.vitalSigns}
-                        isEditing={false}
+                        isEditing={isEditing}
                         type="date"
+                        onChange={(value) => setEditedData(prev => ({
+                           ...prev,
+                           vitalSigns: {
+                              ...prev.vitalSigns,
+                              date: value
+                           }
+                        }))}
                      />
 
-                     <div className="gap-4 grid grid-cols-2 lg:grid-cols-4">
-                        <div className="bg-red-50/50 p-4 border border-red-200/50 rounded-lg text-center">
-                           <h4 className="font-semibold text-red-800 text-sm">Presión Arterial</h4>
-                           <p className="font-bold text-red-700 text-lg">
-                              {extractedData.vitalSigns.systolicBP}/{extractedData.vitalSigns.diastolicBP}
-                           </p>
-                           <p className="text-red-600 text-xs">mmHg</p>
+                     {isEditing ? (
+                        <div className="gap-4 grid grid-cols-1 lg:grid-cols-2">
+                           <AnimatedField
+                              label="Presión Arterial Sistólica (mmHg)"
+                              value={editedData.vitalSigns.systolicBP.toString()}
+                              isEditing={isEditing}
+                              onChange={(value) => setEditedData(prev => ({
+                                 ...prev,
+                                 vitalSigns: {
+                                    ...prev.vitalSigns,
+                                    systolicBP: parseInt(value) || 0
+                                 }
+                              }))}
+                           />
+                           <AnimatedField
+                              label="Presión Arterial Diastólica (mmHg)"
+                              value={editedData.vitalSigns.diastolicBP.toString()}
+                              isEditing={isEditing}
+                              onChange={(value) => setEditedData(prev => ({
+                                 ...prev,
+                                 vitalSigns: {
+                                    ...prev.vitalSigns,
+                                    diastolicBP: parseInt(value) || 0
+                                 }
+                              }))}
+                           />
+                           <AnimatedField
+                              label="Frecuencia Cardíaca (lpm)"
+                              value={editedData.vitalSigns.heartRate.toString()}
+                              isEditing={isEditing}
+                              onChange={(value) => setEditedData(prev => ({
+                                 ...prev,
+                                 vitalSigns: {
+                                    ...prev.vitalSigns,
+                                    heartRate: parseInt(value) || 0
+                                 }
+                              }))}
+                           />
+                           <AnimatedField
+                              label="Temperatura (°C)"
+                              value={editedData.vitalSigns.temperature.toString()}
+                              isEditing={isEditing}
+                              onChange={(value) => setEditedData(prev => ({
+                                 ...prev,
+                                 vitalSigns: {
+                                    ...prev.vitalSigns,
+                                    temperature: parseFloat(value) || 0
+                                 }
+                              }))}
+                           />
+                           <AnimatedField
+                              label="Peso (kg)"
+                              value={editedData.vitalSigns.weight.toString()}
+                              isEditing={isEditing}
+                              onChange={(value) => setEditedData(prev => ({
+                                 ...prev,
+                                 vitalSigns: {
+                                    ...prev.vitalSigns,
+                                    weight: parseFloat(value) || 0
+                                 }
+                              }))}
+                           />
+                           <AnimatedField
+                              label="Saturación de Oxígeno (%)"
+                              value={editedData.vitalSigns.oxygenSaturation.toString()}
+                              isEditing={isEditing}
+                              onChange={(value) => setEditedData(prev => ({
+                                 ...prev,
+                                 vitalSigns: {
+                                    ...prev.vitalSigns,
+                                    oxygenSaturation: parseInt(value) || 0
+                                 }
+                              }))}
+                           />
                         </div>
-                        
-                        <div className="bg-blue-50/50 p-4 border border-blue-200/50 rounded-lg text-center">
-                           <h4 className="font-semibold text-blue-800 text-sm">Frecuencia Cardíaca</h4>
-                           <p className="font-bold text-blue-700 text-lg">{extractedData.vitalSigns.heartRate}</p>
-                           <p className="text-blue-600 text-xs">lpm</p>
+                     ) : (
+                        <div className="gap-4 grid grid-cols-2 lg:grid-cols-4">
+                           <div className="bg-red-50/50 p-4 border border-red-200/50 rounded-lg text-center">
+                              <h4 className="font-semibold text-red-800 text-sm">Presión Arterial</h4>
+                              <p className="font-bold text-red-700 text-lg">
+                                 {extractedData.vitalSigns.systolicBP}/{extractedData.vitalSigns.diastolicBP}
+                              </p>
+                              <p className="text-red-600 text-xs">mmHg</p>
+                           </div>
+
+                           <div className="bg-blue-50/50 p-4 border border-blue-200/50 rounded-lg text-center">
+                              <h4 className="font-semibold text-blue-800 text-sm">Frecuencia Cardíaca</h4>
+                              <p className="font-bold text-blue-700 text-lg">{extractedData.vitalSigns.heartRate}</p>
+                              <p className="text-blue-600 text-xs">lpm</p>
+                           </div>
+
+                           <div className="bg-green-50/50 p-4 border border-green-200/50 rounded-lg text-center">
+                              <h4 className="font-semibold text-green-800 text-sm">Temperatura</h4>
+                              <p className="font-bold text-green-700 text-lg">{extractedData.vitalSigns.temperature}</p>
+                              <p className="text-green-600 text-xs">°C</p>
+                           </div>
+
+                           <div className="bg-purple-50/50 p-4 border border-purple-200/50 rounded-lg text-center">
+                              <h4 className="font-semibold text-purple-800 text-sm">Peso</h4>
+                              <p className="font-bold text-purple-700 text-lg">{extractedData.vitalSigns.weight}</p>
+                              <p className="text-purple-600 text-xs">kg</p>
+                           </div>
                         </div>
-                        
-                        <div className="bg-green-50/50 p-4 border border-green-200/50 rounded-lg text-center">
-                           <h4 className="font-semibold text-green-800 text-sm">Temperatura</h4>
-                           <p className="font-bold text-green-700 text-lg">{extractedData.vitalSigns.temperature}</p>
-                           <p className="text-green-600 text-xs">°C</p>
-                        </div>
-                        
-                        <div className="bg-purple-50/50 p-4 border border-purple-200/50 rounded-lg text-center">
-                           <h4 className="font-semibold text-purple-800 text-sm">Peso</h4>
-                           <p className="font-bold text-purple-700 text-lg">{extractedData.vitalSigns.weight}</p>
-                           <p className="text-purple-600 text-xs">kg</p>
-                        </div>
-                     </div>
+                     )}
                   </div>
                )}
 
@@ -654,13 +952,31 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                         <Activity size={20} className="text-green-500" />
                         Notas Clínicas
                      </h3>
-                     
+
                      <AnimatedField
                         label="Notas del Médico"
-                        value={extractedData.clinicalNotes.map(n => n.assessment).join('\n\n')}
+                        value={isEditing
+                           ? editedData.clinicalNotes.map(n => n.assessment)
+                              .join('\n\n')
+                           : extractedData.clinicalNotes.map(n => n.assessment)
+                              .join('\n\n')}
                         animationState={animationState.clinicalNotes}
-                        isEditing={false}
+                        isEditing={isEditing}
                         type="textarea"
+                        onChange={(value) => {
+                           if (isEditing) {
+                              const assessments = value.split('\n\n')
+                                 .filter(a => a.trim());
+                              setEditedData(prev => ({
+                                 ...prev,
+                                 clinicalNotes: assessments.map((assessment, index) => ({
+                                    ...prev.clinicalNotes[index] || {
+                                    },
+                                    assessment: assessment.trim()
+                                 }))
+                              }));
+                           }
+                        }}
                      />
 
                      <div className="space-y-4">
@@ -672,28 +988,29 @@ export default function ExtractedDataForm({ extractedData, onConfirm, onEdit }: 
                                     <p className="text-green-600 text-sm">{note.specialty}</p>
                                  </div>
                                  <div className="text-green-600 text-sm text-right">
-                                    <p>{new Date(note.date).toLocaleDateString('es-ES')}</p>
+                                    <p>{new Date(note.date)
+                                       .toLocaleDateString('es-ES')}</p>
                                     <p className="capitalize">{note.type}</p>
                                  </div>
                               </div>
-                              
+
                               {note.chiefComplaint && (
                                  <div className="mb-3">
                                     <h5 className="font-medium text-green-800 text-sm">Motivo de Consulta:</h5>
                                     <p className="text-green-700 text-sm">{note.chiefComplaint}</p>
                                  </div>
                               )}
-                              
+
                               <div className="mb-3">
                                  <h5 className="font-medium text-green-800 text-sm">Evaluación:</h5>
                                  <p className="text-green-700 text-sm">{note.assessment}</p>
                               </div>
-                              
+
                               <div className="mb-3">
                                  <h5 className="font-medium text-green-800 text-sm">Plan:</h5>
                                  <p className="text-green-700 text-sm">{note.plan}</p>
                               </div>
-                              
+
                               {note.followUp && (
                                  <div>
                                     <h5 className="font-medium text-green-800 text-sm">Seguimiento:</h5>
