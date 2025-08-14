@@ -8,10 +8,13 @@ import {
    Shield, CheckCircle, AlertCircle, Info, ArrowLeft, Home
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import PatientNotesSection from './PatientNotesSection';
 
 interface PatientConsultationPageProps {
    consultationId: string;
 }
+
+
 
 function VideoCallInterface () {
    const [isVideoOn, setIsVideoOn] = useState(true);
@@ -275,6 +278,8 @@ function PatientInstructions () {
    );
 }
 
+
+
 // function TechnicalSupport () {
 //    const [showSupport, setShowSupport] = useState(false);
 
@@ -483,8 +488,9 @@ export default function PatientConsultationPage ({ consultationId }: PatientCons
          <div className="mx-auto px-6 py-8 max-w-7xl">
             <div className="gap-6 grid grid-cols-1 lg:grid-cols-3">
                {/* Video Call - Main Area */}
-               <div className="lg:col-span-2">
+               <div className="space-y-6 lg:col-span-2">
                   <VideoCallInterface />
+                  <PatientNotesSection />
                </div>
 
                {/* Sidebar */}
