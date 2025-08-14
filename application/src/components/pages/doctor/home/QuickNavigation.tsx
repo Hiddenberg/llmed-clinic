@@ -14,7 +14,7 @@ interface NavItem {
 
 const navigationItems: NavItem[] = [
    {
-      title: 'Mis Pacientes',
+      title: 'Archivo',
       description: 'Ver y gestionar pacientes asignados',
       href: '/doctor/patients',
       icon: <Users size={24} />,
@@ -33,13 +33,6 @@ const navigationItems: NavItem[] = [
       href: '/doctor/calendar',
       icon: <Calendar size={24} />,
       color: 'from-green-500 to-emerald-500'
-   },
-   {
-      title: 'Historial Médico',
-      description: 'Consultar registros médicos',
-      href: '/doctor/medical-records',
-      icon: <FileText size={24} />,
-      color: 'from-blue-500 to-cyan-500'
    },
    {
       title: 'Monitoreo',
