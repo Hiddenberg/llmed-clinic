@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import {
    Users, Calendar, FileText, Activity,
-   ArrowRight, Stethoscope
+   ArrowRight, Stethoscope, Video
 } from 'lucide-react';
 
 interface NavItem {
@@ -19,6 +19,13 @@ const navigationItems: NavItem[] = [
       href: '/doctor/patients',
       icon: <Users size={24} />,
       color: 'from-brand-500 to-blue-500'
+   },
+   {
+      title: 'Consultas Médicas',
+      description: 'Consultas presenciales y por video',
+      href: '/doctor/consultation',
+      icon: <Stethoscope size={24} />,
+      color: 'from-emerald-500 to-green-500'
    },
    {
       title: 'Calendario',
