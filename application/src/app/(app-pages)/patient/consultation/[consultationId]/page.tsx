@@ -1,11 +1,12 @@
 import PatientConsultationPage from '@/components/pages/patient/consultation/PatientConsultationPage';
 
 interface PatientConsultationPageProps {
-   params: {
+   params: Promise<{
       consultationId: string;
-   };
+   }>;
 }
 
-export default function PatientConsultationRoute ({ params }: PatientConsultationPageProps) {
-   return <PatientConsultationPage consultationId={params.consultationId} />;
+export default async function PatientConsultationRoute ({ params }: PatientConsultationPageProps) {
+   const { consultationId } = await params;
+   return <PatientConsultationPage consultationId={consultationId} />;
 }

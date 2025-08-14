@@ -1,11 +1,12 @@
 import PreConsultationPage from '@/components/pages/doctor/consultation/PreConsultationPage';
 
 interface PreConsultationPageProps {
-   params: {
+   params: Promise<{
       consultationId: string;
-   };
+   }>;
 }
 
-export default function PreConsultationRoute ({ params }: PreConsultationPageProps) {
-   return <PreConsultationPage consultationId={params.consultationId} />;
+export default async function PreConsultationRoute ({ params }: PreConsultationPageProps) {
+   const { consultationId } = await params;
+   return <PreConsultationPage consultationId={consultationId} />;
 }

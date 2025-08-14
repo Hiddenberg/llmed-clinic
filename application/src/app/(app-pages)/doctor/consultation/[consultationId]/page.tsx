@@ -1,11 +1,12 @@
 import ActiveConsultationPage from '@/components/pages/doctor/consultation/ActiveConsultationPage';
 
 interface ConsultationPageProps {
-   params: {
+   params: Promise<{
       consultationId: string;
-   };
+   }>;
 }
 
-export default function ConsultationPage ({ params }: ConsultationPageProps) {
-   return <ActiveConsultationPage consultationId={params.consultationId} />;
+export default async function ConsultationPage ({ params }: ConsultationPageProps) {
+   const { consultationId } = await params;
+   return <ActiveConsultationPage consultationId={consultationId} />;
 }

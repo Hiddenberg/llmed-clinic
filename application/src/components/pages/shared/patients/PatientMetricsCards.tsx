@@ -1,6 +1,6 @@
 import {
    Users, UserCheck, AlertTriangle, TrendingUp,
-   Calendar, Activity, Heart, Target
+   Calendar, Activity, Target
 } from 'lucide-react';
 import { PatientMetrics } from '@/data/mockData/patientsListData';
 
@@ -63,7 +63,7 @@ function MetricCard ({
 export default function PatientMetricsCards ({
    metrics, userType
 }: PatientMetricsCardsProps) {
-   const adminMetrics = [
+   const adminMetrics: MetricCardProps[] = [
       {
          title: 'Total de Pacientes',
          value: metrics.totalPatients,
@@ -134,7 +134,7 @@ export default function PatientMetricsCards ({
       }
    ];
 
-   const doctorMetrics = [
+   const doctorMetrics: MetricCardProps[] = [
       {
          title: 'Mis Pacientes',
          value: metrics.totalPatients,
