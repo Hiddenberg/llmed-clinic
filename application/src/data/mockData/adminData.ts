@@ -305,17 +305,9 @@ export const mockNavCards: AdminNavCard[] = [
       id: '5',
       title: 'Equipos',
       description: 'Monitorea el estado de los equipos médicos',
-      icon: 'Activity',
-      href: '/admin/equipment',
-      color: 'info'
-   },
-   {
-      id: '6',
-      title: 'Configuración',
-      description: 'Ajusta configuraciones del sistema',
       icon: 'Settings',
-      href: '/admin/settings',
-      color: 'brand'
+      href: '/admin/equipments',
+      color: 'info'
    }
 ];
 
