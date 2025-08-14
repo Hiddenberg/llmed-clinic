@@ -67,8 +67,8 @@ export const mockTodayAppointments: DoctorAppointment[] = [
       patientName: 'José Martínez',
       patientAge: 72,
       time: '10:30',
-      status: 'in-progress',
-      type: 'hemodialysis',
+      status: 'upcoming',
+      type: 'consultation',
       room: 'Sala A-2',
       duration: 240
    },
@@ -102,6 +102,17 @@ export const mockTodayAppointments: DoctorAppointment[] = [
       room: 'Sala B-1',
       duration: 240,
       notes: 'Cancelada por el paciente - reagendar'
+   },
+   {
+      id: '6',
+      patientName: 'Roberto Fernández',
+      patientAge: 58,
+      time: '12:00',
+      status: 'in-progress',
+      type: 'consultation',
+      room: 'Consultorio 2',
+      duration: 30,
+      notes: 'Consulta de seguimiento post-hospitalización'
    }
 ];
 

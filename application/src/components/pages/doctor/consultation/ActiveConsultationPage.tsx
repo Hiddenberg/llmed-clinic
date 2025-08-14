@@ -195,7 +195,7 @@ export default function ActiveConsultationPage ({ consultationId }: ActiveConsul
    return (
       <div className="relative bg-gray-50 min-h-screen">
          {/* Header */}
-         <div className="top-0 z-40 sticky bg-white border-gray-200 border-b">
+         <div className="top-0 z-50 sticky bg-white border-gray-200 border-b">
             <div className="mx-auto px-6 py-4 max-w-7xl">
                <div className="flex justify-between items-center">
                   <div className="flex items-center gap-4">

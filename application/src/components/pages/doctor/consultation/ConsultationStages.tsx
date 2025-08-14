@@ -194,7 +194,7 @@ export default function ConsultationStages ({
          </div>
 
          {/* Stage Progress Indicator */}
-         <div className="relative flex justify-between items-center mb-6">
+         <div className="relative flex justify-center items-center mb-6">
             {localStages.map((stage, index) => (
                <div key={stage.id} className="flex items-center">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${

@@ -1,5 +1,6 @@
+"use client"
 import {
-   Clock, MapPin, Calendar, CheckCircle, Play, X
+   Clock, MapPin, Calendar, CheckCircle, Play, X, Video, Users, Stethoscope
 } from 'lucide-react';
 import { mockTodayAppointments, type DoctorAppointment } from '@/data/mockData/doctorData';
 
@@ -65,6 +66,25 @@ interface AppointmentItemProps {
 function AppointmentItem ({
    appointment, index
 }: AppointmentItemProps) {
+   const handleStartConsultation = (type: 'in-person' | 'video') => {
+      window.location.href = `/doctor/consultation/cons-${appointment.id}?type=${type}`;
+   };
+
+   const handleContinueConsultation = () => {
+      window.location.href = `/doctor/consultation/cons-${appointment.id}?type=in-person`;
+   };
+
+   const handleAddNote = () => {
+      // In a real app, this would open a note modal or navigate to notes section
+      alert('Función de agregar nota - Por implementar');
+   };
+
+   const handleReschedule = () => {
+      // In a real app, this would open a reschedule modal
+      alert('Función de reagendar - Por implementar');
+   };
+
+   const isConsultationType = appointment.type === 'consultation' || appointment.type === 'follow-up';
    return (
       <div
          className="group bg-white/90 hover:bg-white hover:shadow-md p-4 border border-gray-200/50 rounded-xl overflow-hidden hover:scale-[1.01] transition-all animate-fade-in-up duration-300"
@@ -111,7 +131,8 @@ function AppointmentItem ({
                      <span className="capitalize">{getStatusText(appointment.status)}</span>
                   </div>
 
-                  <div className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${getTypeColor(appointment.type)}`}>
+                  <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium ${getTypeColor(appointment.type)}`}>
+                     {isConsultationType && <Stethoscope size={12} />}
                      {getTypeLabel(appointment.type)}
                   </div>
                </div>
@@ -124,24 +145,88 @@ function AppointmentItem ({
             )}
 
             {appointment.status === 'upcoming' && (
-               <div className="flex gap-2 mt-3">
-                  <button className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
-                     Iniciar Consulta
-                  </button>
-                  <button className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200">
-                     Reagendar
-                  </button>
+               <div className="mt-3">
+                  {isConsultationType ? (
+                     /* Consultation appointment buttons */
+                     <div className="space-y-2">
+                        <div className="flex gap-2">
+                           <button
+                              onClick={() => handleStartConsultation('in-person')}
+                              className="flex flex-1 justify-center items-center gap-2 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200"
+                           >
+                              <Users size={14} />
+                              Presencial
+                           </button>
+                           <button
+                              onClick={() => handleStartConsultation('video')}
+                              className="flex flex-1 justify-center items-center gap-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200"
+                           >
+                              <Video size={14} />
+                              Video
+                           </button>
+                        </div>
+                        <button
+                           onClick={handleReschedule}
+                           className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg w-full font-medium text-gray-700 text-sm transition-colors duration-200"
+                        >
+                           Reagendar
+                        </button>
+                     </div>
+                  ) : (
+                     /* Regular appointment buttons */
+                     <div className="flex gap-2">
+                        <button className="flex-1 bg-brand-500 hover:bg-brand-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
+                           Iniciar Sesión
+                        </button>
+                        <button
+                           onClick={handleReschedule}
+                           className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200"
+                        >
+                           Reagendar
+                        </button>
+                     </div>
+                  )}
                </div>
             )}
 
             {appointment.status === 'in-progress' && (
-               <div className="flex gap-2 mt-3">
-                  <button className="flex-1 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
-                     Finalizar
-                  </button>
-                  <button className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200">
-                     Agregar Nota
-                  </button>
+               <div className="mt-3">
+                  {isConsultationType ? (
+                     /* In-progress consultation buttons */
+                     <div className="space-y-2">
+                        <button
+                           onClick={handleContinueConsultation}
+                           className="flex justify-center items-center gap-2 bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg w-full font-medium text-white text-sm transition-colors duration-200"
+                        >
+                           <Stethoscope size={14} />
+                           Continuar Consulta
+                        </button>
+                        <div className="flex gap-2">
+                           <button className="flex-1 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
+                              Finalizar
+                           </button>
+                           <button
+                              onClick={handleAddNote}
+                              className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200"
+                           >
+                              Agregar Nota
+                           </button>
+                        </div>
+                     </div>
+                  ) : (
+                     /* Regular in-progress appointment buttons */
+                     <div className="flex gap-2">
+                        <button className="flex-1 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200">
+                           Finalizar
+                        </button>
+                        <button
+                           onClick={handleAddNote}
+                           className="hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 text-sm transition-colors duration-200"
+                        >
+                           Agregar Nota
+                        </button>
+                     </div>
+                  )}
                </div>
             )}
          </div>
@@ -157,16 +242,26 @@ export default function TodayAppointments () {
       <div className="space-y-6">
          {/* Header */}
          <div className="bg-white/90 p-6 border border-gray-200/50 rounded-xl">
-            <div className="flex items-center gap-3">
-               <div className="bg-gradient-to-r from-brand-600 to-blue-600 shadow-lg p-2 rounded-lg">
-                  <Calendar size={20} className="drop-shadow-sm text-white" />
+            <div className="flex justify-between items-center">
+               <div className="flex items-center gap-3">
+                  <div className="bg-gradient-to-r from-brand-600 to-blue-600 shadow-lg p-2 rounded-lg">
+                     <Calendar size={20} className="drop-shadow-sm text-white" />
+                  </div>
+                  <div>
+                     <h2 className="bg-clip-text bg-gradient-to-r from-gray-800 to-gray-600 font-bold text-transparent text-2xl">
+                        Citas de Hoy
+                     </h2>
+                     <p className="text-gray-600 text-sm">Agenda completa del día</p>
+                  </div>
                </div>
-               <div>
-                  <h2 className="bg-clip-text bg-gradient-to-r from-gray-800 to-gray-600 font-bold text-transparent text-2xl">
-                     Citas de Hoy
-                  </h2>
-                  <p className="text-gray-600 text-sm">Agenda completa del día</p>
-               </div>
+
+               <button
+                  onClick={() => window.location.href = '/doctor/consultation'}
+                  className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 px-4 py-2 rounded-lg font-medium text-white text-sm transition-colors duration-200"
+               >
+                  <Stethoscope size={16} />
+                  Ver Consultas
+               </button>
             </div>
          </div>
 
