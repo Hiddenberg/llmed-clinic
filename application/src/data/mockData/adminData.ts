@@ -285,14 +285,14 @@ export const mockNavCards: AdminNavCard[] = [
       href: '/admin/patients',
       color: 'info'
    },
-   {
-      id: '3',
-      title: 'Doctores',
-      description: 'Gestiona el personal médico y sus especialidades',
-      icon: 'UserCheck',
-      href: '/admin/doctors',
-      color: 'success'
-   },
+   // {
+   //    id: '3',
+   //    title: 'Doctores',
+   //    description: 'Gestiona el personal médico y sus especialidades',
+   //    icon: 'UserCheck',
+   //    href: '/admin/doctors',
+   //    color: 'success'
+   // },
    {
       id: '4',
       title: 'Reportes',
