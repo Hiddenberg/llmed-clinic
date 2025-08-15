@@ -1,5 +1,5 @@
 import {
-   Heart, Activity, Phone, FileText, Plus, Video, Award,
+   Heart, Activity, Phone, FileText, Plus, Video, Award, Users,
    LucideIcon
 } from 'lucide-react';
 // import { mockPatient } from '@/data/mockData/patientData';
@@ -12,6 +12,7 @@ import DoctorNotesSection from './DoctorNotesSection';
 import QuickActions from './QuickActionsButton';
 import ActiveConsultationsSection from './ActiveConsultationsSection';
 import PatientRewardsSection from './PatientRewardsSection';
+import AffiliatesSection from './AffiliatesSection';
 
 // Floating geometric shapes for background decoration - patient themed
 function FloatingGeometry () {
@@ -148,6 +149,17 @@ export default function PatientHomePage () {
                      gradient="from-indigo-500 to-purple-500"
                   />
                   <DoctorNotesSection />
+               </section>
+
+               {/* Affiliates Section */}
+               <section id="affiliates-section" className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
+                  <SectionHeader
+                     icon={Users}
+                     title="Red de Afiliados"
+                     gradient="from-blue-500 to-green-500"
+                     id="affiliates-section"
+                  />
+                  <AffiliatesSection />
                </section>
             </div>
 
