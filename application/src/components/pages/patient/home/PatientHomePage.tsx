@@ -1,5 +1,5 @@
 import {
-   Heart, Activity, Phone, FileText, Plus, Video,
+   Heart, Activity, Phone, FileText, Plus, Video, Award,
    LucideIcon
 } from 'lucide-react';
 // import { mockPatient } from '@/data/mockData/patientData';
@@ -11,6 +11,7 @@ import DoctorCallSection from './DoctorCallSection';
 import DoctorNotesSection from './DoctorNotesSection';
 import QuickActions from './QuickActionsButton';
 import ActiveConsultationsSection from './ActiveConsultationsSection';
+import PatientRewardsSection from './PatientRewardsSection';
 
 // Floating geometric shapes for background decoration - patient themed
 function FloatingGeometry () {
@@ -72,11 +73,11 @@ export default function PatientHomePage () {
    return (
       <div className="relative bg-gradient-to-br from-gray-50 via-white to-brand-50/20 min-h-screen">
          {/* Background decoration */}
-         <div className="fixed inset-0 pointer-events-none">
+         {/* <div className="fixed inset-0 pointer-events-none">
             <FloatingGeometry />
             <div className="top-0 right-0 absolute bg-gradient-to-bl from-brand-50/30 to-transparent w-1/2 h-1/2" />
             <div className="bottom-0 left-0 absolute bg-gradient-to-tr from-green-50/20 to-transparent w-1/2 h-1/2" />
-         </div>
+         </div> */}
 
          <div className="relative mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 max-w-4xl">
             {/* Welcome Header */}
@@ -87,6 +88,16 @@ export default function PatientHomePage () {
 
             {/* Main Content Sections */}
             <div className="space-y-6">
+               <section id="rewards-section" className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
+                  <SectionHeader
+                     icon={Award}
+                     title="Mi Sistema de Recompensas"
+                     gradient="from-yellow-500 to-orange-500"
+                     id="rewards-section"
+                  />
+                  <PatientRewardsSection />
+               </section>
+
                {/* Video Consultations Section */}
                <section id="consultations-section" className="bg-white/95 shadow-sm backdrop-blur-sm p-5 border border-white/50 rounded-2xl">
                   <SectionHeader

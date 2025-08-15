@@ -495,7 +495,7 @@ export default function PatientConsultationPage ({ consultationId }: PatientCons
                <div className="!space-y-6 lg:!col-span-2">
                   {/* <VideoCallInterface /> */}
                   <ZoomSessionProvider sessionName="Consulta" sessionKey="555448987">
-                     <ZoomCallInterface username="Dr. Carlos Ruiz" setIsLoading={() => {}} />
+                     <ZoomCallInterface username="María González" setIsLoading={() => {}} />
                   </ZoomSessionProvider>
                   <PatientNotesSection />
                </div>

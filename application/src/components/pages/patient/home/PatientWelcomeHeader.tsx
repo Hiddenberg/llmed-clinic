@@ -2,6 +2,7 @@ import {
    Heart, Clock, CheckCircle, AlertCircle
 } from 'lucide-react';
 import { mockPatient } from '@/data/mockData/patientData';
+import { RewardLevelCard, StreakCards } from './PatientRewardsSection';
 
 export default function PatientWelcomeHeader () {
    const currentTime = new Date()
@@ -75,6 +76,12 @@ export default function PatientWelcomeHeader () {
                   </div>
                </div>
             </div>
+
+            {/* Level and Points Overview */}
+            {/* <RewardLevelCard /> */}
+
+            {/* Streaks */}
+            {/* <StreakCards /> */}
 
             {/* Next appointment preview - Mobile optimized */}
             <div className="bg-gradient-to-r from-brand-50 to-blue-50 mt-4 p-4 border border-brand-200/30 rounded-xl">
