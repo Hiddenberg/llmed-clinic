@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { MapPin, Building2, Pill, Navigation, Maximize2 } from 'lucide-react';
+import {
+   MapPin, Building2, Pill, Navigation, Maximize2
+} from 'lucide-react';
 import { Affiliate } from '@/data/mockData/affiliatesData';
 
 interface AffiliatesMapProps {
@@ -10,8 +12,13 @@ interface AffiliatesMapProps {
    onAffiliateSelect: (affiliate: Affiliate) => void;
 }
 
-export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect }: AffiliatesMapProps) {
-   const [mapCenter, setMapCenter] = useState({ lat: 19.4326, lng: -99.1332 }); // Mexico City center
+export function AffiliatesMap ({
+   affiliates, selectedAffiliate, onAffiliateSelect
+}: AffiliatesMapProps) {
+   const [mapCenter, setMapCenter] = useState({
+      lat: 19.4326,
+      lng: -99.1332
+   }); // Mexico City center
    const [zoomLevel, setZoomLevel] = useState(6);
 
    // Calculate bounds to show all affiliates
@@ -22,12 +29,20 @@ export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect
          minLng: Math.min(acc.minLng, affiliate.location.lng),
          maxLng: Math.max(acc.maxLng, affiliate.location.lng),
       }),
-      { minLat: 90, maxLat: -90, minLng: 180, maxLng: -180 }
+      {
+         minLat: 90,
+         maxLat: -90,
+         minLng: 180,
+         maxLng: -180
+      }
    );
 
    const handleAffiliateClick = (affiliate: Affiliate) => {
       onAffiliateSelect(affiliate);
-      setMapCenter({ lat: affiliate.location.lat, lng: affiliate.location.lng });
+      setMapCenter({
+         lat: affiliate.location.lat,
+         lng: affiliate.location.lng
+      });
    };
 
    const getDirectionsUrl = (affiliate: Affiliate) => {
@@ -51,7 +66,10 @@ export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect
                      if (affiliates.length > 0) {
                         const centerLat = (bounds.minLat + bounds.maxLat) / 2;
                         const centerLng = (bounds.minLng + bounds.maxLng) / 2;
-                        setMapCenter({ lat: centerLat, lng: centerLng });
+                        setMapCenter({
+                           lat: centerLat,
+                           lng: centerLng
+                        });
                         setZoomLevel(5);
                      }
                   }}
@@ -71,19 +89,19 @@ export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect
                   <div className="top-2 left-2 absolute font-medium text-gray-500 text-xs">
                      República Mexicana
                   </div>
-                  
+
                   {/* Affiliate markers positioned relatively */}
                   {affiliates.map((affiliate) => {
                      // Simple positioning based on coordinates (normalized)
                      const normalizedLat = ((affiliate.location.lat - 14) / (33 - 14)) * 100;
                      const normalizedLng = ((affiliate.location.lng + 118) / (-86 + 118)) * 100;
-                     
+
                      return (
                         <div
                            key={affiliate.id}
                            className={`absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-200 ${
-                              selectedAffiliate?.id === affiliate.id 
-                                 ? 'scale-125 z-20' 
+                              selectedAffiliate?.id === affiliate.id
+                                 ? 'scale-125 z-20'
                                  : 'hover:scale-110 z-10'
                            }`}
                            style={{
@@ -93,10 +111,11 @@ export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect
                            onClick={() => handleAffiliateClick(affiliate)}
                         >
                            <div className={`relative ${
-                              selectedAffiliate?.id === affiliate.id 
-                                 ? 'animate-pulse' 
+                              selectedAffiliate?.id === affiliate.id
+                                 ? 'animate-pulse'
                                  : ''
-                           }`}>
+                           }`}
+                           >
                               <div className={`w-8 h-8 rounded-full border-2 border-white shadow-lg flex items-center justify-center ${
                                  affiliate.type === 'clinic'
                                     ? 'bg-blue-500 text-white'
@@ -105,22 +124,24 @@ export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect
                                  selectedAffiliate?.id === affiliate.id
                                     ? 'ring-4 ring-blue-200'
                                     : ''
-                              }`}>
+                              }`}
+                              >
                                  {affiliate.type === 'clinic' ? (
                                     <Building2 className="w-4 h-4" />
                                  ) : (
                                     <Pill className="w-4 h-4" />
                                  )}
                               </div>
-                              
+
                               {/* Tooltip */}
                               <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 transition-all duration-200 ${
                                  selectedAffiliate?.id === affiliate.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                              }`}>
+                              }`}
+                              >
                                  <div className="bg-gray-900 px-2 py-1 rounded-lg text-white text-xs whitespace-nowrap">
                                     {affiliate.name}
                                     <div className="text-gray-300">{affiliate.location.city}, {affiliate.location.state}</div>
-                                    <div className="top-full left-1/2 absolute border-t-4 border-t-gray-900 border-transparent border-r-4 border-l-4 -translate-x-1/2 transform"></div>
+                                    <div className="top-full left-1/2 absolute border-t-4 border-t-gray-900 border-transparent border-r-4 border-l-4 -translate-x-1/2 transform" />
                                  </div>
                               </div>
                            </div>
@@ -155,14 +176,14 @@ export function AffiliatesMap({ affiliates, selectedAffiliate, onAffiliateSelect
             <div className="right-4 bottom-4 absolute bg-white shadow-lg p-4 rounded-lg max-w-xs">
                <div className="flex items-start space-x-3">
                   <div className={`p-2 rounded-lg ${
-                     selectedAffiliate.type === 'clinic' 
-                        ? 'bg-blue-100 text-blue-600' 
+                     selectedAffiliate.type === 'clinic'
+                        ? 'bg-blue-100 text-blue-600'
                         : 'bg-green-100 text-green-600'
-                  }`}>
-                     {selectedAffiliate.type === 'clinic' ? 
-                        <Building2 className="w-4 h-4" /> : 
-                        <Pill className="w-4 h-4" />
-                     }
+                  }`}
+                  >
+                     {selectedAffiliate.type === 'clinic' ?
+                        <Building2 className="w-4 h-4" /> :
+                        <Pill className="w-4 h-4" />}
                   </div>
                   <div className="flex-1">
                      <h4 className="font-medium text-gray-900 text-sm leading-tight">

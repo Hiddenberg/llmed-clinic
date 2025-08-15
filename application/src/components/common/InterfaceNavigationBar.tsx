@@ -66,7 +66,7 @@ export default function InterfaceNavigationBar () {
    const currentInterface = getCurrentInterface();
 
    return (
-      <div className="top-0 z-50 sticky bg-white/95 shadow-sm backdrop-blur-sm border-gray-200/50 border-b">
+      <div className="top-0 z-50 sticky bg-white/95 shadow-sm backdrop-blur-sm border-gray-200/50 border-b overflow-hidden">
          <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div className="flex justify-between items-center py-3">
                {/* Logo/Brand */}

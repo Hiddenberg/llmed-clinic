@@ -34,7 +34,7 @@ export default function PatientAffiliatesPage () {
    const pharmacies = mockAffiliates.filter(a => a.type === 'pharmacy').length;
 
    return (
-      <div className="bg-gray-50 mx-auto max-w-7xl min-h-screen">
+      <div className="bg-gray-50 mx-auto px-4 max-w-7xl min-h-screen">
          <div className='space-y-4 py-4'>
 
             <div className="gap-4 grid grid-cols-1 sm:grid-cols-3">
