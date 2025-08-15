@@ -35,14 +35,14 @@ function EditNoteForm ({
             value={content}
             onChange={(e) => setContent(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="p-2 border border-gray-300 focus:border-transparent rounded-lg focus:ring-2 focus:ring-blue-500 w-full text-sm resize-none"
+            className="!p-2 !border !border-gray-300 focus:!border-transparent !rounded-lg focus:!ring-2 focus:!ring-blue-500 !w-full !text-sm !resize-none"
             rows={2}
             autoFocus
          />
          <div className="flex justify-end gap-2 mt-2">
             <button
                onClick={onCancel}
-               className="px-2 py-1 text-gray-600 hover:text-gray-800 text-xs transition-colors"
+               className="!px-2 !py-1 !text-gray-600 hover:!text-gray-800 !text-xs !transition-colors"
             >
                Cancelar
             </button>
@@ -142,11 +142,11 @@ export default function PatientNotesSection () {
    };
 
    return (
-      <div className="bg-white p-6 border border-gray-200 rounded-lg">
-         <div className="flex flex-col justify-between items-center space-y-4 mb-4">
-            <div className="flex items-center gap-2">
-               <FileText size={20} className="text-blue-600" />
-               <h3 className="font-semibold text-gray-900 text-lg">Mis Notas</h3>
+      <div className="!bg-white !p-6 !border !border-gray-200 !rounded-lg">
+         <div className="!flex !flex-col !justify-between !items-center !space-y-4 !mb-4">
+            <div className="!flex !items-center !gap-2">
+               <FileText size={20} className="!text-blue-600" />
+               <h3 className="!font-semibold !text-gray-900 !text-lg">Mis Notas</h3>
                {notes.length > 0 && (
                   <span className="bg-blue-100 px-2 py-0.5 rounded-full text-blue-600 text-xs">
                      {notes.length}
@@ -154,7 +154,7 @@ export default function PatientNotesSection () {
                )}
             </div>
             {!isAddingNote && (
-               <div className="flex gap-2">
+               <div className="!flex !gap-2">
                   <button
                      onClick={() => setIsAddingNote(true)}
                      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-lg text-white text-sm transition-colors"
@@ -215,7 +215,7 @@ export default function PatientNotesSection () {
                />
                <div className="flex justify-between items-center mt-3">
                   <span className="text-blue-600 text-xs">Ctrl + Enter para guardar</span>
-                  <div className="flex gap-2">
+                  <div className="!flex !gap-2">
                      <button
                         onClick={() => {
                            setIsAddingNote(false);
@@ -239,7 +239,7 @@ export default function PatientNotesSection () {
          )}
 
          {/* Notes List */}
-         <div className="space-y-3 max-h-96 overflow-y-auto">
+         <div className="!space-y-3 !max-h-96 !overflow-y-auto">
             {notes.length === 0 ? (
                <div className="py-8 text-gray-500 text-center">
                   <FileText size={32} className="opacity-50 mx-auto mb-3" />

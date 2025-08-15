@@ -33,17 +33,17 @@ function VitalCard ({
    onChange: (value: string) => void;
 }) {
    return (
-      <div className="bg-white p-4 border border-gray-200 rounded-xl">
-         <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center gap-2">
+      <div className="!bg-white !p-4 !border !border-gray-200 !rounded-xl">
+         <div className="!flex !justify-between !items-center !mb-3">
+            <div className="!flex !items-center !gap-2">
                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${color}`}>
                   <Icon size={16} />
                </div>
-               <span className="font-medium text-gray-900 text-sm">{label}</span>
+               <span className="!font-medium !text-gray-900 !text-sm">{label}</span>
             </div>
             <button
                onClick={onEdit}
-               className="text-gray-400 hover:text-gray-600 transition-colors"
+               className="!text-gray-400 hover:!text-gray-600 !transition-colors"
             >
                <Edit3 size={14} />
             </button>
@@ -60,8 +60,8 @@ function VitalCard ({
             />
          ) : (
             <div>
-               <p className="font-bold text-gray-900 text-2xl">{value}</p>
-               <p className="text-gray-500 text-sm">{unit}</p>
+               <p className="!font-bold !text-gray-900 !text-2xl">{value}</p>
+               <p className="!text-gray-500 !text-sm">{unit}</p>
             </div>
          )}
       </div>
@@ -130,8 +130,8 @@ export default function VitalsInput ({ vitals }: VitalsInputProps) {
    ];
 
    return (
-      <div className="bg-gray-50 p-6 border border-gray-200 rounded-xl">
-         <div className="flex justify-between items-center mb-6">
+      <div className="!bg-gray-50 !p-6 !border !border-gray-200 !rounded-xl">
+         <div className="!flex !justify-between !items-center !mb-6">
             <h3 className="font-semibold text-gray-900 text-lg">Signos Vitales</h3>
             {hasChanges && (
                <button
@@ -144,7 +144,7 @@ export default function VitalsInput ({ vitals }: VitalsInputProps) {
             )}
          </div>
 
-         <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-6">
+         <div className="!gap-4 !grid !grid-cols-1 md:!grid-cols-2 lg:!grid-cols-4 !mb-6">
             {vitalConfigs.map((config) => (
                <VitalCard
                   key={config.key}
@@ -161,7 +161,7 @@ export default function VitalsInput ({ vitals }: VitalsInputProps) {
          </div>
 
          {/* Quick Actions */}
-         <div className="gap-3 grid grid-cols-1 md:grid-cols-3">
+         <div className="!gap-3 !grid !grid-cols-1 md:!grid-cols-3">
             <button
                onClick={() => {
                   const bp = prompt('Ingrese presión arterial (ej: 120/80):');
@@ -170,7 +170,7 @@ export default function VitalsInput ({ vitals }: VitalsInputProps) {
                className="flex justify-center items-center gap-2 bg-white hover:bg-gray-50 p-3 border border-gray-200 rounded-lg transition-colors"
             >
                <Activity size={16} className="text-blue-600" />
-               <span className="font-medium text-gray-900 text-sm">Tomar PA</span>
+               <span className="!font-medium !text-gray-900 !text-sm">Tomar PA</span>
             </button>
 
             <button
@@ -181,7 +181,7 @@ export default function VitalsInput ({ vitals }: VitalsInputProps) {
                className="flex justify-center items-center gap-2 bg-white hover:bg-gray-50 p-3 border border-gray-200 rounded-lg transition-colors"
             >
                <Scale size={16} className="text-green-600" />
-               <span className="font-medium text-gray-900 text-sm">Pesar Paciente</span>
+               <span className="!font-medium !text-gray-900 !text-sm">Pesar Paciente</span>
             </button>
 
             <button
@@ -192,12 +192,12 @@ export default function VitalsInput ({ vitals }: VitalsInputProps) {
                className="flex justify-center items-center gap-2 bg-white hover:bg-gray-50 p-3 border border-gray-200 rounded-lg transition-colors"
             >
                <Thermometer size={16} className="text-orange-600" />
-               <span className="font-medium text-gray-900 text-sm">Temp. Corporal</span>
+               <span className="!font-medium !text-gray-900 !text-sm">Temp. Corporal</span>
             </button>
          </div>
 
          {/* Historical Comparison */}
-         <div className="bg-white mt-6 p-4 border border-gray-200 rounded-lg">
+         <div className="!bg-white !mt-6 !p-4 !border !border-gray-200 !rounded-lg">
             <h4 className="mb-3 font-medium text-gray-900">Comparación con Última Sesión</h4>
             <div className="gap-4 grid grid-cols-1 md:grid-cols-4 text-sm">
                <div>

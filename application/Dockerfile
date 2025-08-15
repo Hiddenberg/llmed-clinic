@@ -1,7 +1,7 @@
 FROM node:lts-alpine AS deps
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --legacy-peer-deps --production
+RUN npm ci --legacy-peer-deps
 
 FROM node:lts-alpine AS builder
 WORKDIR /app

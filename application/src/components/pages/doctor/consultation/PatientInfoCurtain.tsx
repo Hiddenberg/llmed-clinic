@@ -31,7 +31,7 @@ function InfoCard ({
    color?: string;
 }) {
    return (
-      <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-lg">
+      <div className="!flex !items-center !gap-3 !bg-gray-50 !p-4 !rounded-lg">
          <div className={`w-10 h-10 rounded-lg bg-white flex items-center justify-center ${color}`}>
             <Icon size={20} />
          </div>
@@ -165,19 +165,19 @@ export default function PatientInfoCurtain ({
          )}
 
          {/* Curtain */}
-         <div className={`fixed top-0 right-0 h-full w-full max-w-2xl bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
+         <div className={`!fixed !top-0 !right-0 !h-full !w-full !max-w-2xl !bg-white !shadow-2xl !z-50 !transform !transition-transform !duration-300 !ease-in-out ${
+            isOpen ? '!translate-x-0' : '!translate-x-full'
          }`}
          >
             {/* Header */}
-            <div className="flex justify-between items-center bg-brand-600 p-6 text-white">
-               <div className="flex items-center gap-3">
-                  <div className="flex justify-center items-center bg-blue-500 bg-opacity-20 rounded-full w-12 h-12">
+            <div className="!flex !justify-between !items-center !bg-brand-600 !p-6 !text-white">
+               <div className="!flex !items-center !gap-3">
+                  <div className="!flex !justify-center !items-center !bg-blue-500 !bg-opacity-20 !rounded-full !w-12 !h-12">
                      <User size={24} />
                   </div>
                   <div>
-                     <h2 className="font-bold text-xl">{patientInfo.name}</h2>
-                     <p className="opacity-90">{patientInfo.age} años • Tipo {patientInfo.bloodType}</p>
+                     <h2 className="!font-bold !text-xl">{patientInfo.name}</h2>
+                     <p className="!opacity-90">{patientInfo.age} años • Tipo {patientInfo.bloodType}</p>
                   </div>
                </div>
                <button
@@ -189,9 +189,9 @@ export default function PatientInfoCurtain ({
             </div>
 
             {/* Content */}
-            <div className="p-6 pb-20 h-full overflow-y-auto">
+            <div className="!p-6 !pb-20 !h-full !overflow-y-auto">
                {/* Risk Level & Adherence */}
-               <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 mb-6">
+               <div className="!gap-4 !grid !grid-cols-1 sm:!grid-cols-2 !mb-6">
                   <div className={`rounded-lg p-4 ${getRiskColor(patientInfo.riskLevel)}`}>
                      <div className="flex items-center gap-2 mb-2">
                         <AlertTriangle size={16} />
@@ -268,7 +268,7 @@ export default function PatientInfoCurtain ({
 
                {/* Last Session */}
                <InfoSection title="Última Sesión">
-                  <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-lg">
+                  <div className="!flex !items-center !gap-3 !bg-gray-50 !p-4 !rounded-lg">
                      <Clock size={20} className="text-gray-600" />
                      <div>
                         <p className="font-medium text-gray-900">

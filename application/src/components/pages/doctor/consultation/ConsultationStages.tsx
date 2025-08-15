@@ -44,12 +44,12 @@ function StageCard ({
    const totalTasks = stage.tasks.length;
 
    return (
-      <div className={`rounded-xl border-2 p-4 transition-all ${getStatusColor(stage.status)} ${
-         isActive ? 'ring-2 ring-blue-500 ring-opacity-50' : ''
+      <div className={`!rounded-xl !border-2 !p-4 !transition-all ${getStatusColor(stage.status)} ${
+         isActive ? '!ring-2 !ring-blue-500 !ring-opacity-50' : ''
       }`}
       >
-         <div className="flex justify-between items-start mb-3">
-            <div className="flex items-center gap-3">
+         <div className="!flex !justify-between !items-start !mb-3">
+            <div className="!flex !items-center !gap-3">
                {getStatusIcon(stage.status)}
                <div>
                   <h4 className="font-semibold text-gray-900">{stage.name}</h4>
@@ -182,10 +182,10 @@ export default function ConsultationStages ({
    };
 
    return (
-      <div className="bg-white p-6 border border-gray-200 rounded-xl">
-         <div className="flex justify-between items-center mb-6">
-            <h3 className="font-semibold text-gray-900 text-lg">Etapas de la Consulta</h3>
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
+      <div className="!bg-white !p-6 !border !border-gray-200 !rounded-xl">
+         <div className="!flex !justify-between !items-center !mb-6">
+            <h3 className="!font-semibold !text-gray-900 !text-lg">Etapas de la Consulta</h3>
+            <div className="!flex !items-center !gap-2 !text-gray-600 !text-sm">
                <span>Progreso general:</span>
                <span className="font-medium">
                   {localStages.filter(s => s.status === 'completed').length}/{localStages.length}
@@ -194,7 +194,7 @@ export default function ConsultationStages ({
          </div>
 
          {/* Stage Progress Indicator */}
-         <div className="relative flex justify-center items-center mb-6">
+         <div className="!relative !flex !justify-center !items-center !mb-6">
             {localStages.map((stage, index) => (
                <div key={stage.id} className="flex items-center">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -221,7 +221,7 @@ export default function ConsultationStages ({
          </div>
 
          {/* Stages List */}
-         <div className="space-y-4">
+         <div className="!space-y-4">
             {localStages.map((stage) => (
                <StageCard
                   key={stage.id}

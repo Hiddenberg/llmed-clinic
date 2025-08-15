@@ -1,14 +1,18 @@
 'use client';
 
 import {
-   Video, VideoOff, Mic, MicOff, Phone, PhoneOff,
-   Clock, User, Calendar, Heart, Activity,
-   MessageSquare, HelpCircle, Settings, Volume2, VolumeX,
-   Maximize, Minimize, RotateCcw, Camera, CameraOff,
-   Shield, CheckCircle, AlertCircle, Info, ArrowLeft, Home
+   Video, VideoOff, Mic, MicOff, PhoneOff,
+   User, Calendar, Activity,
+   HelpCircle,
+   Maximize, Minimize,
+   Shield, CheckCircle, AlertCircle,
+   ArrowLeft, Home,
+   CameraOffIcon
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import PatientNotesSection from './PatientNotesSection';
+import ZoomCallInterface from '@/features/zoomCall/components/ZoomCallInterface';
+import { ZoomSessionProvider } from '@/features/zoomCall/contexts/ZoomSessionContext';
 
 interface PatientConsultationPageProps {
    consultationId: string;
@@ -66,67 +70,67 @@ function VideoCallInterface () {
    };
 
    return (
-      <div className={`relative bg-gray-900 rounded-lg overflow-hidden ${
-         isFullscreen ? 'fixed inset-0 z-50 rounded-none' : 'h-96'
+      <div className={`!relative !bg-gray-900 !rounded-lg !overflow-hidden ${
+         isFullscreen ? '!fixed !inset-0 !z-50 !rounded-none' : '!h-96'
       }`}
       >
          {/* Video Area */}
-         <div className="relative w-full h-full">
+         <div className="!relative !w-full !h-full">
             {/* Doctor's Video (Main) */}
-            <div className="flex justify-center items-center bg-gradient-to-br from-blue-900 to-blue-700 w-full h-full">
+            <div className="!flex !justify-center !items-center !bg-gradient-to-br !from-blue-900 !to-blue-700 !w-full !h-full">
                {connectionStatus === 'connecting' && (
-                  <div className="text-white text-center">
-                     <div className="mx-auto mb-4 border-4 border-white border-t-transparent rounded-full w-12 h-12 animate-spin" />
-                     <p className="font-medium text-lg">Conectando con el doctor...</p>
-                     <p className="opacity-75 text-sm">Por favor espere</p>
+                  <div className="!text-white !text-center">
+                     <div className="!mx-auto !mb-4 !border-4 !border-white !border-t-transparent !rounded-full !w-12 !h-12 !animate-spin" />
+                     <p className="!font-medium !text-lg">Conectando con el doctor...</p>
+                     <p className="!opacity-75 !text-sm">Por favor espere</p>
                   </div>
                )}
 
                {connectionStatus === 'connected' && (
-                  <div className="text-white text-center">
-                     <div className="flex justify-center items-center bg-white/20 mx-auto mb-4 rounded-full w-24 h-24">
-                        <User size={48} />
+                  <div className="!text-white !text-center">
+                     <div className="!flex !justify-center !items-center !bg-white/20 !mx-auto !mb-4 !rounded-full !w-24 !h-24">
+                        <User size={48} className="!text-white" />
                      </div>
-                     <p className="font-medium text-xl">Dr. Carlos Ruiz</p>
-                     <p className="opacity-75 text-sm">Nefrología</p>
+                     <p className="!font-medium !text-xl">Dr. Carlos Ruiz</p>
+                     <p className="!opacity-75 !text-sm">Nefrología</p>
                   </div>
                )}
 
                {connectionStatus === 'disconnected' && (
-                  <div className="text-white text-center">
-                     <PhoneOff size={48} className="opacity-50 mx-auto mb-4" />
-                     <p className="font-medium text-lg">Consulta finalizada</p>
+                  <div className="!text-white !text-center">
+                     <PhoneOff size={48} className="!opacity-50 !mx-auto !mb-4" />
+                     <p className="!font-medium !text-lg">Consulta finalizada</p>
                   </div>
                )}
             </div>
 
             {/* Patient's Video (Picture-in-Picture) */}
             {connectionStatus === 'connected' && (
-               <div className="top-4 right-4 absolute bg-gray-800 border-2 border-white/20 rounded-lg w-32 h-24 overflow-hidden">
+               <div className="!top-4 !right-4 !absolute !bg-gray-800 !border-2 !border-white/20 !rounded-lg !w-32 !h-24 !overflow-hidden">
                   {isVideoOn ? (
-                     <div className="flex justify-center items-center bg-gradient-to-br from-green-900 to-green-700 w-full h-full">
-                        <User size={24} className="text-white" />
+                     <div className="!flex !justify-center !items-center !bg-gradient-to-br !from-green-900 !to-green-700 !w-full !h-full">
+                        <User size={24} className="!text-white" />
                      </div>
                   ) : (
-                     <div className="flex justify-center items-center bg-gray-700 w-full h-full">
-                        <CameraOff size={20} className="text-gray-400" />
+                     <div className="!flex !justify-center !items-center !bg-gray-700 !w-full !h-full">
+                        <CameraOffIcon size={20} className="!text-gray-400" />
                      </div>
                   )}
                </div>
             )}
 
             {/* Connection Status */}
-            <div className="top-4 left-4 absolute">
-               <div className={`flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium ${
+            <div className="!top-4 !left-4 !absolute">
+               <div className={`!flex !items-center !gap-2 !px-3 !py-2 !rounded-full !text-sm !font-medium ${
                   connectionStatus === 'connected'
-                     ? 'bg-green-600 text-white'
+                     ? '!bg-green-600 !text-white'
                      : connectionStatus === 'connecting'
-                        ? 'bg-yellow-600 text-white'
-                        : 'bg-red-600 text-white'
+                        ? '!bg-yellow-600 !text-white'
+                        : '!bg-red-600 !text-white'
                }`}
                >
-                  <div className={`w-2 h-2 rounded-full ${
-                     connectionStatus === 'connected' ? 'bg-white animate-pulse' : 'bg-white/60'
+                  <div className={`!w-2 !h-2 !rounded-full ${
+                     connectionStatus === 'connected' ? '!bg-white !animate-pulse' : '!bg-white/60'
                   }`}
                   />
                   {connectionStatus === 'connected' && `En vivo • ${formatDuration(callDuration)}`}
@@ -137,38 +141,38 @@ function VideoCallInterface () {
 
             {/* Controls */}
             {connectionStatus !== 'disconnected' && (
-               <div className="bottom-4 left-1/2 absolute -translate-x-1/2 transform">
-                  <div className="flex items-center gap-2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full">
+               <div className="!bottom-4 !left-1/2 !absolute !-translate-x-1/2 !transform">
+                  <div className="!flex !items-center !gap-2 !bg-black/50 !backdrop-blur-sm !px-4 !py-2 !rounded-full">
                      <button
                         onClick={() => setIsVideoOn(!isVideoOn)}
-                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
-                           isVideoOn ? 'bg-gray-600 hover:bg-gray-700' : 'bg-red-600 hover:bg-red-700'
+                        className={`!w-12 !h-12 !rounded-full !flex !items-center !justify-center !transition-colors ${
+                           isVideoOn ? '!bg-gray-600 hover:!bg-gray-700' : '!bg-red-600 hover:!bg-red-700'
                         }`}
                      >
-                        {isVideoOn ? <Video size={20} className="text-white" /> : <VideoOff size={20} className="text-white" />}
+                        {isVideoOn ? <Video size={20} className="!text-white" /> : <VideoOff size={20} className="!text-white" />}
                      </button>
 
                      <button
                         onClick={() => setIsAudioOn(!isAudioOn)}
-                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
-                           isAudioOn ? 'bg-gray-600 hover:bg-gray-700' : 'bg-red-600 hover:bg-red-700'
+                        className={`!w-12 !h-12 !rounded-full !flex !items-center !justify-center !transition-colors ${
+                           isAudioOn ? '!bg-gray-600 hover:!bg-gray-700' : '!bg-red-600 hover:!bg-red-700'
                         }`}
                      >
-                        {isAudioOn ? <Mic size={20} className="text-white" /> : <MicOff size={20} className="text-white" />}
+                        {isAudioOn ? <Mic size={20} className="!text-white" /> : <MicOff size={20} className="!text-white" />}
                      </button>
 
                      <button
                         onClick={handleEndCall}
-                        className="flex justify-center items-center bg-red-600 hover:bg-red-700 rounded-full w-12 h-12 transition-colors"
+                        className="!flex !justify-center !items-center !bg-red-600 hover:!bg-red-700 !rounded-full !w-12 !h-12 !transition-colors"
                      >
-                        <PhoneOff size={20} className="text-white" />
+                        <PhoneOff size={20} className="!text-white" />
                      </button>
 
                      <button
                         onClick={() => setIsFullscreen(!isFullscreen)}
-                        className="flex justify-center items-center bg-gray-600 hover:bg-gray-700 rounded-full w-12 h-12 transition-colors"
+                        className="!flex !justify-center !items-center !bg-gray-600 hover:!bg-gray-700 !rounded-full !w-12 !h-12 !transition-colors"
                      >
-                        {isFullscreen ? <Minimize size={20} className="text-white" /> : <Maximize size={20} className="text-white" />}
+                        {isFullscreen ? <Minimize size={20} className="!text-white" /> : <Maximize size={20} className="!text-white" />}
                      </button>
                   </div>
                </div>
@@ -195,10 +199,10 @@ function ConsultationInfo () {
    };
 
    return (
-      <div className="bg-white p-6 border border-gray-200 rounded-lg">
+      <div className="!bg-white !p-6 !border !border-gray-200 !rounded-lg">
          <h3 className="mb-4 font-semibold text-gray-900 text-lg">Información de la Consulta</h3>
 
-         <div className="space-y-4">
+         <div className="!space-y-4">
             <div className="flex items-center gap-3">
                <div className="flex justify-center items-center bg-blue-100 rounded-full w-10 h-10">
                   <User size={20} className="text-blue-600" />
@@ -258,10 +262,10 @@ function PatientInstructions () {
    ];
 
    return (
-      <div className="bg-white p-6 border border-gray-200 rounded-lg">
+      <div className="!bg-white !p-6 !border !border-gray-200 !rounded-lg">
          <h3 className="mb-4 font-semibold text-gray-900 text-lg">Instrucciones para la Consulta</h3>
 
-         <div className="space-y-4">
+         <div className="!space-y-4">
             {instructions.map((instruction, index) => (
                <div key={index} className="flex items-start gap-3">
                   <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 mt-1 rounded-full w-8 h-8">
@@ -291,7 +295,7 @@ function PatientInstructions () {
 //    ];
 
 //    return (
-//       <div className="bg-white p-6 border border-gray-200 rounded-lg">
+//       <div className="!bg-white !p-6 !border !border-gray-200 !rounded-lg">
 //          <div className="flex justify-between items-center mb-4">
 //             <h3 className="font-semibold text-gray-900 text-lg">Soporte Técnico</h3>
 //             <button
@@ -354,7 +358,7 @@ function PatientInstructions () {
 //    ];
 
 //    return (
-//       <div className="bg-white p-6 border border-gray-200 rounded-lg">
+//       <div className="!bg-white !p-6 !border !border-gray-200 !rounded-lg">
 //          <h3 className="mb-4 font-semibold text-gray-900 text-lg">Acciones Rápidas</h3>
 
 //          <div className="gap-3 grid grid-cols-3">
@@ -395,50 +399,50 @@ export default function PatientConsultationPage ({ consultationId }: PatientCons
 
    if (!isJoined) {
       return (
-         <div className="flex justify-center items-center bg-gray-50 min-h-screen">
-            <div className="mx-4 w-full max-w-md">
-               <div className="relative bg-white p-8 border border-gray-200 rounded-lg text-center">
+         <div className="!flex !justify-center !items-center !bg-gray-50 !min-h-screen">
+            <div className="!mx-4 !w-full !max-w-md">
+               <div className="!relative !bg-white !p-8 !border !border-gray-200 !rounded-lg !text-center">
                   {/* Back Button */}
                   <button
                      onClick={() => window.location.href = '/patient'}
-                     className="top-4 left-4 absolute flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+                     className="!top-4 !left-4 !absolute !flex !items-center !gap-2 !text-gray-600 hover:!text-gray-800 !transition-colors"
                   >
                      <ArrowLeft size={20} />
                      <span className="font-medium text-sm">Volver</span>
                   </button>
 
-                  <div className="flex justify-center items-center bg-blue-100 mx-auto mb-6 rounded-full w-20 h-20">
+                  <div className="!flex !justify-center !items-center !bg-blue-100 !mx-auto !mb-6 !rounded-full !w-20 !h-20">
                      <Video size={40} className="text-blue-600" />
                   </div>
 
-                  <h1 className="mb-2 font-bold text-gray-900 text-2xl">
+                  <h1 className="!mb-2 !font-bold !text-gray-900 !text-2xl">
                      Consulta por Video Llamada
                   </h1>
 
-                  <p className="mb-6 text-gray-600">
+                  <p className="!mb-6 !text-gray-600">
                      Su doctor la está esperando. Haga clic en el botón para unirse a la consulta.
                   </p>
 
-                  <div className="space-y-4 mb-6">
-                     <div className="flex items-center gap-3 bg-blue-50 p-3 rounded-lg">
-                        <CheckCircle size={16} className="text-blue-600" />
-                        <span className="text-blue-800 text-sm">Cámara y micrófono listos</span>
+                  <div className="!space-y-4 !mb-6">
+                     <div className="!flex !items-center !gap-3 !bg-blue-50 !p-3 !rounded-lg">
+                        <CheckCircle size={16} className="!text-blue-600" />
+                        <span className="!text-blue-800 !text-sm">Cámara y micrófono listos</span>
                      </div>
-                     <div className="flex items-center gap-3 bg-green-50 p-3 rounded-lg">
-                        <CheckCircle size={16} className="text-green-600" />
-                        <span className="text-green-800 text-sm">Conexión estable detectada</span>
+                     <div className="!flex !items-center !gap-3 !bg-green-50 !p-3 !rounded-lg">
+                        <CheckCircle size={16} className="!text-green-600" />
+                        <span className="!text-green-800 !text-sm">Conexión estable detectada</span>
                      </div>
                   </div>
 
                   <button
                      onClick={handleJoinCall}
-                     className="flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg w-full font-medium text-white transition-colors"
+                     className="!flex !justify-center !items-center !gap-2 !bg-blue-600 hover:!bg-blue-700 !px-6 !py-3 !rounded-lg !w-full !font-medium !text-white !transition-colors"
                   >
                      <Video size={20} />
                      Unirse a la Consulta
                   </button>
 
-                  <p className="mt-4 text-gray-500 text-xs">
+                  <p className="!mt-4 !text-gray-500 !text-xs">
                      ID de Consulta: {consultationId}
                   </p>
                </div>
@@ -448,33 +452,33 @@ export default function PatientConsultationPage ({ consultationId }: PatientCons
    }
 
    return (
-      <div className="bg-gray-50 min-h-screen">
+      <div className="!bg-gray-50 !min-h-screen">
          {/* Header */}
-         <div className="bg-white border-gray-200 border-b">
-            <div className="mx-auto px-6 py-4 max-w-7xl">
-               <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-4">
+         <div className="!bg-white !border-gray-200 !border-b">
+            <div className="!mx-auto !px-6 !py-4 !max-w-7xl">
+               <div className="!flex !justify-between !items-center">
+                  <div className="!flex !items-center !gap-4">
                      <button
                         onClick={handleExitConsultation}
-                        className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+                        className="!flex !items-center !gap-2 !text-gray-600 hover:!text-gray-800 !transition-colors"
                      >
                         <ArrowLeft size={20} />
                         <span className="font-medium text-sm">Salir</span>
                      </button>
-                     <div className="bg-gray-300 w-px h-6" />
+                     <div className="!bg-gray-300 !w-px !h-6" />
                      <div>
-                        <h1 className="font-bold text-gray-900 text-xl">Video Consulta</h1>
-                        <p className="text-gray-600 text-sm">LLMed Clinic • Consulta Segura</p>
+                        <h1 className="!font-bold !text-gray-900 !text-xl">Video Consulta</h1>
+                        <p className="!text-gray-600 !text-sm">LLMed Clinic • Consulta Segura</p>
                      </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                     <div className="flex items-center gap-2">
-                        <div className="bg-green-500 rounded-full w-3 h-3 animate-pulse" />
-                        <span className="font-medium text-green-600 text-sm">En línea</span>
+                  <div className="!flex !items-center !gap-4">
+                     <div className="!flex !items-center !gap-2">
+                        <div className="!bg-green-500 !rounded-full !w-3 !h-3 !animate-pulse" />
+                        <span className="!font-medium !text-green-600 !text-sm">En línea</span>
                      </div>
                      <button
                         onClick={() => window.location.href = '/patient'}
-                        className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg text-gray-700 transition-colors"
+                        className="!flex !items-center !gap-2 !bg-gray-100 hover:!bg-gray-200 !px-3 !py-2 !rounded-lg !text-gray-700 !transition-colors"
                      >
                         <Home size={16} />
                         <span className="font-medium text-sm">Inicio</span>
@@ -485,16 +489,19 @@ export default function PatientConsultationPage ({ consultationId }: PatientCons
          </div>
 
          {/* Main Content */}
-         <div className="mx-auto px-6 py-8 max-w-7xl">
-            <div className="gap-6 grid grid-cols-1 lg:grid-cols-3">
+         <div className="!mx-auto !px-6 !py-8 !max-w-7xl">
+            <div className="!gap-6 !grid !grid-cols-1 lg:!grid-cols-3">
                {/* Video Call - Main Area */}
-               <div className="space-y-6 lg:col-span-2">
-                  <VideoCallInterface />
+               <div className="!space-y-6 lg:!col-span-2">
+                  {/* <VideoCallInterface /> */}
+                  <ZoomSessionProvider sessionName="Consulta" sessionKey="555448987">
+                     <ZoomCallInterface username="Dr. Carlos Ruiz" setIsLoading={() => {}} />
+                  </ZoomSessionProvider>
                   <PatientNotesSection />
                </div>
 
                {/* Sidebar */}
-               <div className="space-y-6">
+               <div className="!space-y-6">
                   <ConsultationInfo />
                   <PatientInstructions />
                   {/* <TechnicalSupport /> */}
@@ -505,36 +512,36 @@ export default function PatientConsultationPage ({ consultationId }: PatientCons
 
          {/* Exit Confirmation Modal */}
          {showExitConfirm && (
-            <div className="z-50 fixed inset-0 flex justify-center items-center bg-black/50">
-               <div className="bg-white mx-4 p-6 rounded-lg max-w-md">
-                  <div className="flex items-center gap-3 mb-4">
-                     <div className="flex justify-center items-center bg-yellow-100 rounded-full w-12 h-12">
-                        <AlertCircle size={24} className="text-yellow-600" />
+            <div className="!z-50 !fixed !inset-0 !flex !justify-center !items-center !bg-black/50">
+               <div className="!bg-white !mx-4 !p-6 !rounded-lg !max-w-md">
+                  <div className="!flex !items-center !gap-3 !mb-4">
+                     <div className="!flex !justify-center !items-center !bg-yellow-100 !rounded-full !w-12 !h-12">
+                        <AlertCircle size={24} className="!text-yellow-600" />
                      </div>
                      <div>
-                        <h3 className="font-semibold text-gray-900 text-lg">
+                        <h3 className="!font-semibold !text-gray-900 !text-lg">
                            ¿Salir de la consulta?
                         </h3>
-                        <p className="text-gray-600 text-sm">
+                        <p className="!text-gray-600 !text-sm">
                            Se desconectará de la video llamada
                         </p>
                      </div>
                   </div>
 
-                  <p className="mb-6 text-gray-700">
+                  <p className="!mb-6 !text-gray-700">
                      ¿Está seguro de que desea salir de la consulta? Podrá regresar desde su página principal si la consulta sigue activa.
                   </p>
 
-                  <div className="flex gap-3">
+                  <div className="!flex !gap-3">
                      <button
                         onClick={cancelExit}
-                        className="flex-1 hover:bg-gray-50 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 transition-colors"
+                        className="!flex-1 hover:!bg-gray-50 !px-4 !py-2 !border !border-gray-300 !rounded-lg !text-gray-700 !transition-colors"
                      >
                         Cancelar
                      </button>
                      <button
                         onClick={confirmExit}
-                        className="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-white transition-colors"
+                        className="!flex-1 !bg-red-600 hover:!bg-red-700 !px-4 !py-2 !rounded-lg !text-white !transition-colors"
                      >
                         Salir de la Consulta
                      </button>

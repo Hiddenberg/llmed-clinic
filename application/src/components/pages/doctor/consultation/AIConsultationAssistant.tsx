@@ -80,15 +80,15 @@ function SuggestionCard ({
    const config = getPriorityConfig(suggestion.priority);
 
    return (
-      <div className={`rounded-xl border-2 p-4 ${config.color} transition-all hover:shadow-md`}>
-         <div className="flex justify-between items-start mb-3">
-            <div className="flex items-center gap-2">
+      <div className={`!rounded-xl !border-2 !p-4 ${config.color} !transition-all hover:!shadow-md`}>
+         <div className="!flex !justify-between !items-start !mb-3">
+            <div className="!flex !items-center !gap-2">
                {getTypeIcon(suggestion.type)}
                <span className={`text-xs px-2 py-1 rounded-full font-medium ${getCategoryColor(suggestion.category)}`}>
                   {suggestion.category}
                </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="!flex !items-center !gap-2">
                <div className={`w-2 h-2 rounded-full ${config.badgeColor}`} />
                <button
                   onClick={() => onDismiss(suggestion.id)}
@@ -147,11 +147,11 @@ function QuickInsights () {
    ];
 
    return (
-      <div className="gap-3 grid grid-cols-1">
+      <div className="!gap-3 !grid !grid-cols-1">
          {insights.map((insight, index) => (
             <div key={index} className="bg-white p-3 border border-gray-200 rounded-lg">
                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
+                  <div className="!flex !items-center !gap-2">
                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${insight.color}`}>
                         <insight.icon size={16} />
                      </div>
@@ -226,8 +226,8 @@ function AIActions ({
          {/* Generated Summary Display */}
          {generatedSummary && (
             <div className="bg-purple-50 slide-in-from-top-2 p-4 border border-purple-200 rounded-lg animate-in duration-500">
-               <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center gap-2">
+               <div className="!flex !justify-between !items-start !mb-3">
+                  <div className="!flex !items-center !gap-2">
                      <div className="flex justify-center items-center bg-purple-100 rounded-full w-6 h-6">
                         <FileText size={12} className="text-purple-600" />
                      </div>
@@ -299,8 +299,8 @@ function AIActions ({
          {/* Generated Plan Display */}
          {generatedPlan && (
             <div className="bg-green-50 slide-in-from-top-2 p-4 border border-green-200 rounded-lg animate-in duration-500">
-               <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center gap-2">
+               <div className="!flex !justify-between !items-start !mb-3">
+                  <div className="!flex !items-center !gap-2">
                      <div className="flex justify-center items-center bg-green-100 rounded-full w-6 h-6">
                         <Target size={12} className="text-green-600" />
                      </div>
@@ -402,42 +402,42 @@ export default function AIConsultationAssistant ({ suggestions }: AIConsultation
    const otherSuggestions = activeSuggestions.filter(s => s.priority !== 'critical');
 
    return (
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+      <div className="!bg-white !border !border-gray-200 !rounded-xl !overflow-hidden">
          {/* Header */}
-         <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 text-white">
-            <div className="flex items-center gap-2 mb-3">
+         <div className="!bg-gradient-to-r !from-purple-600 !to-blue-600 !p-4 !text-white">
+            <div className="!flex !items-center !gap-2 !mb-3">
                <Brain size={20} />
-               <h3 className="font-semibold">Asistente IA</h3>
+               <h3 className="!font-semibold">Asistente IA</h3>
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 bg-white bg-opacity-20 p-1 rounded-lg">
+            <div className="!flex !gap-1 !bg-white !bg-opacity-20 !p-1 !rounded-lg">
                <button
                   onClick={() => setActiveTab('suggestions')}
-                  className={`flex-1 py-1.5 px-3 text-xs font-medium rounded transition-colors ${
+                  className={`!flex-1 !py-1.5 !px-3 !text-xs !font-medium !rounded !transition-colors ${
                      activeTab === 'suggestions'
-                        ? 'text-purple-600 bg-purple-100'
-                        : 'text-purple-400 hover:bg-purple-200 hover:bg-opacity-10'
+                        ? '!text-purple-600 !bg-purple-100'
+                        : '!text-purple-400 hover:!bg-purple-200 hover:!bg-opacity-10'
                   }`}
                >
                   Sugerencias
                </button>
                <button
                   onClick={() => setActiveTab('insights')}
-                  className={`flex-1 py-1.5 px-3 text-xs font-medium rounded transition-colors ${
+                  className={`!flex-1 !py-1.5 !px-3 !text-xs !font-medium !rounded !transition-colors ${
                      activeTab === 'insights'
-                        ? 'text-purple-600 bg-purple-100'
-                        : 'text-purple-400 hover:bg-purple-200 hover:bg-opacity-10'
+                        ? '!text-purple-600 !bg-purple-100'
+                        : '!text-purple-400 hover:!bg-purple-200 hover:!bg-opacity-10'
                   }`}
                >
                   Insights
                </button>
                <button
                   onClick={() => setActiveTab('actions')}
-                  className={`flex-1 py-1.5 px-3 text-xs font-medium rounded transition-colors ${
+                  className={`!flex-1 !py-1.5 !px-3 !text-xs !font-medium !rounded !transition-colors ${
                      activeTab === 'actions'
-                        ? 'text-purple-600 bg-purple-100'
-                        : 'text-purple-400 hover:bg-purple-200 hover:bg-opacity-10'
+                        ? '!text-purple-600 !bg-purple-100'
+                        : '!text-purple-400 hover:!bg-purple-200 hover:!bg-opacity-10'
                   }`}
                >
                   Acciones
@@ -446,12 +446,12 @@ export default function AIConsultationAssistant ({ suggestions }: AIConsultation
          </div>
 
          {/* Content */}
-         <div className="p-4">
+         <div className="!p-4">
             {activeTab === 'suggestions' && (
                <div className="space-y-4">
                   {criticalSuggestions.length > 0 && (
                      <div>
-                        <div className="flex items-center gap-2 mb-3">
+                        <div className="!flex !items-center !gap-2 !mb-3">
                            <AlertTriangle size={16} className="text-red-500" />
                            <h4 className="font-semibold text-red-700 text-sm">Crítico</h4>
                         </div>
@@ -470,7 +470,7 @@ export default function AIConsultationAssistant ({ suggestions }: AIConsultation
                   {otherSuggestions.length > 0 && (
                      <div>
                         {criticalSuggestions.length > 0 && (
-                           <div className="flex items-center gap-2 mb-3">
+                           <div className="!flex !items-center !gap-2 !mb-3">
                               <Lightbulb size={16} className="text-blue-500" />
                               <h4 className="font-semibold text-blue-700 text-sm">Otras Sugerencias</h4>
                            </div>

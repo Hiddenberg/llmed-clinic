@@ -1,8 +1,10 @@
 "use client"
 
-import { Calendar, MapPin, Phone, Mail, User, Heart, FileText, Stethoscope } from 'lucide-react';
+import {
+   Calendar, MapPin, Phone, Mail, User, Heart, FileText, Stethoscope
+} from 'lucide-react';
 
-export default function MedicalDocumentPage() {
+export default function MedicalDocumentPage () {
    return (
       <div className="bg-white min-h-screen">
          {/* Print Styles */}
@@ -54,7 +56,7 @@ export default function MedicalDocumentPage() {
                   <User className="text-blue-500" size={20} />
                   DATOS DEL PACIENTE
                </h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
                   <div className="space-y-3">
                      <div className="flex justify-between">
@@ -78,7 +80,7 @@ export default function MedicalDocumentPage() {
                         <span className="text-gray-900">Contador Público</span>
                      </div>
                   </div>
-                  
+
                   <div className="space-y-3">
                      <div className="flex justify-between">
                         <span className="font-medium text-gray-700">MRN:</span>
@@ -147,11 +149,11 @@ export default function MedicalDocumentPage() {
                   <Stethoscope className="text-red-500" size={20} />
                   CONSULTA ACTUAL - 15 DE ENERO 2024
                </h3>
-               
+
                <div className="mb-6">
                   <h4 className="mb-2 font-medium text-gray-800">Motivo de Consulta:</h4>
                   <p className="text-gray-700 leading-relaxed">
-                     Control de rutina de IRC. Paciente refiere sentirse "un poco más cansado de lo usual" en las últimas 2 semanas. 
+                     Control de rutina de IRC. Paciente refiere sentirse &quot;un poco más cansado de lo usual&quot; en las últimas 2 semanas.
                      Niega disnea en reposo, pero presenta leve disnea de medianos esfuerzos. Sin edema aparente en extremidades inferiores.
                      Refiere adherencia al tratamiento dialítico 3 veces por semana sin faltas. Apetito conservado, sin náuseas ni vómitos.
                   </p>
@@ -160,9 +162,9 @@ export default function MedicalDocumentPage() {
                <div className="mb-6">
                   <h4 className="mb-2 font-medium text-gray-800">Historia de la Enfermedad Actual:</h4>
                   <p className="text-gray-700 leading-relaxed">
-                     Paciente masculino de 48 años con antecedente de Insuficiencia Renal Crónica estadio 5 diagnosticada en marzo 2022, 
-                     secundaria a nefropatía diabética e hipertensiva. Inició programa de hemodiálisis en abril 2022. Actualmente recibe 
-                     hemodiálisis 3 veces por semana (lunes, miércoles y viernes) de 4 horas cada sesión en turno matutino. 
+                     Paciente masculino de 48 años con antecedente de Insuficiencia Renal Crónica estadio 5 diagnosticada en marzo 2022,
+                     secundaria a nefropatía diabética e hipertensiva. Inició programa de hemodiálisis en abril 2022. Actualmente recibe
+                     hemodiálisis 3 veces por semana (lunes, miércoles y viernes) de 4 horas cada sesión en turno matutino.
                      Acceso vascular mediante fístula arteriovenosa braquiocefálica izquierda funcionante desde mayo 2022.
                   </p>
                </div>
@@ -173,7 +175,7 @@ export default function MedicalDocumentPage() {
                <h3 className="mb-4 pb-2 border-gray-300 border-b font-semibold text-gray-800 text-lg">
                   ANTECEDENTES MÉDICOS PERSONALES
                </h3>
-               
+
                <div className="space-y-4">
                   <div className="bg-red-50 p-4 border-red-400 border-l-4 rounded">
                      <div className="flex justify-between items-start mb-2">
@@ -247,7 +249,7 @@ export default function MedicalDocumentPage() {
                <h3 className="mb-4 pb-2 border-gray-300 border-b font-semibold text-gray-800 text-lg">
                   MEDICAMENTOS ACTUALES
                </h3>
-               
+
                <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
                   <div className="bg-blue-50 p-4 border border-blue-200 rounded">
                      <h4 className="font-semibold text-blue-800">Losartán 50mg</h4>
@@ -295,14 +297,14 @@ export default function MedicalDocumentPage() {
                </div>
             </div>
 
-            <div className="page-break"></div>
+            <div className="page-break" />
 
             {/* Lab Results */}
             <div className="mb-8">
                <h3 className="mb-4 pb-2 border-gray-300 border-b font-semibold text-gray-800 text-lg">
                   RESULTADOS DE LABORATORIO - 15 DE ENERO 2024
                </h3>
-               
+
                <div className="gap-6 grid grid-cols-1 lg:grid-cols-2">
                   <div>
                      <h4 className="mb-3 font-medium text-gray-700">Química Sanguínea</h4>
@@ -394,26 +396,26 @@ export default function MedicalDocumentPage() {
             {/* Vital Signs */}
             <div className="bg-red-50 mb-8 p-6 border border-red-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-red-800 text-lg">SIGNOS VITALES - 15 DE ENERO 2024, 09:00 HRS</h3>
-               
+
                <div className="gap-4 grid grid-cols-2 md:grid-cols-4 text-center">
                   <div className="bg-white p-4 border border-red-300 rounded">
                      <h4 className="font-semibold text-red-800 text-sm">Presión Arterial</h4>
                      <p className="font-bold text-red-700 text-2xl">145/90</p>
                      <p className="text-red-600 text-xs">mmHg</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-blue-300 rounded">
                      <h4 className="font-semibold text-blue-800 text-sm">Frecuencia Cardíaca</h4>
                      <p className="font-bold text-blue-700 text-2xl">78</p>
                      <p className="text-blue-600 text-xs">lpm</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-green-300 rounded">
                      <h4 className="font-semibold text-green-800 text-sm">Temperatura</h4>
                      <p className="font-bold text-green-700 text-2xl">36.5</p>
                      <p className="text-green-600 text-xs">°C</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-purple-300 rounded">
                      <h4 className="font-semibold text-purple-800 text-sm">Peso</h4>
                      <p className="font-bold text-purple-700 text-2xl">72.5</p>
@@ -427,19 +429,19 @@ export default function MedicalDocumentPage() {
                      <p className="font-bold text-indigo-700 text-2xl">18</p>
                      <p className="text-indigo-600 text-xs">rpm</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-teal-300 rounded">
                      <h4 className="font-semibold text-teal-800 text-sm">Saturación O₂</h4>
                      <p className="font-bold text-teal-700 text-2xl">98</p>
                      <p className="text-teal-600 text-xs">%</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-pink-300 rounded">
                      <h4 className="font-semibold text-pink-800 text-sm">Estatura</h4>
                      <p className="font-bold text-pink-700 text-2xl">175</p>
                      <p className="text-pink-600 text-xs">cm</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-amber-300 rounded">
                      <h4 className="font-semibold text-amber-800 text-sm">IMC</h4>
                      <p className="font-bold text-amber-700 text-2xl">23.7</p>
@@ -451,17 +453,17 @@ export default function MedicalDocumentPage() {
             {/* Clinical Assessment */}
             <div className="bg-green-50 mb-8 p-6 border-2 border-green-300 rounded-lg">
                <h3 className="mb-4 font-semibold text-green-800 text-lg">EVALUACIÓN CLÍNICA</h3>
-               
+
                <div className="space-y-4">
                   <div>
                      <h4 className="mb-2 font-medium text-green-800">Evaluación del Dr. Roberto Martínez - Nefrología</h4>
                      <p className="text-green-700 leading-relaxed">
-                        Paciente con IRC estadio 5 en programa de hemodiálisis. Presenta control adecuado de volemia y electrolitos. 
-                        Se observa leve anemia secundaria a IRC que requiere ajuste de eritropoyetina. Control glucémico subóptimo 
+                        Paciente con IRC estadio 5 en programa de hemodiálisis. Presenta control adecuado de volemia y electrolitos.
+                        Se observa leve anemia secundaria a IRC que requiere ajuste de eritropoyetina. Control glucémico subóptimo
                         que amerita interconsulta con endocrinología. Acceso vascular funcionante sin complicaciones.
                      </p>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-2 font-medium text-green-800">Plan de Tratamiento:</h4>
                      <ul className="space-y-1 text-green-700 list-disc list-inside">
@@ -473,7 +475,7 @@ export default function MedicalDocumentPage() {
                         <li>Educación nutricional para paciente renal</li>
                      </ul>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-2 font-medium text-green-800">Seguimiento:</h4>
                      <p className="text-green-700">
@@ -486,7 +488,7 @@ export default function MedicalDocumentPage() {
             {/* Physical Examination */}
             <div className="bg-blue-50 mb-8 p-6 border border-blue-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-blue-800 text-lg">EXPLORACIÓN FÍSICA COMPLETA</h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 text-sm">
                   <div>
                      <h4 className="mb-3 font-medium text-blue-700">Aspecto General y Neurológico</h4>
@@ -496,7 +498,7 @@ export default function MedicalDocumentPage() {
                      <p className="mb-2 text-blue-600"><strong>Reflejos:</strong> Osteotendinosos presentes y simétricos ++/++.</p>
                      <p className="text-blue-600"><strong>Fuerza Muscular:</strong> 5/5 en las cuatro extremidades.</p>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-3 font-medium text-blue-700">Cabeza y Cuello</h4>
                      <p className="mb-2 text-blue-600"><strong>Cráneo:</strong> Normocéfalo, sin deformidades.</p>
@@ -516,7 +518,7 @@ export default function MedicalDocumentPage() {
                      <p className="mb-2 text-blue-600"><strong>Percusión:</strong> Matidez normal, sin zonas de hipersonoridad.</p>
                      <p className="text-blue-600"><strong>Auscultación:</strong> Murmullo vesicular presente bilateralmente, sin ruidos agregados.</p>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-3 font-medium text-blue-700">Aparato Cardiovascular</h4>
                      <p className="mb-2 text-blue-600"><strong>Inspección:</strong> Región precordial sin abombamientos ni retracciones.</p>
@@ -535,7 +537,7 @@ export default function MedicalDocumentPage() {
                      <p className="mb-2 text-blue-600"><strong>Palpación Profunda:</strong> Sin masas palpables ni organomegalias.</p>
                      <p className="text-blue-600"><strong>Percusión:</strong> Timpanismo abdominal normal.</p>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-3 font-medium text-blue-700">Extremidades y Acceso Vascular</h4>
                      <p className="mb-2 text-blue-600"><strong>Extremidades Superiores:</strong> Sin edema, pulsos presentes.</p>
@@ -549,7 +551,7 @@ export default function MedicalDocumentPage() {
             {/* Dialysis Records */}
             <div className="bg-purple-50 mb-8 p-6 border border-purple-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-purple-800 text-lg">REGISTRO DE SESIONES DE HEMODIÁLISIS - ÚLTIMAS 4 SEMANAS</h3>
-               
+
                <div className="overflow-x-auto">
                   <table className="w-full text-sm border-collapse">
                      <thead>
@@ -605,12 +607,12 @@ export default function MedicalDocumentPage() {
                </div>
             </div>
 
-            <div className="page-break"></div>
+            <div className="page-break" />
 
             {/* Nutritional Assessment */}
             <div className="bg-green-50 mb-8 p-6 border border-green-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-green-800 text-lg">EVALUACIÓN NUTRICIONAL</h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 text-sm">
                   <div>
                      <h4 className="mb-3 font-medium text-green-700">Parámetros Antropométricos</h4>
@@ -623,7 +625,7 @@ export default function MedicalDocumentPage() {
                         <p className="text-green-600"><strong>Pliegue Tricipital:</strong> 12 mm</p>
                      </div>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-3 font-medium text-green-700">Evaluación Bioquímica</h4>
                      <div className="space-y-2">
@@ -646,7 +648,7 @@ export default function MedicalDocumentPage() {
                      <p className="mb-2 text-green-600"><strong>Colación:</strong> 1 yogurt natural sin azúcar</p>
                      <p className="text-green-600"><strong>Cena:</strong> Sopa de verduras, 100g de pescado al vapor, 1/2 taza de frijoles</p>
                   </div>
-                  
+
                   <div className="bg-yellow-50 mt-3 p-3 border border-yellow-300 rounded text-sm">
                      <p className="text-yellow-700"><strong>Recomendaciones Nutricionales:</strong></p>
                      <ul className="space-y-1 mt-1 text-yellow-600 list-disc list-inside">
@@ -662,23 +664,23 @@ export default function MedicalDocumentPage() {
             {/* Psychological Assessment */}
             <div className="bg-pink-50 mb-8 p-6 border border-pink-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-pink-800 text-lg">EVALUACIÓN PSICOLÓGICA</h3>
-               
+
                <div className="text-sm">
                   <h4 className="mb-3 font-medium text-pink-700">Evaluación realizada por Psic. María Fernanda Ruiz - 10/01/2024</h4>
-                  
+
                   <div className="space-y-3">
                      <div>
                         <p className="mb-2 text-pink-600"><strong>Estado Mental:</strong> Paciente consciente, orientado, colaborador. Presenta buen contacto visual y verbal.</p>
                         <p className="mb-2 text-pink-600"><strong>Estado de Ánimo:</strong> Eutímico, sin datos de depresión mayor. Refiere períodos de tristeza relacionados con la enfermedad.</p>
                         <p className="text-pink-600"><strong>Ansiedad:</strong> Nivel leve de ansiedad, principalmente relacionada con el futuro y la dependencia del tratamiento.</p>
                      </div>
-                     
+
                      <div>
                         <p className="mb-2 text-pink-600"><strong>Adaptación a la Enfermedad:</strong> Buena adaptación al diagnóstico y tratamiento. Comprende su condición y la importancia de la adherencia.</p>
                         <p className="mb-2 text-pink-600"><strong>Apoyo Social:</strong> Cuenta con excelente apoyo familiar, especialmente de su esposa e hijos.</p>
                         <p className="text-pink-600"><strong>Calidad de Vida:</strong> Refiere impacto moderado en actividades laborales y recreativas.</p>
                      </div>
-                     
+
                      <div className="bg-white p-3 border border-pink-300 rounded">
                         <p className="mb-2 font-medium text-pink-700">Escala de Depresión de Beck: 8/63 (Mínima)</p>
                         <p className="mb-2 font-medium text-pink-700">Escala de Ansiedad de Hamilton: 12/56 (Leve)</p>
@@ -691,7 +693,7 @@ export default function MedicalDocumentPage() {
             {/* Social Work Assessment */}
             <div className="bg-indigo-50 mb-8 p-6 border border-indigo-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-indigo-800 text-lg">EVALUACIÓN DE TRABAJO SOCIAL</h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 text-sm">
                   <div>
                      <h4 className="mb-3 font-medium text-indigo-700">Situación Socioeconómica</h4>
@@ -703,7 +705,7 @@ export default function MedicalDocumentPage() {
                         <p className="text-indigo-600"><strong>Gastos Médicos:</strong> Cubiertos por IMSS</p>
                      </div>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-3 font-medium text-indigo-700">Estructura Familiar</h4>
                      <div className="space-y-2">
@@ -730,7 +732,7 @@ export default function MedicalDocumentPage() {
             {/* Additional Information */}
             <div className="bg-gray-100 mb-8 p-6 border border-gray-300 rounded-lg">
                <h3 className="mb-4 font-semibold text-gray-800 text-lg">INFORMACIÓN ADICIONAL DEL EXPEDIENTE</h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 text-sm">
                   <div>
                      <h4 className="mb-2 font-medium text-gray-700">Estudios Complementarios Pendientes:</h4>
@@ -743,7 +745,7 @@ export default function MedicalDocumentPage() {
                         <li>Tomografía de tórax sin contraste</li>
                      </ul>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-2 font-medium text-gray-700">Interconsultas Programadas:</h4>
                      <ul className="space-y-1 text-gray-600 list-disc list-inside">
@@ -771,7 +773,7 @@ export default function MedicalDocumentPage() {
                         </div>
                      </div>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-2 font-medium text-gray-700">Vacunación:</h4>
                      <div className="space-y-2">
@@ -788,11 +790,11 @@ export default function MedicalDocumentPage() {
                <div className="mt-4 pt-4 border-gray-400 border-t">
                   <h4 className="mb-2 font-medium text-gray-700">Observaciones del Personal de Enfermería:</h4>
                   <p className="mb-3 text-gray-600 text-sm">
-                     Paciente colaborador, orientado en las 3 esferas. Deambula sin dificultad. Fístula arteriovenosa con 
-                     thrill y soplo presentes. Piel íntegra en sitio de punción. Sin datos de infección local. 
+                     Paciente colaborador, orientado en las 3 esferas. Deambula sin dificultad. Fístula arteriovenosa con
+                     thrill y soplo presentes. Piel íntegra en sitio de punción. Sin datos de infección local.
                      Educado sobre cuidados del acceso vascular y signos de alarma.
                   </p>
-                  
+
                   <div className="bg-white p-3 border border-gray-300 rounded text-sm">
                      <h5 className="mb-2 font-medium text-gray-700">Registro de Enfermería - Últimas 48 horas:</h5>
                      <div className="space-y-1">
@@ -805,12 +807,12 @@ export default function MedicalDocumentPage() {
                </div>
             </div>
 
-            <div className="page-break"></div>
+            <div className="page-break" />
 
             {/* Historical Medical Records */}
             <div className="bg-amber-50 mb-8 p-6 border border-amber-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-amber-800 text-lg">HISTORIAL MÉDICO DETALLADO - ÚLTIMOS 2 AÑOS</h3>
-               
+
                <div className="space-y-4 text-sm">
                   <div className="bg-white p-4 border border-amber-300 rounded">
                      <h4 className="mb-2 font-medium text-amber-800">2022 - Diagnóstico Inicial y Manejo</h4>
@@ -822,7 +824,7 @@ export default function MedicalDocumentPage() {
                         <p><strong>Julio-Dic 2022:</strong> Controles mensuales. Ajuste de medicamentos y dosis de diálisis.</p>
                      </div>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-amber-300 rounded">
                      <h4 className="mb-2 font-medium text-amber-800">2023 - Seguimiento y Complicaciones</h4>
                      <div className="space-y-2 text-amber-700">
@@ -838,7 +840,7 @@ export default function MedicalDocumentPage() {
             {/* Laboratory Trends */}
             <div className="bg-teal-50 mb-8 p-6 border border-teal-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-teal-800 text-lg">TENDENCIAS DE LABORATORIO - ÚLTIMOS 6 MESES</h3>
-               
+
                <div className="overflow-x-auto">
                   <table className="w-full text-sm border-collapse">
                      <thead>
@@ -892,7 +894,7 @@ export default function MedicalDocumentPage() {
             {/* Administrative and Legal Information */}
             <div className="bg-slate-50 mb-8 p-6 border border-slate-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-slate-800 text-lg">INFORMACIÓN ADMINISTRATIVA Y LEGAL</h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 text-sm">
                   <div>
                      <h4 className="mb-3 font-medium text-slate-700">Información del Expediente</h4>
@@ -905,7 +907,7 @@ export default function MedicalDocumentPage() {
                         <p><strong>Estado del Expediente:</strong> Activo</p>
                      </div>
                   </div>
-                  
+
                   <div>
                      <h4 className="mb-3 font-medium text-slate-700">Consentimientos y Autorizaciones</h4>
                      <div className="space-y-2 text-slate-600">
@@ -932,7 +934,7 @@ export default function MedicalDocumentPage() {
             {/* Quality Indicators */}
             <div className="bg-emerald-50 mb-8 p-6 border border-emerald-200 rounded-lg">
                <h3 className="mb-4 font-semibold text-emerald-800 text-lg">INDICADORES DE CALIDAD - PROGRAMA DE HEMODIÁLISIS</h3>
-               
+
                <div className="gap-6 grid grid-cols-1 md:grid-cols-3 text-sm">
                   <div className="bg-white p-4 border border-emerald-300 rounded text-center">
                      <h4 className="mb-2 font-semibold text-emerald-800">Kt/V Promedio</h4>
@@ -940,14 +942,14 @@ export default function MedicalDocumentPage() {
                      <p className="text-emerald-600 text-xs">Meta: ≥1.2</p>
                      <p className="font-medium text-green-600 text-xs">✓ CUMPLE</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-emerald-300 rounded text-center">
                      <h4 className="mb-2 font-semibold text-emerald-800">Adherencia al Tratamiento</h4>
                      <p className="font-bold text-emerald-700 text-2xl">98%</p>
                      <p className="text-emerald-600 text-xs">Meta: ≥95%</p>
                      <p className="font-medium text-green-600 text-xs">✓ CUMPLE</p>
                   </div>
-                  
+
                   <div className="bg-white p-4 border border-emerald-300 rounded text-center">
                      <h4 className="mb-2 font-semibold text-emerald-800">Acceso Vascular Funcionante</h4>
                      <p className="font-bold text-emerald-700 text-2xl">22</p>
@@ -983,21 +985,21 @@ export default function MedicalDocumentPage() {
             <div className="mt-8 pt-6 border-gray-300 border-t text-center">
                <div className="gap-8 grid grid-cols-1 md:grid-cols-2 mb-6">
                   <div>
-                     <div className="mx-auto mb-4 border-gray-400 border-b w-64"></div>
+                     <div className="mx-auto mb-4 border-gray-400 border-b w-64" />
                      <p className="font-medium text-gray-700">Dr. Roberto Martínez Hernández</p>
                      <p className="text-gray-600 text-sm">Médico Especialista en Nefrología</p>
                      <p className="text-gray-600 text-sm">Cédula Profesional: 1234567</p>
                      <p className="text-gray-600 text-sm">Cédula de Especialidad: 7654321</p>
                   </div>
-                  
+
                   <div>
-                     <div className="mx-auto mb-4 border-gray-400 border-b w-64"></div>
+                     <div className="mx-auto mb-4 border-gray-400 border-b w-64" />
                      <p className="font-medium text-gray-700">Dra. Ana Patricia López Mendoza</p>
                      <p className="text-gray-600 text-sm">Médico Residente de Nefrología</p>
                      <p className="text-gray-600 text-sm">Cédula Profesional: 9876543</p>
                   </div>
                </div>
-               
+
                <div className="text-gray-500 text-xs">
                   <p>Este documento es confidencial y contiene información médica protegida.</p>
                   <p>Generado el 15 de Enero, 2024 a las 14:30 hrs | Página 1 de 1</p>

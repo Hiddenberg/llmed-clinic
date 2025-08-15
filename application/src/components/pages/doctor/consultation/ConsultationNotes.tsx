@@ -43,9 +43,9 @@ function NoteCard ({ note }: { note: ConsultationNote }) {
    const typeConfig = getTypeConfig(note.type);
 
    return (
-      <div className="bg-white p-4 border border-gray-200 rounded-lg">
-         <div className="flex justify-between items-start mb-2">
-            <div className="flex items-center gap-2">
+      <div className="!bg-white !p-4 !border !border-gray-200 !rounded-lg">
+         <div className="!flex !justify-between !items-start !mb-2">
+            <div className="!flex !items-center !gap-2">
                <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${typeConfig.color}`}>
                   {typeConfig.icon}
                   {typeConfig.label}
@@ -61,10 +61,10 @@ function NoteCard ({ note }: { note: ConsultationNote }) {
             </div>
          </div>
 
-         <p className="mb-3 text-gray-900">{note.content}</p>
+         <p className="!mb-3 !text-gray-900">{note.content}</p>
 
          {note.tags.length > 0 && (
-            <div className="flex items-center gap-2">
+            <div className="!flex !items-center !gap-2">
                <Tag size={12} className="text-gray-400" />
                <div className="flex flex-wrap gap-1">
                   {note.tags.map((tag, index) => (
@@ -130,17 +130,17 @@ function NoteInput ({ onAddNote }: { onAddNote: (note: Omit<ConsultationNote, 'i
    ] as const;
 
    return (
-      <div className="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+      <div className="!bg-gray-50 !p-4 !border !border-gray-200 !rounded-lg">
          {!isExpanded ? (
             <button
                onClick={() => setIsExpanded(true)}
-               className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-900 text-left transition-colors"
+               className="!flex !items-center !gap-2 !w-full !text-gray-600 hover:!text-gray-900 !text-left !transition-colors"
             >
                <Plus size={16} />
                <span>Agregar nota...</span>
             </button>
          ) : (
-            <div className="space-y-4">
+            <div className="!space-y-4">
                {/* Note Type Selector */}
                <div className="flex gap-2">
                   {noteTypes.map((noteType) => (
@@ -271,9 +271,9 @@ export default function ConsultationNotes ({
    const [showTemplates, setShowTemplates] = useState(false);
 
    return (
-      <div className="bg-white p-6 border border-gray-200 rounded-xl">
-         <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center gap-2">
+      <div className="!bg-white !p-6 !border !border-gray-200 !rounded-xl">
+         <div className="!flex !justify-between !items-center !mb-6">
+            <div className="!flex !items-center !gap-2">
                <FileText size={20} className="text-gray-600" />
                <h3 className="font-semibold text-gray-900 text-lg">Notas de Consulta</h3>
             </div>
@@ -298,7 +298,7 @@ export default function ConsultationNotes ({
          </div>
 
          {/* Notes List */}
-         <div className="space-y-4">
+         <div className="!space-y-4">
             {notes.length === 0 ? (
                <div className="py-8 text-gray-500 text-center">
                   <FileText size={32} className="opacity-50 mx-auto mb-3" />

@@ -143,10 +143,10 @@ export default function ZoomCallInterface ({
 
       return () => {
          window.removeEventListener('beforeunload', handleBeforeUnload)
-         if (sessionJoinedRef.current) {
-            setSessionId(null) // Clear sessionId on unmount
-            uiToolkit.leaveSession()
-         }
+         // if (sessionJoinedRef.current) {
+         //    setSessionId(null) // Clear sessionId on unmount
+         //    uiToolkit.leaveSession()
+         // }
       }
    }, [username, sessionKey, sessionName, setSessionId, isHost, setIsLoading, allowScreenShare])
 
