@@ -1,7 +1,7 @@
-export default function LandingPage () {
-   return (
-      <div>
-         <h1>Landing Page</h1>
-      </div>
-   );
+import LandingPage from '@/components/pages/shared/landing/LandingPage';
+
+export default function LandingPageRoute () {
+   const landingVideoURL = "/hemodialisis-clinic.webm";
+
+   return <LandingPage videoUrl={landingVideoURL} />;
 }
