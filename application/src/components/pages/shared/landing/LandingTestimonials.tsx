@@ -7,7 +7,6 @@ const testimonials = [
       clinic: 'Tratamiento desde 2019',
       content: 'El equipo médico de LLMed Clinic me ha dado una nueva oportunidad de vida. Su atención es excepcional y las instalaciones son muy cómodas. Me siento segura y bien cuidada en cada sesión.',
       rating: 5,
-      avatar: ''
    },
    {
       name: 'Carlos Mendoza',
@@ -15,7 +14,6 @@ const testimonials = [
       clinic: 'Acompañante de tratamiento',
       content: 'Como familiar, aprecio mucho la comunicación constante del equipo médico. Nos mantienen informados sobre el progreso y siempre están disponibles para resolver nuestras dudas.',
       rating: 5,
-      avatar: ''
    },
    {
       name: 'Ana Rodríguez',
@@ -23,7 +21,6 @@ const testimonials = [
       clinic: 'Tratamiento desde 2020',
       content: 'Los horarios flexibles me permiten continuar con mi trabajo y vida personal. El personal es muy profesional y las instalaciones están siempre impecables. Recomiendo totalmente esta clínica.',
       rating: 5,
-      avatar: ''
    }
 ];
 
