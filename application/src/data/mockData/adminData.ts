@@ -319,12 +319,43 @@ export const mockNavCards: AdminNavCard[] = [
    }
 ];
 
+// Utilidades para generar valores realistas y deterministas (sin fluctuación en cada render)
+function createSeededRandom (seed: number) {
+   let state = seed >>> 0;
+   return () => {
+      // LCG simple (Numerical Recipes)
+      state = (1664525 * state + 1013904223) >>> 0;
+      return state / 4294967296;
+   };
+}
+
+function withJitter (value: number, percent: number, rand: () => number) {
+   const amplitude = value * percent;
+   const delta = (rand() * 2 - 1) * amplitude; // [-amp, +amp]
+   return Math.max(0, Math.round(value + delta));
+}
+
 export const getPatientStats = () => {
-   const total = mockPatients.length;
-   const active = mockPatients.filter(p => p.status === 'active').length;
-   const scheduled = mockPatients.filter(p => p.status === 'scheduled').length;
-   const emergency = mockPatients.filter(p => p.status === 'emergency').length;
-   const completed = mockPatients.filter(p => p.status === 'completed').length;
+   // Generar totales realistas para una clínica grande
+   const rand = createSeededRandom(20250115);
+   const totalBase = 78; // base aproximada de pacientes registrados en una sola clínica
+   const total = totalBase + Math.floor(rand() * 25 - 12); // 78 ±12 → [66, 90]
+
+   // Distribuciones realistas (con ligeras variaciones)
+   const activeRatio = Math.min(0.74, Math.max(0.64, 0.68 + (rand() * 0.06 - 0.03)));
+   const scheduledRatio = Math.min(0.26, Math.max(0.18, 0.22 + (rand() * 0.04 - 0.02)));
+   const emergencyRatio = Math.min(0.05, Math.max(0.02, 0.03 + (rand() * 0.02 - 0.01)));
+
+   let active = Math.round(total * activeRatio);
+   let scheduled = Math.round(total * scheduledRatio);
+   let emergency = Math.round(total * emergencyRatio);
+   let completed = total - (active + scheduled + emergency);
+
+   // Ajustes finos para evitar números demasiado redondos
+   active = withJitter(active, 0.02, rand);
+   scheduled = withJitter(scheduled, 0.03, rand);
+   emergency = Math.max(1, withJitter(emergency, 0.15, rand));
+   completed = Math.max(0, total - (active + scheduled + emergency));
 
    return {
       total,
@@ -336,11 +367,31 @@ export const getPatientStats = () => {
 };
 
 export const getStaffStats = () => {
-   const total = mockStaff.length;
-   const onDuty = mockStaff.filter(s => s.status === 'on-duty').length;
-   const onBreak = mockStaff.filter(s => s.status === 'break').length;
-   const doctors = mockStaff.filter(s => s.role === 'doctor' && s.status === 'on-duty').length;
-   const nurses = mockStaff.filter(s => s.role === 'nurse' && s.status === 'on-duty').length;
+   // Cálculo realista por turno (total = activos + en descanso)
+   const rand = createSeededRandom(20250116);
+   const onShiftBase = 24; // personal total en turno (clínica única)
+   const total = onShiftBase + Math.floor(rand() * 13 - 6); // 24 ±6 → [18, 30]
+
+   const onDutyRatio = Math.min(0.9, Math.max(0.82, 0.86 + (rand() * 0.06 - 0.03)));
+   let onDuty = Math.round(total * onDutyRatio);
+   let onBreak = total - onDuty;
+
+   // Distribución de roles en el turno (no mostramos técnicos explícitamente)
+   let doctors = Math.round(total * Math.min(0.39, Math.max(0.31, 0.35 + (rand() * 0.06 - 0.03))))
+      ;
+   let nurses = Math.round(total * Math.min(0.6, Math.max(0.48, 0.55 + (rand() * 0.06 - 0.03))))
+      ;
+
+   // Asegurar consistencia: doctores + enfermeras ≤ total
+   if (doctors + nurses > total) {
+      nurses = Math.max(0, total - doctors - 1);
+   }
+
+   // Toques de realismo (evitar múltiplos exactos)
+   onDuty = withJitter(onDuty, 0.01, rand);
+   onBreak = Math.max(0, total - onDuty);
+   doctors = withJitter(doctors, 0.02, rand);
+   nurses = withJitter(nurses, 0.02, rand);
 
    return {
       total,
@@ -352,10 +403,26 @@ export const getStaffStats = () => {
 };
 
 export const getAlertStats = () => {
-   const total = mockPriorityAlerts.length;
-   const critical = mockPriorityAlerts.filter(a => a.type === 'critical').length;
-   const warnings = mockPriorityAlerts.filter(a => a.type === 'warning').length;
-   const actionRequired = mockPriorityAlerts.filter(a => a.actionRequired).length;
+   // Totales realistas de alertas del día
+   const rand = createSeededRandom(20250117);
+   const totalBase = 16; // alertas en el día para una sola clínica
+   const total = totalBase + Math.floor(rand() * 13 - 6); // 16 ±6 → [10, 22]
+
+   const criticalRatio = Math.min(0.25, Math.max(0.1, 0.16 + (rand() * 0.1 - 0.05)));
+   const warningsRatio = Math.min(0.65, Math.max(0.45, 0.55 + (rand() * 0.16 - 0.08)));
+
+   let critical = Math.round(total * criticalRatio);
+   let warnings = Math.round(total * warningsRatio);
+   let info = Math.max(0, total - (critical + warnings));
+
+   let actionRequired = Math.round(total * Math.min(0.6, Math.max(0.3, 0.45 + (rand() * 0.16 - 0.08))));
+   actionRequired = Math.max(critical, Math.min(total, actionRequired));
+
+   // Ligeros ajustes anti-redondeo
+   critical = withJitter(critical, 0.05, rand);
+   warnings = withJitter(warnings, 0.03, rand);
+   info = Math.max(0, total - (critical + warnings));
+   actionRequired = Math.max(critical, Math.min(total, withJitter(actionRequired, 0.04, rand)));
 
    return {
       total,
@@ -363,4 +430,12 @@ export const getAlertStats = () => {
       warnings,
       actionRequired
    };
+};
+
+// Conteo de actividades del día (escala para demo)
+export const getActivityTodayCount = () => {
+   const rand = createSeededRandom(20250118);
+   const patients = getPatientStats().total;
+   const base = Math.round(patients * 0.085); // ~8.5% de pacientes generan actividad hoy
+   return withJitter(base, 0.08, rand);
 };

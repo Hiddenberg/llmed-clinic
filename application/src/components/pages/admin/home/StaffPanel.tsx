@@ -140,7 +140,7 @@ export default function StaffPanel () {
                   <p className="text-gray-600 text-xs">Enfermeras</p>
                </div>
                <div className="bg-gradient-to-br from-blue-500/6 to-cyan-500/4 p-2 rounded-lg">
-                  <p className="font-bold text-blue-700 text-lg">{stats.total}</p>
+                  <p className="font-bold text-blue-700 text-lg">{stats.nurses + stats.doctors}</p>
                   <p className="text-gray-600 text-xs">Total</p>
                </div>
             </div>
@@ -159,7 +159,7 @@ export default function StaffPanel () {
 
          {/* View all button */}
          <div className="pt-2 text-center">
-            <button className="inline-flex items-center gap-2 hover:bg-brand-50 px-4 py-2 rounded-lg font-medium text-brand-600 hover:text-brand-700 text-sm transition-colors duration-200">
+            <button className="inline-flex items-center gap-2 hover:bg-brand-50 px-4 py-2 rounded-lg font-medium text-brand-600 hover:text-brand-700 text-sm transition-colors duration-200 !cursor-default">
                <Users size={14} />
                Ver todo el personal
             </button>

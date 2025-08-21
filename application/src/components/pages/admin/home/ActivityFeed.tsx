@@ -1,7 +1,9 @@
 import {
    User, UserCheck, Settings, Calendar, Clock, TrendingUp
 } from 'lucide-react';
-import { mockActivities, type ActivityItem } from '@/data/mockData/adminData';
+import {
+   mockActivities, type ActivityItem, getActivityTodayCount
+} from '@/data/mockData/adminData';
 
 function formatTimeAgo (timestamp: string): string {
    const diffInHours = Math.floor(Math.random() * 24);
@@ -142,6 +144,7 @@ function ActivityItemComponent ({
 
 export default function ActivityFeed () {
    const recentActivities = mockActivities.slice(0, 6);
+   const todayCount = getActivityTodayCount();
 
    return (
       <div className="space-y-6">
@@ -191,7 +194,7 @@ export default function ActivityFeed () {
             <div className="flex justify-between items-center text-sm">
                <div className="flex items-center gap-2">
                   <TrendingUp size={14} className="text-green-500" />
-                  <span className="font-medium text-gray-600">+{mockActivities.length} actividades hoy</span>
+                  <span className="font-medium text-gray-600">+{todayCount} actividades hoy</span>
                </div>
                <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1">

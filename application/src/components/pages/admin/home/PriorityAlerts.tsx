@@ -5,7 +5,7 @@ import {
    mockPriorityAlerts, getAlertStats, type PriorityAlert
 } from '@/data/mockData/adminData';
 
-function formatTimeAgo (timestamp: string): string {
+function formatTimeAgo (): string {
    const diffInMinutes = Math.floor(Math.random() * 60);
 
    if (diffInMinutes < 1) {
@@ -79,7 +79,7 @@ function AlertItem ({
                         )}
                      </div>
                      <span className="flex-shrink-0 bg-gray-100/80 px-2 py-0.5 rounded-full font-medium text-gray-500 text-xs">
-                        {formatTimeAgo(alert.timestamp)}
+                        {formatTimeAgo()}
                      </span>
                   </div>
 
@@ -165,12 +165,12 @@ export default function PriorityAlerts () {
 
          {/* Actions footer */}
          <div className="flex justify-between items-center pt-2 border-gray-200/50 border-t">
-            <button className="inline-flex items-center gap-2 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:text-gray-700 text-xs transition-colors duration-200">
+            <button className="inline-flex items-center gap-2 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:text-gray-700 text-xs transition-colors duration-200 !cursor-default">
                <Clock size={12} />
                Ver historial
             </button>
 
-            <button className="inline-flex items-center gap-2 hover:bg-red-50 px-3 py-1.5 rounded-lg font-medium text-red-600 hover:text-red-700 text-xs transition-colors duration-200">
+            <button className="inline-flex items-center gap-2 hover:bg-red-50 px-3 py-1.5 rounded-lg font-medium text-red-600 hover:text-red-700 text-xs transition-colors duration-200 !cursor-default">
                <AlertTriangle size={12} />
                Marcar todas como leídas
             </button>
